@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <!-- PM-KISAN Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#15803D"/>
+    <!-- Golden Wheat Sheaf -->
+    <path d="M22 34 V12" stroke="#FEF08A" stroke-width="2.5"/>
+    <ellipse cx="18" cy="18" rx="3.5" ry="2" transform="rotate(-30 18 18)" fill="#FACC15"/>
+    <ellipse cx="26" cy="18" rx="3.5" ry="2" transform="rotate(30 26 18)" fill="#FACC15"/>
+    <ellipse cx="18" cy="24" rx="3.5" ry="2" transform="rotate(-30 18 24)" fill="#FACC15"/>
+    <ellipse cx="26" cy="24" rx="3.5" ry="2" transform="rotate(30 26 24)" fill="#FACC15"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#15803D">PM-KISAN</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#D97706">Samman Nidhi & e-KYC</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">Ministry of Agriculture</text>
+</svg>

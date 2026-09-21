@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 60" width="250" height="60">
+  <!-- Income Tax Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#002D62"/>
+    <!-- Scales of justice silhouette -->
+    <path d="M22 10 V34 M14 16 H30" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
+    <path d="M12 24 L16 16 L20 24 Z" fill="none" stroke="#FBBF24" stroke-width="1.5"/>
+    <path d="M24 24 L28 16 L32 24 Z" fill="none" stroke="#FBBF24" stroke-width="1.5"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="26" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="14" fill="#002D62" letter-spacing="0.5">INCOME TAX DEPT</text>
+  <text x="61" y="39" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#D97706">Central Board of Direct Taxes</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">Government of India</text>
+</svg>

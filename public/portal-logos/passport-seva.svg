@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <!-- Passport Seva Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#0D233A"/>
+    <!-- Golden Passport Emblem & Ashok Stambh silhouette -->
+    <rect x="14" y="11" width="16" height="22" rx="2" fill="none" stroke="#EAB308" stroke-width="1.8"/>
+    <circle cx="22" cy="20" r="4.5" fill="none" stroke="#EAB308" stroke-width="1.2"/>
+    <path d="M17 26 H27" stroke="#EAB308" stroke-width="1.2"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#0D233A">Passport Seva</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#EAB308">Ministry of External Affairs</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7" fill="#6B7280">Government of India</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <!-- GCAS Education Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#4338CA"/>
+    <!-- Open Book & Graduation Cap Silhouette -->
+    <path d="M12 28 C16 24, 22 24, 22 28 C22 24, 28 24, 32 28 L32 18 C28 14, 22 14, 22 18 C22 14, 16 14, 12 18 Z" fill="#E0E7FF"/>
+    <path d="M22 12 L30 15 L22 18 L14 15 Z" fill="#FBBF24"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#312E81">GCAS GUJARAT</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#4F46E5">College & University Admissions</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">Education Dept, Govt of Gujarat</text>
+</svg>

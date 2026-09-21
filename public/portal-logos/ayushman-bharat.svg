@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 60" width="250" height="60">
+  <!-- Ayushman Bharat Lotus / Health Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#FFF7ED"/>
+    <!-- Lotus Petals Saffron & Green -->
+    <path d="M22 10 C20 16, 20 22, 22 28 C24 22, 24 16, 22 10 Z" fill="#F97316"/>
+    <path d="M22 10 C16 14, 14 20, 16 26 C19 22, 20 17, 22 10 Z" fill="#EA580C"/>
+    <path d="M22 10 C28 14, 30 20, 28 26 C25 22, 24 17, 22 10 Z" fill="#EA580C"/>
+    <!-- Supporting Green Base / Hands -->
+    <path d="M12 28 C16 34, 28 34, 32 28 C26 31, 18 31, 12 28 Z" fill="#16A34A"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="15" fill="#C2410C">AYUSHMAN BHARAT</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#15803D">PM-JAY Golden Card</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">National Health Authority</text>
+</svg>

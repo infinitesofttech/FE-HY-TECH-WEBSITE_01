@@ -1,0 +1,32 @@
+export const blogs = [
+  {
+    id: 1,
+    size: 'large',
+    tag: 'Identity',
+    date: 'Sep 15 - 2026',
+    title: 'How to Update Your Aadhaar Address Without Visiting the Centre.',
+    excerpt: 'Step-by-step guide on updating your Aadhaar address online using UIDAI portal, with common mistakes to avoid.',
+    emoji: '🪪',
+    bg: '#2D1B69',
+  },
+  {
+    id: 2,
+    size: 'small',
+    tag: 'Family',
+    date: 'Sep 10 - 2026',
+    title: 'Why Every Family Needs a Family ID for Document Management.',
+    excerpt: 'Discover how the Family ID system simplifies tracking and managing documents for every family member.',
+    emoji: '👨‍👩‍👧‍👦',
+    bg: '#1a3a5c',
+  },
+  {
+    id: 3,
+    size: 'small',
+    tag: 'Rewards',
+    date: 'Sep 05 - 2026',
+    title: 'How to Earn and Redeem Reward Points at HY-Tech Online Hub.',
+    excerpt: 'Learn how every completed service earns you points that you can redeem for discounts on future services.',
+    emoji: '🎁',
+    bg: '#14532d',
+  },
+];

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" width="240" height="60">
+  <!-- Parivahan Emblem -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#0369A1"/>
+    <!-- Highway Road Perspective & Wheel -->
+    <path d="M12 34 L18 12 L26 12 L32 34 Z" fill="#38BDF8" opacity="0.3"/>
+    <path d="M22 14 V32" stroke="#FFFFFF" stroke-width="2" stroke-dasharray="3,3"/>
+    <circle cx="22" cy="22" r="15" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#0369A1">PARIVAHAN</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#0284C7">Driving Licence & RTO Portal</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">MoRTH • Govt of India</text>
+</svg>

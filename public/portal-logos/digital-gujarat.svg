@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 60" width="250" height="60">
+  <!-- Gujarat Emblem Green & Gold -->
+  <g transform="translate(10, 8)">
+    <circle cx="22" cy="22" r="20" fill="#14532D"/>
+    <!-- Gujarat map/lion representation -->
+    <path d="M14 18 L22 12 L30 18 L28 28 L22 32 L16 28 Z" fill="#FACC15" opacity="0.9"/>
+    <circle cx="22" cy="22" r="3.5" fill="#14532D"/>
+  </g>
+  <!-- Text -->
+  <text x="60" y="27" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="900" font-size="16" fill="#14532D">Digital Gujarat</text>
+  <text x="61" y="40" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="700" font-size="8.5" fill="#F97316">Citizen Services & Scholarships</text>
+  <text x="61" y="49" font-family="'Plus Jakarta Sans', Arial, sans-serif" font-weight="500" font-size="7.5" fill="#6B7280">Government of Gujarat</text>
+</svg>

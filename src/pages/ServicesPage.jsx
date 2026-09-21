@@ -1,0 +1,335 @@
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Search, ChevronRight, Clock, Box, LayoutGrid, Loader2 } from 'lucide-react';
+import { fetchCategories, fetchServices } from '../api/servicesApi';
+import { useLanguage } from '../context/LanguageContext';
+import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
+import ServiceDetailsModal from '../components/ServiceDetailsModal';
+
+export default function ServicesPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSearch = searchParams.get('search') || '';
+  const initialCategory = searchParams.get('category') || 'all';
+
+  const [searchQuery, setSearchQuery] = useState(initialSearch);
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedService, setSelectedService] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { language } = useLanguage();
+  const t = (obj) => obj?.[language] || obj?.['en'] || '';
+
+  useEffect(() => {
+    async function loadData() {
+      setIsLoading(true);
+      try {
+        const [cats, svcs] = await Promise.all([fetchCategories(), fetchServices()]);
+
+        // Group services into categories
+        const grouped = cats.map(cat => ({
+          ...cat,
+          services: svcs.filter(s => s.categoryId === cat.id)
+        }));
+
+        setCategories(grouped);
+      } catch (error) {
+        console.error("Failed to fetch services:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    loadData();
+  }, []);
+
+  // Filter logic
+  const filteredCategories = useMemo(() => {
+    let base = categories;
+
+    if (activeCategory !== 'all') {
+      base = categories.filter(c => c.slug === activeCategory);
+    }
+
+    if (!searchQuery.trim()) {
+      return base;
+    }
+
+    const q = searchQuery.toLowerCase();
+    return base
+      .map(cat => {
+        const matchingServices = cat.services.filter(s => {
+          const titleEn = s.title?.en?.toLowerCase() || '';
+          const titleGu = s.title?.gu?.toLowerCase() || '';
+          const descEn = s.shortDescription?.en?.toLowerCase() || '';
+          const descGu = s.shortDescription?.gu?.toLowerCase() || '';
+          return titleEn.includes(q) || titleGu.includes(q) || descEn.includes(q) || descGu.includes(q);
+        });
+        return { ...cat, services: matchingServices };
+      })
+      .filter(cat => cat.services.length > 0);
+  }, [activeCategory, searchQuery, categories]);
+
+  const handleSearchChange = (e) => {
+    const val = e.target.value;
+    setSearchQuery(val);
+    updateParams(val, activeCategory);
+  };
+
+  const handleCategoryChange = (slug) => {
+    setActiveCategory(slug);
+    updateParams(searchQuery, slug);
+  };
+
+  const updateParams = (search, cat) => {
+    const params = {};
+    if (search) params.search = search;
+    if (cat && cat !== 'all') params.category = cat;
+    setSearchParams(params);
+  };
+
+  return (
+    <div className="min-h-screen bg-[#FAFAFA]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+
+      {/* ── Premium Hero Section ───────────────────────────── */}
+      <div className="relative w-full bg-[#171717] pt-16 pb-24 overflow-hidden perspective-1000">
+        {/* Floating 3D Background Elements */}
+        <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#F96400] rounded-full blur-[150px] opacity-20 animate-pulse" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-blue-500 rounded-full blur-[150px] opacity-10"></div>
+
+        {/* Floating Glass Panels */}
+        <motion.div
+          className="absolute right-[10%] top-[20%] w-32 h-32 bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl hidden md:block"
+          animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        ></motion.div>
+
+        <div className="max-w-[1200px] mx-auto px-4 md:px-8 text-center relative z-10 flex flex-col items-center">
+
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 text-white border border-white/10 backdrop-blur-md mb-8 shadow-xl">
+            <span className="w-2 h-2 rounded-full bg-[#F96400] animate-pulse"></span>
+            {language === 'en' ? 'HY-TECH DIGITAL DESK' : 'હાઇ-ટેક ડિજિટલ ડેસ્ક'}
+          </div>
+
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
+            {language === 'en' ? 'All Your Essential' : 'તમારી જરૂરી'}<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F96400] to-[#FF8126]">
+              {language === 'en' ? 'Online Services' : 'ઓનલાઈન સેવાઓ'}
+            </span>
+          </h1>
+
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12 font-medium">
+            {language === 'en'
+              ? "All your essential online services in one place. Experience seamless, fast, and digital assistance."
+              : "તમારી જરૂરી ઓનલાઈન સેવાઓ હવે એક જ જગ્યાએ. સરળ અને ઝડપી ડિજિટલ સેવાઓનો અનુભવ કરો."}
+          </p>
+
+          {/* Floating Search Bar */}
+          <div className="relative w-full max-w-2xl mx-auto group perspective-1000">
+            <div className="absolute inset-0 bg-[#F96400] blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full"></div>
+            <div className="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center p-2 shadow-2xl transform-gpu transition-transform duration-300 hover:scale-[1.02]">
+              <Search size={20} className="text-gray-400 ml-4 mr-2" />
+              <input
+                type="text"
+                placeholder={language === 'en' ? "Search services..." : "સેવા શોધો..."}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="w-full bg-transparent border-none text-white placeholder-gray-400 focus:outline-none focus:ring-0 text-lg py-2"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => handleSearchChange({ target: { value: '' } })}
+                  className="mr-4 text-gray-400 hover:text-white transition-colors"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Beautiful Category Navigation ─────────────────── */}
+      <div className="w-full bg-white/80 backdrop-blur-xl border-b border-gray-200 py-4 shadow-sm sticky top-[74px] z-30">
+        <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+          {/* Horizontal scroll on mobile */}
+          <div className="flex overflow-x-auto hide-scrollbar gap-3 pb-2 md:pb-0 items-center justify-start md:justify-center">
+            <button
+              onClick={() => handleCategoryChange('all')}
+              className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${activeCategory === 'all'
+                  ? 'bg-[#171717] text-white border-[#171717] shadow-lg transform -translate-y-0.5'
+                  : 'bg-white text-gray-600 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
+                }`}
+            >
+              {language === 'en' ? 'All Services' : 'બધી સેવાઓ'}
+            </button>
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.slug;
+              return (
+                <button
+                  key={cat.slug}
+                  onClick={() => handleCategoryChange(cat.slug)}
+                  className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${isActive
+                      ? 'bg-gradient-to-r from-[#F96400] to-[#FF8126] text-white border-transparent shadow-lg shadow-orange-500/30 transform -translate-y-0.5'
+                      : 'bg-white text-gray-600 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
+                    }`}
+                >
+                  {t(cat.title)}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 3D Service Grid ───────────────────── */}
+      <div className="max-w-[1600px] mx-auto px-4 md:px-8 py-16">
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-32 text-gray-400">
+            <Loader2 size={48} className="animate-spin mb-4 text-[#F96400]" />
+            <p className="font-bold">{language === 'en' ? 'Loading services...' : 'સેવાઓ લોડ થઈ રહી છે...'}</p>
+          </div>
+        ) : filteredCategories.length === 0 ? (
+          <div className="text-center py-24 bg-white rounded-3xl border border-gray-100 shadow-sm max-w-2xl mx-auto">
+            <Box size={48} className="mx-auto text-gray-300 mb-4" />
+            <p className="text-2xl font-bold text-[#171717] mb-3">
+              {language === 'en' ? 'No services found' : 'કોઈ સેવા મળી નથી'}
+            </p>
+            <p className="text-gray-500 mb-8">
+              {language === 'en' ? 'Try searching for something else.' : 'કૃપા કરીને બીજું કંઈક શોધો.'}
+            </p>
+            <button
+              onClick={() => handleSearchChange({ target: { value: '' } })}
+              className="px-8 py-3 rounded-full bg-[#171717] text-white text-sm font-bold hover:bg-[#F96400] transition-colors"
+            >
+              {language === 'en' ? 'Clear Search' : 'શોધ સાફ કરો'}
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-16">
+            {filteredCategories.map((cat) => (
+              <div key={cat.slug} className="w-full">
+
+                {/* Category Header */}
+                {activeCategory === 'all' && !searchQuery && (
+                  <div className="flex items-center gap-3 mb-8">
+                    <h2 className="text-3xl font-black text-[#171717]">{t(cat.title)}</h2>
+                    <div className="h-px bg-gray-200 flex-1 ml-4 hidden md:block"></div>
+                  </div>
+                )}
+
+                {/* Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+                  {cat.services.map((svc, i) => (
+                    <motion.div
+                      key={svc.slug}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ duration: 0.5, delay: i * 0.05 }}
+                    >
+                      <div
+                        onClick={() => {
+                          setSelectedService(svc);
+                          setIsModalOpen(true);
+                        }}
+                        className="block h-full perspective-1000 group cursor-pointer text-left"
+                      >
+
+                        {/* 3D Card Container */}
+                        <div className="relative h-full bg-white rounded-3xl p-6 border border-gray-100 transition-all duration-300 transform-gpu preserve-3d
+                                        group-hover:-translate-y-2 group-hover:[transform:rotateX(2deg)_rotateY(-2deg)] group-hover:shadow-[0_20px_40px_-15px_rgba(249,100,0,0.2)]">
+
+                          {/* Inner border glow on hover */}
+                          <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#F96400]/20 transition-colors pointer-events-none"></div>
+
+                          {/* Top Section with Full Size 3D Visual */}
+                          <div className="w-full h-52 sm:h-56 bg-gray-900 rounded-2xl mb-5 relative overflow-hidden border border-gray-100 shadow-sm group/img">
+                            <motion.div
+                              className="w-full h-full"
+                              whileHover={{ scale: 1.06 }}
+                              transition={{ duration: 0.4, ease: 'easeOut' }}
+                            >
+                              <img
+                                src={svc.image || getServiceVisual(svc.slug, cat.id)}
+                                alt={`${svc.title?.en || 'Service'} visual`}
+                                loading="lazy"
+                                decoding="async"
+                                onError={(e) => handleImageFallback(e, cat.id)}
+                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+                              />
+                            </motion.div>
+
+                            {/* Gradient Vignette for Depth */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15 pointer-events-none" />
+
+                            {/* Category Badge overlay */}
+                            <div className="absolute top-3 left-3 px-3 py-1 bg-white/95 backdrop-blur-md border border-white/80 rounded-full text-[10px] font-black text-gray-800 tracking-wider uppercase shadow-md z-10">
+                              {t(svc.category || cat.title)}
+                            </div>
+                          </div>
+
+                          {/* Content */}
+                          <div className="flex flex-col h-[calc(100%-198px)]">
+                            {/* Bilingual Titles */}
+                            <h3 className="text-xl font-black text-[#171717] mb-0.5 group-hover:text-[#F96400] transition-colors leading-tight">
+                              {svc.title?.en}
+                            </h3>
+                            <h4 className="text-sm font-bold text-gray-500 mb-2">
+                              {svc.title?.gu}
+                            </h4>
+
+                            {/* Service Status / Feature Pills (e.g. New • Correction • Update) */}
+                            <div className="flex flex-wrap items-center gap-1.5 mb-3 text-[11px] font-bold text-gray-400">
+                              <span className="text-[#F96400] bg-orange-50 px-2 py-0.5 rounded-md">
+                                {language === 'en' ? 'New' : 'નવું'}
+                              </span>
+                              <span>•</span>
+                              <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
+                                {language === 'en' ? 'Correction' : 'સુધારો'}
+                              </span>
+                              <span>•</span>
+                              <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                                {language === 'en' ? 'Update' : 'અપડેટ'}
+                              </span>
+                            </div>
+
+                            {/* Short Description */}
+                            <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4 flex-grow">
+                              {t(svc.shortDescription)}
+                            </p>
+
+                            {/* Footer / Button */}
+                            <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
+                              <span className="text-[#F96400] font-black text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
+                                {language === 'en' ? 'View Details' : 'વિગતો જુઓ'} <ChevronRight size={16} />
+                              </span>
+                              <span className="text-[10px] text-gray-400 font-bold bg-gray-50 px-2 py-0.5 rounded-full">
+                                Digital India
+                              </span>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Dynamic Service Details Modal with 3D Visual Moment */}
+      <ServiceDetailsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        service={selectedService}
+      />
+
+    </div>
+  );
+}
