@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, MessageCircle, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export default function Contact() {
@@ -47,17 +48,23 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-[#FAFAFA] min-h-screen text-[#171717] pb-20" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="bg-[#FAFAFA] min-h-screen text-[#171717] pb-20 w-full overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
       {/* Header Banner */}
       <div className="bg-white py-14 text-center border-b border-gray-200">
         <div className="max-w-[1200px] mx-auto px-4 md:px-8">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-[#FFF5EE] text-[#F96400]">
+          <span className="btn-3d-circle inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-[#FFF5EE] text-[#F96400] border border-[#F96400]/20 shadow-xs">
             <MapPin size={13} /> Dharampur, Gujarat
           </span>
-          <h1 className="text-3xl md:text-5xl font-black text-[#000000] tracking-tight mb-3">
-            Contact & Visit Our Center
-          </h1>
+          <motion.div
+            className="perspective-1000 cursor-default"
+            whileHover={{ scale: 1.01, rotateX: 2, rotateY: -1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <h1 className="text-3xl md:text-5xl font-black text-[#000000] tracking-tight mb-3 text-3d-modern">
+              Contact & Visit Our Center
+            </h1>
+          </motion.div>
           <p className="text-sm md:text-base text-gray-600 max-w-xl mx-auto">
             Have questions about document requirements, government schemes, or computer courses? Reach out to us or visit in person.
           </p>
@@ -269,12 +276,14 @@ export default function Contact() {
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
-                  className="w-full py-3.5 rounded-xl text-white font-bold text-sm bg-[#F96400] hover:bg-[#E05A00] flex items-center justify-center gap-2 transition-all shadow-md shadow-orange-500/20"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.97, y: 1 }}
+                  className="btn-3d-circle w-full py-3.5 rounded-full text-white font-bold text-sm bg-[#F96400] hover:bg-[#E05A00] flex items-center justify-center gap-2 shadow-md shadow-orange-500/25 border border-orange-400/40 cursor-pointer"
                 >
                   <MessageCircle size={17} /> Send via WhatsApp & Submit
-                </button>
+                </motion.button>
               </form>
             </>
           )}

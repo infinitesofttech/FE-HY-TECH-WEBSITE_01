@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, ExternalLink, MessageCircle, FileText, CheckCircle2, 
-  HelpCircle, AlertCircle, Clock, ShieldCheck, ArrowRight,
-  Info, Edit3, Sparkles, Layers
+  AlertCircle, Clock, ShieldCheck,
+  Info, Edit3, Sparkles, Layers, Globe
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   const { language } = useLanguage();
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('all');
 
   const t = (obj) => {
     if (!obj) return '';
@@ -22,7 +22,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   // Reset tab on open
   useEffect(() => {
     if (isOpen) {
-      setActiveTab('overview');
+      setActiveTab('all');
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -44,16 +44,49 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   if (!isOpen || !service) return null;
 
   const tabs = [
-    { id: 'overview', label: language === 'en' ? 'Overview' : 'વિહંગાવલોકન', icon: Info },
-    { id: 'new-app', label: language === 'en' ? 'New Application' : 'નવી અરજી', icon: Sparkles },
-    { id: 'correction', label: language === 'en' ? 'Correction / Update' : 'સુધારો / અપડેટ', icon: Edit3 },
-    { id: 'documents', label: language === 'en' ? 'Required Documents' : 'જરૂરી પુરાવા', icon: FileText },
-    { id: 'eligibility', label: language === 'en' ? 'Eligibility' : 'પાત્રતા', icon: CheckCircle2 },
-    { id: 'process', label: language === 'en' ? 'Process' : 'પ્રક્રિયા', icon: Clock },
-    { id: 'notes', label: language === 'en' ? 'Important Notes' : 'મહત્વપૂર્ણ નોંધ', icon: AlertCircle },
+    { id: 'all', label: language === 'en' ? 'All Sections' : 'બધા વિભાગો', icon: Layers },
+    { id: 'overview', label: language === 'en' ? '1. Overview' : '૧. વિહંગાવલોકન', icon: Info },
+    { id: 'new-app', label: language === 'en' ? '2. New Application' : '૨. નવી અરજી', icon: Sparkles },
+    { id: 'correction', label: language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ', icon: Edit3 },
+    { id: 'documents', label: language === 'en' ? '4. Required Documents' : '૪. જરૂરી પુરાવા', icon: FileText },
+    { id: 'eligibility', label: language === 'en' ? '5. Eligibility' : '૫. પાત્રતા', icon: ShieldCheck },
+    { id: 'process', label: language === 'en' ? '6. Process' : '૬. પ્રક્રિયા', icon: Clock },
+    { id: 'notes', label: language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ', icon: AlertCircle },
   ];
 
   const visualUrl = service.image || getServiceVisual(service.slug, service.categoryId);
+
+  // Normalize array fields
+  const newAppList = Array.isArray(service.newApplication) 
+    ? service.newApplication 
+    : (service.newApplication ? [service.newApplication] : []);
+
+  const correctionList = Array.isArray(service.correctionUpdate) 
+    ? service.correctionUpdate 
+    : Array.isArray(service.correction) 
+      ? service.correction 
+      : (service.correction ? [service.correction] : []);
+
+  const docsList = Array.isArray(service.requiredDocuments) 
+    ? service.requiredDocuments 
+    : Array.isArray(service.documents) 
+      ? service.documents 
+      : (service.documents ? [service.documents] : []);
+
+  const eligibilityList = Array.isArray(service.eligibility) 
+    ? service.eligibility 
+    : (service.eligibility ? [service.eligibility] : []);
+
+  const processList = Array.isArray(service.process) 
+    ? service.process 
+    : (service.process ? [service.process] : []);
+
+  const notesList = Array.isArray(service.importantNotes) 
+    ? service.importantNotes 
+    : (service.notes ? [service.notes] : []);
+
+  const titleText = service.title?.en || service.rawTitle || service.title;
+  const titleGuText = service.title?.gu || service.titleGujarati;
 
   return (
     <AnimatePresence>
@@ -77,7 +110,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
           className="relative w-full max-w-4xl bg-white rounded-3xl shadow-[0_25px_70px_rgba(0,0,0,0.35)] border border-gray-100 overflow-hidden z-10 flex flex-col max-h-[92vh]"
         >
           
-          {/* Header Banner with 3D Visual and Movement Moment */}
+          {/* Header Banner with 3D Visual */}
           <div className="relative bg-[#171717] text-white p-6 sm:p-8 overflow-hidden flex-shrink-0">
             {/* Ambient Background Glows */}
             <div className="absolute top-0 right-0 w-80 h-80 bg-[#F96400]/25 rounded-full blur-3xl pointer-events-none animate-pulse" style={{ animationDuration: '4s' }} />
@@ -86,7 +119,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition-all z-20"
+              className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-gray-300 hover:text-white flex items-center justify-center transition-all z-20 cursor-pointer"
               aria-label="Close modal"
             >
               <X size={20} />
@@ -94,25 +127,25 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
 
             <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-6">
               
-              {/* 3D Visual with Dynamic Movement Moment */}
+              {/* 3D Visual Container */}
               <div className="relative flex-shrink-0">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#F96400] to-blue-500 rounded-2xl blur-xl opacity-40 animate-pulse" />
                 <motion.div
                   animate={{ 
-                    y: [0, -8, 0],
-                    rotateZ: [0, 1.5, 0, -1.5, 0],
+                    y: [0, -6, 0],
+                    rotateZ: [0, 1, 0, -1, 0],
                   }}
                   transition={{ 
                     duration: 4.5, 
                     repeat: Infinity, 
                     ease: 'easeInOut' 
                   }}
-                  whileHover={{ scale: 1.08, rotateY: 10 }}
-                  className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gray-900 border border-white/20 shadow-2xl overflow-hidden cursor-pointer"
+                  whileHover={{ scale: 1.06 }}
+                  className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-2xl bg-gray-900 border border-white/20 shadow-2xl overflow-hidden cursor-pointer flex items-center justify-center"
                 >
                   <img
                     src={visualUrl}
-                    alt={t(service.title)}
+                    alt={titleText}
                     onError={(e) => handleImageFallback(e, service.categoryId)}
                     className="w-full h-full object-cover filter drop-shadow-xl select-none"
                     loading="eager"
@@ -135,7 +168,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
               <div className="flex-1 text-center sm:text-left">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2.5">
                   <span className="px-2.5 py-0.5 rounded-full bg-[#F96400]/20 border border-[#F96400]/40 text-[#F96400] text-xs font-black uppercase tracking-wider">
-                    {t(service.category)}
+                    {t(service.category) || service.rawCategory || 'Service'}
                   </span>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-bold flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
@@ -144,23 +177,23 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-snug">
-                  {service.title?.en}
+                  {titleText}
                 </h2>
-                {service.title?.gu && (
+                {titleGuText && (
                   <h3 className="text-lg sm:text-xl font-bold text-gray-400 mt-0.5 mb-3">
-                    {service.title?.gu}
+                    {titleGuText}
                   </h3>
                 )}
 
                 <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 max-w-xl font-medium leading-relaxed">
-                  {t(service.shortDescription)}
+                  {t(service.shortDescription) || service.overview}
                 </p>
               </div>
 
             </div>
           </div>
 
-          {/* Navigation Tabs */}
+          {/* Navigation Tabs Bar */}
           <div className="bg-gray-50 border-b border-gray-200 px-4 sm:px-8 py-2.5 flex items-center gap-1.5 overflow-x-auto hide-scrollbar flex-shrink-0">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -169,7 +202,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
+                  className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                     isActive
                       ? 'bg-[#171717] text-white shadow-sm'
                       : 'text-gray-600 hover:text-[#171717] hover:bg-gray-200/60'
@@ -183,154 +216,186 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
           </div>
 
           {/* Tab Content Area */}
-          <div className="p-6 sm:p-8 overflow-y-auto flex-1 text-gray-800">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-4"
-              >
-                
-                {/* 1. Overview */}
-                {activeTab === 'overview' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-2 flex items-center gap-2">
-                      <Info size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'About This Service' : 'આ સેવા વિશે'}
-                    </h4>
-                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-2xl border border-gray-100 mb-6">
-                      {t(service.overview) || t(service.shortDescription)}
+          <div className="p-6 sm:p-8 overflow-y-auto flex-1 text-gray-800 space-y-8">
+            
+            {/* 1. OVERVIEW SECTION */}
+            {(activeTab === 'all' || activeTab === 'overview') && (
+              <section className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <Info size={20} className="text-[#F96400]" />
+                    {language === 'en' ? '1. Overview' : '૧. વિહંગાવલોકન'}
+                  </h3>
+                  {service.officialWebsite && (
+                    <a
+                      href={service.officialWebsite}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-[#F96400] bg-orange-50 hover:bg-orange-100 transition-colors border border-orange-200"
+                    >
+                      <Globe size={13} />
+                      <span>{language === 'en' ? 'Official Portal' : 'સત્તાવાર પોર્ટલ'}</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  )}
+                </div>
+
+                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-200/80 leading-relaxed text-sm sm:text-base text-gray-700">
+                  {t(service.overview) || t(service.shortDescription)}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="p-4 rounded-2xl bg-orange-50/70 border border-orange-100">
+                    <p className="text-xs font-bold text-[#F96400] uppercase tracking-wider mb-1">
+                      {language === 'en' ? 'Facility Available' : 'ઉપલબ્ધ સુવિધા'}
                     </p>
+                    <p className="text-sm font-extrabold text-[#171717]">
+                      {language === 'en' ? 'Direct Counter Assistance & Online Filing' : 'કાઉન્ટર સહાય અને ઓનલાઈન ફાઈલિંગ'}
+                    </p>
+                  </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="p-4 rounded-2xl bg-orange-50/60 border border-orange-100">
-                        <p className="text-xs font-bold text-[#F96400] uppercase tracking-wider mb-1">
-                          {language === 'en' ? 'Facility Available' : 'ઉપલબ્ધ સુવિધા'}
-                        </p>
-                        <p className="text-sm font-extrabold text-[#171717]">
-                          {language === 'en' ? 'Direct Counter Assistance & Online Filing' : 'કાઉન્ટર સહાય અને ઓનલાઈન ફાઈલિંગ'}
-                        </p>
+                  <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-100">
+                    <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
+                      {language === 'en' ? 'Center Location' : 'સેન્ટર સ્થળ'}
+                    </p>
+                    <p className="text-sm font-extrabold text-[#171717]">
+                      College Road, Dharampur - 396050
+                    </p>
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* 2. NEW APPLICATION SECTION */}
+            {(activeTab === 'all' || activeTab === 'new-app') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <Sparkles size={20} className="text-[#F96400]" />
+                  {language === 'en' ? '2. New Application' : '૨. નવી અરજી'}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                  {language === 'en' ? 'Requirements and documentation checklist for fresh applications:' : 'નવી અરજી માટે જરૂરી બાબતો અને દસ્તાવેજો:'}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {newAppList.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                      <div className="w-5 h-5 rounded-full bg-orange-100 text-[#F96400] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle2 size={13} />
                       </div>
+                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
-                      <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100">
-                        <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
-                          {language === 'en' ? 'Center Location' : 'સેન્ટર સ્થળ'}
-                        </p>
-                        <p className="text-sm font-extrabold text-[#171717]">
-                          College Road, Dharampur - 396050
-                        </p>
+            {/* 3. CORRECTION / UPDATE SECTION */}
+            {(activeTab === 'all' || activeTab === 'correction') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <Edit3 size={20} className="text-[#F96400]" />
+                  {language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ'}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                  {language === 'en' ? 'Documents and procedures for correction, update, renewal or re-issue:' : 'નામ, સરનામું, સુધારો કે રિન્યુઅલ માટેની પ્રક્રિયા:'}
+                </p>
+                <div className="space-y-2.5">
+                  {correctionList.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                      <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <Edit3 size={13} />
                       </div>
+                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
                     </div>
-                  </div>
-                )}
+                  ))}
+                </div>
+              </section>
+            )}
 
-                {/* 2. New Application */}
-                {activeTab === 'new-app' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-2 flex items-center gap-2">
-                      <Sparkles size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'New Application Guidance' : 'નવી અરજી માર્ગદર્શન'}
-                    </h4>
-                    <div className="p-5 rounded-2xl bg-gray-50 border border-gray-200/80 leading-relaxed text-sm sm:text-base text-gray-700">
-                      {t(service.newApplication) || (language === 'en' ? 'Visit HY-TECH Hub with original identity proofs to file a fresh online application.' : 'નવી અરજી કરવા માટે અસલ પુરાવા સાથે હાઇ-ટેક સેન્ટરની મુલાકાત લો.')}
-                    </div>
-                  </div>
-                )}
-
-                {/* 3. Correction / Update */}
-                {activeTab === 'correction' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-2 flex items-center gap-2">
-                      <Edit3 size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'Correction & Renewal Procedure' : 'સુધારો અને રિન્યુઅલ પ્રક્રિયા'}
-                    </h4>
-                    <div className="p-5 rounded-2xl bg-gray-50 border border-gray-200/80 leading-relaxed text-sm sm:text-base text-gray-700">
-                      {t(service.correction) || (language === 'en' ? 'Provide supporting government document to update name, DOB, or address.' : 'નામ, સરનામું કે જન્મતારીખ સુધારવા માટે સંબંધિત માન્ય પુરાવો રજૂ કરવો.')}
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. Required Documents */}
-                {activeTab === 'documents' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-3 flex items-center gap-2">
-                      <FileText size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'Documents Required to Bring' : 'સાથે લાવવાના જરૂરી દસ્તાવેજો'}
-                    </h4>
-                    {Array.isArray(service.documents) && service.documents.length > 0 ? (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        {service.documents.map((doc, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-gray-50 border border-gray-100">
-                            <CheckCircle2 size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-xs sm:text-sm font-bold text-gray-700">{t(doc)}</span>
-                          </div>
-                        ))}
+            {/* 4. REQUIRED DOCUMENTS SECTION */}
+            {(activeTab === 'all' || activeTab === 'documents') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <FileText size={20} className="text-[#F96400]" />
+                  {language === 'en' ? '4. Required Documents' : '૪. જરૂરી દસ્તાવેજો'}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                  {language === 'en' ? 'Clear checklist of papers to bring along:' : 'સાથે લાવવાના જરૂરી મૂળ અને નકલ પુરાવાઓ:'}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {docsList.map((doc, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-[#F96400] transition-colors">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <CheckCircle2 size={14} />
                       </div>
-                    ) : (
-                      <p className="text-sm text-gray-500">
-                        {language === 'en' ? 'Aadhaar Card, Mobile Number, and relevant proof.' : 'આધાર કાર્ડ, મોબાઈલ નંબર અને સંબંધિત પુરાવા.'}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* 5. Eligibility */}
-                {activeTab === 'eligibility' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-2 flex items-center gap-2">
-                      <CheckCircle2 size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'Eligibility Criteria' : 'પાત્રતા માપદંડ'}
-                    </h4>
-                    <div className="p-5 rounded-2xl bg-gray-50 border border-gray-100 text-sm sm:text-base text-gray-700">
-                      {t(service.eligibility) || (language === 'en' ? 'Any eligible resident of India.' : 'ભારતના પાત્રતા ધરાવતા કોઈપણ નાગરિક.')}
+                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(doc)}</span>
                     </div>
-                  </div>
-                )}
+                  ))}
+                </div>
+              </section>
+            )}
 
-                {/* 6. Process */}
-                {activeTab === 'process' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-3 flex items-center gap-2">
-                      <Clock size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'Step-by-Step Procedure' : 'પગલાંવાર પ્રક્રિયા'}
-                    </h4>
-                    {Array.isArray(service.process) && service.process.length > 0 ? (
-                      <div className="space-y-2.5">
-                        {service.process.map((step, idx) => (
-                          <div key={idx} className="flex items-center gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-100">
-                            <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0">
-                              {idx + 1}
-                            </span>
-                            <span className="text-xs sm:text-sm font-bold text-gray-700">{t(step)}</span>
-                          </div>
-                        ))}
+            {/* 5. ELIGIBILITY SECTION */}
+            {(activeTab === 'all' || activeTab === 'eligibility') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <ShieldCheck size={20} className="text-[#F96400]" />
+                  {language === 'en' ? '5. Eligibility' : '૫. પાત્રતા'}
+                </h3>
+                <div className="space-y-2.5">
+                  {eligibilityList.map((crit, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <ShieldCheck size={13} />
                       </div>
-                    ) : (
-                      <p className="text-sm text-gray-600">
-                        {language === 'en' ? '1. Provide documents -> 2. Online verification -> 3. Official receipt issued' : '૧. દસ્તાવેજો આપો -> ૨. ઓનલાઈન ચકાસણી -> ૩. સત્તાવાર રસીદ મેળવો'}
-                      </p>
-                    )}
-                  </div>
-                )}
-
-                {/* 7. Important Notes */}
-                {activeTab === 'notes' && (
-                  <div>
-                    <h4 className="text-lg font-black text-[#171717] mb-2 flex items-center gap-2">
-                      <AlertCircle size={18} className="text-[#F96400]" />
-                      {language === 'en' ? 'Important Notes & Guidelines' : 'મહત્વપૂર્ણ સૂચનાઓ'}
-                    </h4>
-                    <div className="p-5 rounded-2xl bg-amber-50/70 border border-amber-200 text-sm sm:text-base text-amber-900 leading-relaxed font-medium">
-                      {t(service.notes) || (language === 'en' ? 'Ensure mobile number linked to Aadhaar is active for OTP verification.' : 'OTP ચકાસણી માટે આધાર સાથે લિંક મોબાઈલ નંબર સક્રિય હોવો જરૂરી છે.')}
+                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(crit)}</span>
                     </div>
-                  </div>
-                )}
+                  ))}
+                </div>
+              </section>
+            )}
 
-              </motion.div>
-            </AnimatePresence>
+            {/* 6. PROCESS SECTION */}
+            {(activeTab === 'all' || activeTab === 'process') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <Clock size={20} className="text-[#F96400]" />
+                  {language === 'en' ? '6. Process' : '૬. પ્રક્રિયા'}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                  {language === 'en' ? 'Step-by-step facilitation workflow:' : 'પગલાંવાર ઓનલાઈન અને ઓફલાઈન પ્રક્રિયા:'}
+                </p>
+                <div className="space-y-2.5">
+                  {processList.map((step, idx) => (
+                    <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                      <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                        {idx + 1}
+                      </span>
+                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(step)}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 7. IMPORTANT NOTES SECTION */}
+            {(activeTab === 'all' || activeTab === 'notes') && (
+              <section className="space-y-3 pt-2">
+                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <AlertCircle size={20} className="text-amber-600" />
+                  {language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ'}
+                </h3>
+                <div className="space-y-2.5">
+                  {notesList.map((note, idx) => (
+                    <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 leading-relaxed text-xs sm:text-sm font-medium">
+                      <AlertCircle size={17} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                      <span>{t(note)}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
           </div>
 
           {/* Footer Action Strip */}
@@ -345,15 +410,27 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
             </Link>
 
             <div className="flex items-center gap-2.5 w-full sm:w-auto">
+              {service.officialWebsite && (
+                <a
+                  href={service.officialWebsite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all flex items-center gap-1.5"
+                >
+                  <Globe size={14} />
+                  <span>{language === 'en' ? 'Portal' : 'પોર્ટલ'}</span>
+                </a>
+              )}
+
               <button
                 onClick={onClose}
-                className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all"
+                className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all cursor-pointer"
               >
                 {language === 'en' ? 'Close' : 'બંધ કરો'}
               </button>
 
               <a
-                href={`https://wa.me/917226030701?text=${encodeURIComponent(`Hello HY-TECH, I need guidance regarding: ${service.title?.en || service.slug}`)}`}
+                href={`https://wa.me/917226030701?text=${encodeURIComponent(`Hello HY-TECH, I need guidance regarding: ${titleText || service.slug}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-sm transition-all"

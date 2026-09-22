@@ -31,22 +31,34 @@ export default function BrowseCategories() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-[#FFF5EE] text-[#F96400]">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-3 bg-[#FFF5EE] text-[#F96400] border border-[#F96400]/20">
               <FolderCheck size={13} /> Specialized Service Pillars
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#000000] tracking-tight mb-2">
-              Everything Your Family & Career Needs.
-            </h2>
+            <motion.div
+              className="perspective-1000 cursor-default"
+              whileHover={{ scale: 1.01, rotateX: 2, rotateY: -1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#000000] tracking-tight mb-2 text-3d-modern">
+                Everything Your Family & Career Needs.
+              </h2>
+            </motion.div>
             <p className="text-sm md:text-base text-gray-600 max-w-2xl">
               From essential government identification documents to college admissions and certified computer education, explore our organized service departments in Dharampur.
             </p>
           </div>
-          <Link
-            to="/services"
-            className="mt-6 md:mt-0 inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm bg-black hover:bg-[#F96400] text-white transition-all shadow-sm flex-shrink-0"
+          <motion.div
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95, y: 1 }}
+            className="mt-6 md:mt-0 flex-shrink-0"
           >
-            View All Services <ArrowRight size={15} />
-          </Link>
+            <Link
+              to="/services"
+              className="btn-3d-circle inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm bg-black hover:bg-[#F96400] text-white transition-all shadow-md"
+            >
+              View All Services <ArrowRight size={15} />
+            </Link>
+          </motion.div>
         </div>
 
         {/* 6-Category Premium Grid */}
@@ -97,9 +109,13 @@ export default function BrowseCategories() {
                   <span className="font-bold text-[13px] text-[#171717] group-hover/btn:text-black transition-colors">
                     Explore Services
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center transition-transform group-hover/btn:scale-110">
+                  <motion.div 
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center btn-3d-circle border border-gray-100"
+                  >
                     <ArrowRight size={16} className={palette.text} />
-                  </div>
+                  </motion.div>
                 </Link>
               </motion.div>
             );

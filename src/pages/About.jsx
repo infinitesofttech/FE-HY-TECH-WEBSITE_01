@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   ShieldCheck,
   MapPin,
@@ -41,17 +42,23 @@ export default function About() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#FAFAFA] w-full overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
       {/* ── Hero Header ───────────────────────────── */}
       <section className="bg-white border-b border-gray-200 py-16">
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 text-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4 bg-[#FFF5EE] text-[#F96400]">
+          <span className="btn-3d-circle inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 bg-[#FFF5EE] text-[#F96400] border border-[#F96400]/20 shadow-xs">
             <Award size={13} /> Dharampur's Trusted Digital Service Partner
           </span>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-5">
-            Empowering Dharampur with Accessible Document Services & Digital Education.
-          </h1>
+          <motion.div
+            className="perspective-1000 cursor-default"
+            whileHover={{ scale: 1.01, rotateX: 2, rotateY: -1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#000000] tracking-tight leading-tight mb-5 text-3d-modern">
+              Empowering Dharampur with Accessible Document Services & Digital Education.
+            </h1>
+          </motion.div>
           <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             HY-Tech Online Hub was founded with a singular purpose: to ensure that every citizen, family, and student in Dharampur and nearby villages has reliable, patient access to modern digital services.
           </p>

@@ -129,9 +129,15 @@ export default function HeroSlider() {
                 </div>
                 
                 {/* Title */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight mb-5 drop-shadow-lg">
-                  {slides[currentSlide].title}
-                </h1>
+                <motion.div
+                  className="perspective-1000 cursor-default"
+                  whileHover={{ scale: 1.02, rotateX: 3, rotateY: -3 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight mb-5 drop-shadow-lg text-3d-modern">
+                    {slides[currentSlide].title}
+                  </h1>
+                </motion.div>
                 
                 {/* Subtitle */}
                 <p className="text-base md:text-xl text-gray-200 mb-8 max-w-2xl leading-relaxed drop-shadow-md">
@@ -140,22 +146,32 @@ export default function HeroSlider() {
                 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap items-center gap-4">
-                  <Link
-                    to={slides[currentSlide].primaryLink}
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-[#F96400] hover:bg-[#E05A00] text-white transition-all shadow-lg shadow-orange-500/30"
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95, y: 1 }}
                   >
-                    {slides[currentSlide].primaryBtn} <ArrowRight size={18} />
-                  </Link>
+                    <Link
+                      to={slides[currentSlide].primaryLink}
+                      className="btn-3d-circle inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-[#F96400] text-white shadow-lg shadow-orange-500/30 border border-orange-400/40"
+                    >
+                      {slides[currentSlide].primaryBtn} <ArrowRight size={18} />
+                    </Link>
+                  </motion.div>
                   
-                  <a
-                    href="https://wa.me/917226030701?text=Hello%20HY-Tech,%20I%20need%20assistance."
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20 transition-all"
+                  <motion.div
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95, y: 1 }}
                   >
-                    <MessageCircle size={18} className="text-green-400" />
-                    <span>{slides[currentSlide].secondaryBtn}</span>
-                  </a>
+                    <a
+                      href="https://wa.me/917226030701?text=Hello%20HY-Tech,%20I%20need%20assistance."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-3d-circle inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-bold text-sm bg-white/10 hover:bg-white/20 text-white backdrop-blur-md border border-white/20"
+                    >
+                      <MessageCircle size={18} className="text-green-400" />
+                      <span>{slides[currentSlide].secondaryBtn}</span>
+                    </a>
+                  </motion.div>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -166,30 +182,38 @@ export default function HeroSlider() {
 
       {/* Navigation Controls */}
       <div className="absolute bottom-8 right-8 z-20 flex items-center gap-3">
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.12, y: -2 }}
+          whileTap={{ scale: 0.9, y: 2 }}
           onClick={prevSlide}
-          className="w-12 h-12 rounded-full bg-black/40 hover:bg-[#F96400] border border-white/20 hover:border-[#F96400] backdrop-blur-md flex items-center justify-center text-white transition-all"
+          className="btn-3d-circle w-12 h-12 rounded-full bg-black/50 hover:bg-[#F96400] border border-white/20 hover:border-[#F96400] backdrop-blur-md flex items-center justify-center text-white"
+          aria-label="Previous Slide"
         >
           <ChevronLeft size={24} />
-        </button>
-        <button 
+        </motion.button>
+        <motion.button 
+          whileHover={{ scale: 1.12, y: -2 }}
+          whileTap={{ scale: 0.9, y: 2 }}
           onClick={nextSlide}
-          className="w-12 h-12 rounded-full bg-black/40 hover:bg-[#F96400] border border-white/20 hover:border-[#F96400] backdrop-blur-md flex items-center justify-center text-white transition-all"
+          className="btn-3d-circle w-12 h-12 rounded-full bg-black/50 hover:bg-[#F96400] border border-white/20 hover:border-[#F96400] backdrop-blur-md flex items-center justify-center text-white"
+          aria-label="Next Slide"
         >
           <ChevronRight size={24} />
-        </button>
+        </motion.button>
       </div>
 
       {/* Dots Indicator */}
       <div className="absolute bottom-10 left-4 md:left-8 z-20 flex gap-2">
         {slides.map((_, index) => (
-          <button
+          <motion.button
             key={index}
+            whileHover={{ scale: 1.3 }}
+            whileTap={{ scale: 0.9 }}
             onClick={() => setCurrentSlide(index)}
-            className={`transition-all duration-300 rounded-full ${
+            className={`transition-all duration-300 rounded-full btn-3d-circle ${
               currentSlide === index 
-                ? 'w-8 h-2 bg-[#F96400]' 
-                : 'w-2 h-2 bg-white/40 hover:bg-white/70'
+                ? 'w-8 h-2.5 bg-[#F96400] shadow-md shadow-orange-500/40' 
+                : 'w-2.5 h-2.5 bg-white/40 hover:bg-white/80'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

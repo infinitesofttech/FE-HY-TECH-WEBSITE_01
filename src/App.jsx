@@ -16,10 +16,10 @@ import Preloader from './components/Preloader';
 
 function AppContent() {
   return (
-    <div className="flex flex-col min-h-screen bg-[var(--bg-base)] text-[var(--text-main)] transition-colors duration-300">
+    <div className="flex flex-col min-h-screen w-full overflow-x-hidden bg-[var(--bg-base)] text-[var(--text-main)] transition-colors duration-300">
       <Preloader />
       <Navbar />
-      <main className="flex-grow">
+      <main className="flex-grow w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<ServicesPage />} />

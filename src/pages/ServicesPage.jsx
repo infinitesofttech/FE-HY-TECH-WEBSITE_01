@@ -61,11 +61,13 @@ export default function ServicesPage() {
     return base
       .map(cat => {
         const matchingServices = cat.services.filter(s => {
-          const titleEn = s.title?.en?.toLowerCase() || '';
-          const titleGu = s.title?.gu?.toLowerCase() || '';
-          const descEn = s.shortDescription?.en?.toLowerCase() || '';
-          const descGu = s.shortDescription?.gu?.toLowerCase() || '';
-          return titleEn.includes(q) || titleGu.includes(q) || descEn.includes(q) || descGu.includes(q);
+          const titleEn = (s.title?.en || s.rawTitle || s.title || '').toLowerCase();
+          const titleGu = (s.title?.gu || s.titleGujarati || '').toLowerCase();
+          const descEn = (s.shortDescription?.en || s.rawShortDescription || s.overview || '').toLowerCase();
+          const descGu = (s.shortDescription?.gu || '').toLowerCase();
+          const catName = (typeof s.category === 'string' ? s.category : (s.category?.en || '')).toLowerCase();
+          const docs = Array.isArray(s.requiredDocuments) ? s.requiredDocuments.join(' ').toLowerCase() : '';
+          return titleEn.includes(q) || titleGu.includes(q) || descEn.includes(q) || descGu.includes(q) || catName.includes(q) || docs.includes(q);
         });
         return { ...cat, services: matchingServices };
       })
@@ -91,13 +93,13 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-[#FAFAFA] w-full overflow-x-hidden" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
       {/* ── Premium Hero Section ───────────────────────────── */}
       <div className="relative w-full bg-[#171717] pt-16 pb-24 overflow-hidden perspective-1000">
         {/* Floating 3D Background Elements */}
-        <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#F96400] rounded-full blur-[150px] opacity-20 animate-pulse" style={{ animationDuration: '4s' }}></div>
-        <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-blue-500 rounded-full blur-[150px] opacity-10"></div>
+        <div className="absolute top-0 right-10 w-[500px] h-[500px] bg-[#F96400] rounded-full blur-[150px] opacity-20 animate-pulse pointer-events-none" style={{ animationDuration: '4s' }}></div>
+        <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-blue-500 rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
 
         {/* Floating Glass Panels */}
         <motion.div
@@ -113,12 +115,22 @@ export default function ServicesPage() {
             {language === 'en' ? 'HY-TECH DIGITAL DESK' : 'હાઇ-ટેક ડિજિટલ ડેસ્ક'}
           </div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight mb-6 leading-tight">
-            {language === 'en' ? 'All Your Essential' : 'તમારી જરૂરી'}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F96400] to-[#FF8126]">
-              {language === 'en' ? 'Online Services' : 'ઓનલાઈન સેવાઓ'}
-            </span>
-          </h1>
+          {/* 3D Modern Interactive Heading */}
+          <motion.div
+            className="perspective-1000 cursor-default"
+            whileHover={{ scale: 1.02, rotateX: 2, rotateY: -2 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight mb-6 leading-tight select-none">
+              <span className="text-3d-modern">
+                {language === 'en' ? 'All Your Essential' : 'તમારી જરૂરી'}
+              </span>
+              <br />
+              <span className="text-3d-gradient">
+                {language === 'en' ? 'Online Services' : 'ઓનલાઈન સેવાઓ'}
+              </span>
+            </h1>
+          </motion.div>
 
           <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-12 font-medium">
             {language === 'en'
@@ -141,7 +153,7 @@ export default function ServicesPage() {
               {searchQuery && (
                 <button
                   onClick={() => handleSearchChange({ target: { value: '' } })}
-                  className="mr-4 text-gray-400 hover:text-white transition-colors"
+                  className="mr-4 text-gray-400 hover:text-white transition-colors cursor-pointer"
                 >
                   ✕
                 </button>
@@ -156,28 +168,34 @@ export default function ServicesPage() {
         <div className="max-w-[1600px] mx-auto px-4 md:px-8">
           {/* Horizontal scroll on mobile */}
           <div className="flex overflow-x-auto hide-scrollbar gap-3 pb-2 md:pb-0 items-center justify-start md:justify-center">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.94, y: 1 }}
+              whileHover={{ scale: 1.04, y: -2 }}
               onClick={() => handleCategoryChange('all')}
-              className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${activeCategory === 'all'
-                  ? 'bg-[#171717] text-white border-[#171717] shadow-lg transform -translate-y-0.5'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
-                }`}
+              className={`flex-shrink-0 px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all border ${
+                activeCategory === 'all'
+                  ? 'btn-3d-circle-active border-[#171717]'
+                  : 'btn-3d-circle bg-white text-gray-700 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
+              }`}
             >
               {language === 'en' ? 'All Services' : 'બધી સેવાઓ'}
-            </button>
+            </motion.button>
             {categories.map((cat) => {
               const isActive = activeCategory === cat.slug;
               return (
-                <button
+                <motion.button
                   key={cat.slug}
+                  whileTap={{ scale: 0.94, y: 1 }}
+                  whileHover={{ scale: 1.04, y: -2 }}
                   onClick={() => handleCategoryChange(cat.slug)}
-                  className={`flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${isActive
-                      ? 'bg-gradient-to-r from-[#F96400] to-[#FF8126] text-white border-transparent shadow-lg shadow-orange-500/30 transform -translate-y-0.5'
-                      : 'bg-white text-gray-600 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
-                    }`}
+                  className={`flex-shrink-0 px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${
+                    isActive
+                      ? 'btn-3d-circle-active'
+                      : 'btn-3d-circle bg-white text-gray-700 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
+                  }`}
                 >
                   {t(cat.title)}
-                </button>
+                </motion.button>
               );
             })}
           </div>
@@ -229,24 +247,25 @@ export default function ServicesPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-50px" }}
                       transition={{ duration: 0.5, delay: i * 0.05 }}
+                      className="h-full flex flex-col"
                     >
                       <div
                         onClick={() => {
                           setSelectedService(svc);
                           setIsModalOpen(true);
                         }}
-                        className="block h-full perspective-1000 group cursor-pointer text-left"
+                        className="flex flex-col h-full perspective-1000 group cursor-pointer text-left"
                       >
 
                         {/* 3D Card Container */}
-                        <div className="relative h-full bg-white rounded-3xl p-6 border border-gray-100 transition-all duration-300 transform-gpu preserve-3d
+                        <div className="relative flex flex-col h-full bg-white rounded-3xl p-5 sm:p-6 border border-gray-100 shadow-sm transition-all duration-300 transform-gpu preserve-3d
                                         group-hover:-translate-y-2 group-hover:[transform:rotateX(2deg)_rotateY(-2deg)] group-hover:shadow-[0_20px_40px_-15px_rgba(249,100,0,0.2)]">
 
                           {/* Inner border glow on hover */}
                           <div className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-[#F96400]/20 transition-colors pointer-events-none"></div>
 
                           {/* Top Section with Full Size 3D Visual */}
-                          <div className="w-full h-52 sm:h-56 bg-gray-900 rounded-2xl mb-5 relative overflow-hidden border border-gray-100 shadow-sm group/img">
+                          <div className="w-full h-48 sm:h-52 bg-gray-900 rounded-2xl mb-4 relative overflow-hidden border border-gray-100 shadow-sm group/img shrink-0">
                             <motion.div
                               className="w-full h-full"
                               whileHover={{ scale: 1.06 }}
@@ -272,34 +291,36 @@ export default function ServicesPage() {
                           </div>
 
                           {/* Content */}
-                          <div className="flex flex-col h-[calc(100%-198px)]">
-                            {/* Bilingual Titles */}
-                            <h3 className="text-xl font-black text-[#171717] mb-0.5 group-hover:text-[#F96400] transition-colors leading-tight">
-                              {svc.title?.en}
-                            </h3>
-                            <h4 className="text-sm font-bold text-gray-500 mb-2">
-                              {svc.title?.gu}
-                            </h4>
+                          <div className="flex flex-col flex-1 justify-between">
+                            <div>
+                              {/* Bilingual Titles */}
+                              <h3 className="text-xl font-black text-[#171717] mb-0.5 group-hover:text-[#F96400] transition-colors leading-tight">
+                                {svc.title?.en || svc.rawTitle || svc.title}
+                              </h3>
+                              <h4 className="text-sm font-bold text-gray-500 mb-2">
+                                {svc.title?.gu || svc.titleGujarati}
+                              </h4>
 
-                            {/* Service Status / Feature Pills (e.g. New • Correction • Update) */}
-                            <div className="flex flex-wrap items-center gap-1.5 mb-3 text-[11px] font-bold text-gray-400">
-                              <span className="text-[#F96400] bg-orange-50 px-2 py-0.5 rounded-md">
-                                {language === 'en' ? 'New' : 'નવું'}
-                              </span>
-                              <span>•</span>
-                              <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
-                                {language === 'en' ? 'Correction' : 'સુધારો'}
-                              </span>
-                              <span>•</span>
-                              <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
-                                {language === 'en' ? 'Update' : 'અપડેટ'}
-                              </span>
+                              {/* Service Status / Feature Pills (e.g. New • Correction • Update) */}
+                              <div className="flex flex-wrap items-center gap-1.5 mb-3 text-[11px] font-bold text-gray-400">
+                                <span className="text-[#F96400] bg-orange-50 px-2 py-0.5 rounded-md">
+                                  {language === 'en' ? 'New' : 'નવું'}
+                                </span>
+                                <span>•</span>
+                                <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
+                                  {language === 'en' ? 'Correction' : 'સુધારો'}
+                                </span>
+                                <span>•</span>
+                                <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
+                                  {language === 'en' ? 'Update' : 'અપડેટ'}
+                                </span>
+                              </div>
+
+                              {/* Short Description */}
+                              <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4">
+                                {t(svc.shortDescription)}
+                              </p>
                             </div>
-
-                            {/* Short Description */}
-                            <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4 flex-grow">
-                              {t(svc.shortDescription)}
-                            </p>
 
                             {/* Footer / Button */}
                             <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
