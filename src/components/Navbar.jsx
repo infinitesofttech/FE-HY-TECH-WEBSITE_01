@@ -71,7 +71,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { language } = useLanguage();
   const t = (obj) => obj?.[language] || obj?.['en'] || '';
-  
+
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export default function Navbar() {
             {/* Desktop Navigation Links */}
             <nav className="hidden lg:flex items-center space-x-7">
               <NavLink to="/" className={navLinkClass}>Home</NavLink>
-              
+
               {/* Services Mega Dropdown */}
               <div className="relative group cursor-pointer h-full flex items-center">
                 <NavLink to="/services" className={({ isActive }) => `flex items-center font-medium transition-colors py-6 text-sm ${isActive ? 'text-[#F96400] font-semibold' : 'text-[#171717] hover:text-[#F96400]'}`}>
@@ -142,8 +142,8 @@ export default function Navbar() {
                     <div className="border-t border-gray-100 my-1"></div>
                     {categories.map((cat) => (
                       <Link
-                        key={cat.slug}
-                        to={`/services/${cat.slug}`}
+                        key={cat.slug || cat.id}
+                        to={`/services?category=${cat.slug || cat.id}`}
                         className="flex items-center justify-between px-4 py-2 rounded-xl text-xs font-medium text-[#444] hover:bg-gray-50 hover:text-[#F96400] transition-colors"
                       >
                         <span>{t(cat.title)}</span>
@@ -154,8 +154,23 @@ export default function Navbar() {
                 </div>
               </div>
 
+              {/* HY-Tech Smart Family Page */}
+              <NavLink 
+                to="/smart-family" 
+                className={({ isActive }) => 
+                  `flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors ${
+                    isActive ? 'text-[#F96400]' : 'text-[#171717] hover:text-[#F96400]'
+                  }`
+                }
+              >
+                <span>Smart Family</span>
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#FFF5EE] text-[#F96400] border border-[#F96400]/20 animate-pulse">
+                  NEW
+                </span>
+              </NavLink>
+
               <NavLink to="/about" className={navLinkClass}>About Us</NavLink>
-              <NavLink to="/contact" className={navLinkClass}>Contact & Directions</NavLink>
+              <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
             </nav>
 
             {/* Right Desktop Actions */}
@@ -230,12 +245,18 @@ export default function Navbar() {
             </form>
 
             <NavLink to="/" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>Home</NavLink>
+            <NavLink to="/smart-family" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>
+              <div className="flex items-center justify-between">
+                <span>HY-Tech Smart Family</span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F96400] text-white">NEW</span>
+              </div>
+            </NavLink>
             <NavLink to="/services" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>All Services (30+)</NavLink>
             <div className="pl-4 space-y-1 border-l-2 border-orange-100 my-1">
-              {categories.slice(0, 4).map((cat) => (
+              {categories.map((cat) => (
                 <Link
-                  key={cat.slug}
-                  to={`/services/${cat.slug}`}
+                  key={cat.slug || cat.id}
+                  to={`/services?category=${cat.slug || cat.id}`}
                   onClick={() => setIsOpen(false)}
                   className="block px-3 py-1.5 text-xs text-gray-600 hover:text-[#F96400]"
                 >
@@ -244,7 +265,7 @@ export default function Navbar() {
               ))}
             </div>
             <NavLink to="/about" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>About Our Center</NavLink>
-            <NavLink to="/contact" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>Contact & Directions</NavLink>
+            <NavLink to="/contact" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>Contact</NavLink>
 
             <div className="pt-2 border-t border-gray-100 flex flex-col gap-2">
               <a

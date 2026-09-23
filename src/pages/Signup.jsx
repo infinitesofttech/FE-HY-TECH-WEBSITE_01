@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRight, Lock, User, Phone, Mail, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Eye, EyeOff, Loader2 } from 'lucide-react';
+import AuthLayout from '../components/auth/AuthLayout';
 
 export default function Signup() {
   const { signup, isLoggedIn } = useAuth();
@@ -10,9 +11,9 @@ export default function Signup() {
     name: '',
     mobile: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,13 +33,8 @@ export default function Signup() {
     e.preventDefault();
     setError('');
 
-    if (!formData.name || !formData.mobile || !formData.password || !formData.confirmPassword) {
-      setError('Please fill in all required fields.');
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match.');
+    if (!formData.name || !formData.mobile || !formData.password) {
+      setError('Please fill in your Name, Mobile Number, and Password.');
       return;
     }
 
@@ -52,141 +48,134 @@ export default function Signup() {
       await signup(formData);
       navigate('/dashboard', { replace: true });
     } catch (err) {
-      setError(err.message || 'Signup failed. Please try again.');
+      setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleSocialLogin = (provider) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      signup({ name: `${provider} Citizen`, mobile: '9876543210', password: 'demo' })
+        .then(() => navigate('/dashboard', { replace: true }))
+        .catch(console.error)
+        .finally(() => setIsLoading(false));
+    }, 400);
+  };
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center py-16 px-4 bg-[#FAFAFA]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-sm border border-gray-200 p-8 relative z-10">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-block mb-4">
-            <img src="/hy-tech-logo.png" alt="HY-Tech Online Hub" className="h-12 w-auto mx-auto object-contain" />
-          </Link>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FFF5EE] text-[#F96400] mb-3">
-            <ShieldCheck size={13} /> New Client Registration
-          </span>
-          <h2 className="text-2xl font-black text-[#000000]">Create an Account</h2>
-          <p className="text-xs text-gray-500 mt-1">Register to manage your family documents and tracking.</p>
+    <AuthLayout
+      title="Sign Up"
+      subtitle="Start your journey !!!"
+      mode="signup"
+      footerText="Already have an account?"
+      footerLinkText="Log in"
+      footerLinkTo="/login"
+      onSocialLogin={handleSocialLogin}
+    >
+      {error && (
+        <div className="p-3.5 bg-red-50 text-red-600 rounded-2xl text-xs font-semibold border border-red-100 animate-in fade-in">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Full Name */}
+        <div>
+          <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="name">
+            Full Name *
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            placeholder="Rajesh Patel"
+            className="w-full px-4 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+            value={formData.name}
+            onChange={handleChange}
+          />
         </div>
 
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-xs font-medium border border-red-100">
-            {error}
+        {/* Mobile Number */}
+        <div>
+          <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="mobile">
+            Mobile Number (Family ID Key) *
+          </label>
+          <input
+            id="mobile"
+            name="mobile"
+            type="tel"
+            placeholder="98765 43210"
+            className="w-full px-4 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+            value={formData.mobile}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Email Address */}
+        <div>
+          <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="email">
+            Email Address (Optional)
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="name@gmail.com"
+            className="w-full px-4 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="password">
+            Create Password *
+          </label>
+          <div className="relative">
+            <input
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••••••"
+              className="w-full pl-4 pr-11 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer p-1"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
-        )}
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="name">
-              Full Name *
-            </label>
-            <div className="relative">
-              <User size={16} className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Enter your full name"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="mobile">
-              Mobile Number (10 Digits) *
-            </label>
-            <div className="relative">
-              <Phone size={16} className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                id="mobile"
-                name="mobile"
-                type="tel"
-                placeholder="Enter 10-digit mobile number"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                value={formData.mobile}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="email">
-              Email Address (Optional)
-            </label>
-            <div className="relative">
-              <Mail size={16} className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="you@example.com"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="password">
-                Password *
-              </label>
-              <div className="relative">
-                <Lock size={15} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  className="w-full pl-8 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="confirmPassword">
-                Confirm Password *
-              </label>
-              <div className="relative">
-                <Lock size={15} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Repeat"
-                  className="w-full pl-8 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-          </div>
-
+        {/* Submit Button */}
+        <div className="pt-2">
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#F96400] hover:bg-[#E05A00] text-white rounded-xl font-bold text-sm transition-all shadow-md shadow-orange-500/20 disabled:opacity-70 mt-4"
+            className="w-44 py-3 px-6 rounded-full bg-gradient-to-r from-[#EE7B8B] via-[#E8677B] to-[#F96400] hover:opacity-95 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 active:scale-95 transition-all cursor-pointer"
           >
-            {isLoading ? 'Creating Account...' : 'Create Free Account'} <ArrowRight size={16} />
+            {isLoading ? (
+              <>
+                <Loader2 size={15} className="animate-spin" />
+                <span>CREATING...</span>
+              </>
+            ) : (
+              <>
+                <span>SIGN UP</span>
+                <ArrowRight size={14} />
+              </>
+            )}
           </button>
-        </form>
-
-        <p className="text-center text-xs text-gray-600 font-medium mt-6 pt-5 border-t border-gray-100">
-          Already have an account?{' '}
-          <Link to="/login" className="text-[#F96400] font-bold hover:underline">
-            Log In
-          </Link>
-        </p>
-      </div>
-    </div>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }

@@ -30,9 +30,6 @@ export default function Home() {
       {/* ══════════════ 6 SPECIALIZED CATEGORIES ══════════════ */}
       <BrowseCategories />
 
-      {/* ══════════════ FEATURED DAILY SERVICES (DOCS & WHATSAPP) ══════════════ */}
-      {/* <ExploreServices /> */}
-
       {/* ══════════════ HOW IT WORKS (3 STEPS) ══════════════ */}
       <HowItWorks />
 

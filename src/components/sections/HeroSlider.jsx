@@ -11,7 +11,7 @@ const slides = [
     title: 'All Your Government Documents, Sorted.',
     subtitle: 'Fast, error-free processing for PAN, Aadhaar, Passport, and more. Skip the long lines and let our Dharampur experts handle it.',
     primaryBtn: 'Explore Services',
-    primaryLink: '/services',
+    primaryLink: '/services?category=online-services',
     secondaryBtn: 'Chat on WhatsApp',
   },
   {
@@ -21,7 +21,7 @@ const slides = [
     title: 'Master Tally Prime & CCC with GST',
     subtitle: 'Government recognized courses with practical training. Upgrade your skills right here in Dharampur.',
     primaryBtn: 'View Courses',
-    primaryLink: '/services',
+    primaryLink: '/services?category=computer-courses',
     secondaryBtn: 'Admissions Open',
   },
   {
@@ -31,7 +31,7 @@ const slides = [
     title: 'GCAS & College Admissions Made Easy',
     subtitle: 'From form filling to scholarship applications, we guide you through every step of your college admission journey.',
     primaryBtn: 'Get Admission Help',
-    primaryLink: '/services',
+    primaryLink: '/services?category=education-services',
     secondaryBtn: 'Chat on WhatsApp',
   },
   {
@@ -41,7 +41,7 @@ const slides = [
     title: 'Launch Your Government Career',
     subtitle: 'Error-free online application submissions for Police, Talati, Railway, SSC, and GPSC exams.',
     primaryBtn: 'Apply Now',
-    primaryLink: '/services',
+    primaryLink: '/services?category=job-services',
     secondaryBtn: 'Inquire on WhatsApp',
   },
   {
@@ -51,7 +51,7 @@ const slides = [
     title: 'Premium Printing & Documentation',
     subtitle: 'High-speed color printing, PVC smart cards, lamination, and instant passport photos under one roof.',
     primaryBtn: 'View Pricing',
-    primaryLink: '/services',
+    primaryLink: '/services?category=printing-services',
     secondaryBtn: 'Contact Us',
   },
   {
@@ -61,7 +61,7 @@ const slides = [
     title: 'Easy Utility Payments & Tickets',
     subtitle: 'Hassle-free electricity bills, train/bus bookings, and instant money transfers with our secure desk.',
     primaryBtn: 'Pay Bills',
-    primaryLink: '/services',
+    primaryLink: '/services?category=other-services',
     secondaryBtn: 'Chat on WhatsApp',
   }
 ];

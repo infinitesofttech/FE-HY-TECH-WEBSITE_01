@@ -10,6 +10,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
+import SmartFamilyPage from './pages/SmartFamilyPage';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import Preloader from './components/Preloader';
@@ -22,6 +24,9 @@ function AppContent() {
       <main className="flex-grow w-full overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/smart-family" element={<SmartFamilyPage />} />
+          <Route path="/smartfamily" element={<Navigate to="/smart-family" replace />} />
+          <Route path="/family-id" element={<Navigate to="/smart-family" replace />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:slug" element={<ServiceDetails />} />
           
@@ -32,6 +37,8 @@ function AppContent() {
           
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/forgotpassword" element={<Navigate to="/forgot-password" replace />} />
           <Route path="/signin" element={<Navigate to="/login" replace />} />
 
           {/* Protected Routes */}

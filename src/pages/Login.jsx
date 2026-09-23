@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ArrowRight, Lock, User, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
+import AuthLayout from '../components/auth/AuthLayout';
 
 export default function Login() {
   const { login, isLoggedIn } = useAuth();
@@ -9,6 +10,7 @@ export default function Login() {
   const location = useLocation();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,7 +26,7 @@ export default function Login() {
     setError('');
 
     if (!id || !password) {
-      setError('Please enter both Login ID and Password.');
+      setError('Please enter both Login ID / Mobile Number and Password.');
       return;
     }
 
@@ -33,91 +35,111 @@ export default function Login() {
       await login(id, password);
       navigate(from, { replace: true });
     } catch (err) {
-      setError(err.message || 'Login failed. Please try again.');
+      setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleSocialLogin = (provider) => {
+    // Quick demonstration mock login for social buttons
+    setIsLoading(true);
+    setTimeout(() => {
+      login(`${provider}_User`, 'demo123')
+        .then(() => navigate(from, { replace: true }))
+        .catch(console.error)
+        .finally(() => setIsLoading(false));
+    }, 400);
+  };
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center py-16 px-4 bg-[#FAFAFA]" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-sm border border-gray-200 p-8 relative z-10">
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-block mb-4">
-            <img src="/hy-tech-logo.png" alt="HY-Tech Online Hub" className="h-12 w-auto mx-auto object-contain" />
-          </Link>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FFF5EE] text-[#F96400] mb-3">
-            <ShieldCheck size={13} /> Client Portal
-          </span>
-          <h2 className="text-2xl font-black text-[#000000]">Welcome Back</h2>
-          <p className="text-xs text-gray-500 mt-1">Log in to track your document applications.</p>
+    <AuthLayout
+      title="Log In"
+      subtitle="Welcome back !!!"
+      mode="login"
+      footerText="Don't have an account yet?"
+      footerLinkText="Sign up for free"
+      footerLinkTo="/signup"
+      onSocialLogin={handleSocialLogin}
+    >
+      {error && (
+        <div className="p-3.5 bg-red-50 text-red-600 rounded-2xl text-xs font-semibold border border-red-100 animate-in fade-in">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Email / Mobile / Client ID */}
+        <div>
+          <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="loginId">
+            Email or Mobile Number
+          </label>
+          <div className="relative">
+            <input
+              id="loginId"
+              type="text"
+              placeholder="login@gmail.com or Mobile"
+              className="w-full px-4 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+          </div>
         </div>
 
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-xs font-medium border border-red-100">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="loginId">
-              Mobile Number / Client ID
-            </label>
-            <div className="relative">
-              <User size={16} className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                id="loginId"
-                type="text"
-                placeholder="Enter your registered mobile number"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-[#171717] mb-1.5" htmlFor="password">
+        {/* Password with Forgot Password link in header */}
+        <div>
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="block text-xs font-bold text-[#171717]" htmlFor="password">
               Password
             </label>
-            <div className="relative">
-              <Lock size={16} className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black transition-all text-[#171717]"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <Link
+              to="/forgot-password"
+              className="text-[11px] font-semibold text-gray-500 hover:text-[#F96400] transition-colors"
+            >
+              Forgot Password ?
+            </Link>
           </div>
-
-          <div className="flex items-center justify-between text-xs pt-1">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="rounded text-[#F96400] focus:ring-[#F96400] border-gray-300" />
-              <span className="text-gray-600 font-medium">Remember me</span>
-            </label>
-            <a href="#" className="font-bold text-[#F96400] hover:underline">Forgot Password?</a>
+          <div className="relative">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="••••••••••••"
+              className="w-full pl-4 pr-11 py-3 bg-[#DCEEF8]/80 focus:bg-white text-sm font-medium rounded-2xl border border-transparent focus:border-[#F96400]/40 focus:ring-2 focus:ring-[#F96400]/10 text-gray-800 placeholder-gray-400 transition-all outline-none"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer p-1"
+              aria-label="Toggle password visibility"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
+        </div>
 
+        {/* Login Button with Pill Aesthetic */}
+        <div className="pt-2">
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[#F96400] hover:bg-[#E05A00] text-white rounded-xl font-bold text-sm transition-all shadow-md shadow-orange-500/20 disabled:opacity-70 mt-2"
+            className="w-36 py-3 px-6 rounded-full bg-gradient-to-r from-[#EE7B8B] via-[#E8677B] to-[#F96400] hover:opacity-95 text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-pink-500/20 active:scale-95 transition-all cursor-pointer"
           >
-            {isLoading ? 'Logging In...' : 'Log In to Account'} <ArrowRight size={16} />
+            {isLoading ? (
+              <>
+                <Loader2 size={15} className="animate-spin" />
+                <span>WAIT...</span>
+              </>
+            ) : (
+              <>
+                <span>LOGIN</span>
+                <ArrowRight size={14} />
+              </>
+            )}
           </button>
-        </form>
-
-        <p className="text-center text-xs text-gray-600 font-medium mt-8 pt-6 border-t border-gray-100">
-          New to HY-Tech?{' '}
-          <Link to="/signup" className="text-[#F96400] font-bold hover:underline">
-            Register for Free
-          </Link>
-        </p>
-      </div>
-    </div>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }

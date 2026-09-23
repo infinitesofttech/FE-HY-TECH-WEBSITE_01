@@ -20,10 +20,36 @@ const ServiceDetails = () => {
   const [activeTab, setActiveTab] = useState('all');
 
   useEffect(() => {
+    // If slug is a category identifier, seamlessly route to /services?category=...
+    const categoryMapping = {
+      'online-services': 'online-services',
+      'online': 'online-services',
+      'education-services': 'education-services',
+      'education': 'education-services',
+      'job-services': 'job-services',
+      'jobs': 'job-services',
+      'printing-services': 'printing-services',
+      'printing': 'printing-services',
+      'computer-courses': 'computer-courses',
+      'courses': 'computer-courses',
+      'other-services': 'other-services',
+      'other': 'other-services',
+      'utility': 'other-services'
+    };
+
+    if (categoryMapping[slug]) {
+      navigate(`/services?category=${categoryMapping[slug]}`, { replace: true });
+      return;
+    }
+
     async function loadService() {
       setIsLoading(true);
       try {
         const data = await fetchServiceBySlug(slug);
+        if (!data) {
+          navigate('/services', { replace: true });
+          return;
+        }
         setService(data);
       } catch (error) {
         console.error("Service not found", error);

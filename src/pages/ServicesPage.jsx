@@ -45,12 +45,20 @@ export default function ServicesPage() {
     loadData();
   }, []);
 
+  // Sync state whenever URL query parameters change (e.g. navigation or browser buttons)
+  useEffect(() => {
+    const cat = searchParams.get('category') || 'all';
+    const s = searchParams.get('search') || '';
+    setActiveCategory(cat);
+    setSearchQuery(s);
+  }, [searchParams]);
+
   // Filter logic
   const filteredCategories = useMemo(() => {
     let base = categories;
 
     if (activeCategory !== 'all') {
-      base = categories.filter(c => c.slug === activeCategory);
+      base = categories.filter(c => c.slug === activeCategory || c.id === activeCategory);
     }
 
     if (!searchQuery.trim()) {
@@ -181,13 +189,14 @@ export default function ServicesPage() {
               {language === 'en' ? 'All Services' : 'બધી સેવાઓ'}
             </motion.button>
             {categories.map((cat) => {
-              const isActive = activeCategory === cat.slug;
+              const catKey = cat.slug || cat.id;
+              const isActive = activeCategory === cat.slug || activeCategory === cat.id;
               return (
                 <motion.button
-                  key={cat.slug}
+                  key={catKey}
                   whileTap={{ scale: 0.94, y: 1 }}
                   whileHover={{ scale: 1.04, y: -2 }}
-                  onClick={() => handleCategoryChange(cat.slug)}
+                  onClick={() => handleCategoryChange(catKey)}
                   className={`flex-shrink-0 px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${
                     isActive
                       ? 'btn-3d-circle-active'
