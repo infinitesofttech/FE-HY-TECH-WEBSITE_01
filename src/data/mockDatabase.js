@@ -27,9 +27,9 @@ export const mockServices = servicesData.map(svc => ({
   },
   rawShortDescription: svc.shortDescription,
   // Map documents array for legacy and modern components
-  documents: svc.requiredDocuments.map(d => ({ en: d, gu: d })),
-  correction: svc.correctionUpdate.join(' • '),
-  notes: svc.importantNotes.join(' ')
+  documents: Array.isArray(svc.requiredDocuments) ? svc.requiredDocuments.map(d => typeof d === 'string' ? { en: d, gu: d } : d) : [],
+  correction: Array.isArray(svc.correctionUpdate) ? svc.correctionUpdate.join(' • ') : (svc.correctionUpdate || ''),
+  notes: Array.isArray(svc.importantNotes) ? svc.importantNotes.join(' ') : (svc.importantNotes || '')
 }));
 
 export default {

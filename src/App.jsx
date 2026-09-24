@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import ServicesPage from './pages/ServicesPage';
 import ServiceDetails from './pages/ServiceDetails';
+import Dashboard from './pages/Dashboard';
 import Placeholder from './pages/Placeholder';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -42,7 +43,7 @@ function AppContent() {
           <Route path="/signin" element={<Navigate to="/login" replace />} />
 
           {/* Protected Routes */}
-          <Route path="/dashboard" element={<ProtectedRoute><Placeholder title="User Dashboard" /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/family" element={<ProtectedRoute><Placeholder title="My Family" /></ProtectedRoute>} />
           <Route path="/rewards" element={<ProtectedRoute><Placeholder title="Reward Wallet" /></ProtectedRoute>} />
         </Routes>

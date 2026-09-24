@@ -3,12 +3,28 @@
  * Centralized Standardized Service Data & Categories Architecture
  */
 
-import { onlineServices } from './services/onlineServices';
+import { sourceServicesData } from './sourceServicesData';
 import { educationServices } from './services/educationServices';
 import { jobServices } from './services/jobServices';
 import { printingServices } from './services/printingServices';
 import { computerCourses } from './services/computerCourses';
 import { utilityServices } from './services/utilityServices';
+
+// Gather other services, ensuring no duplicate slugs/ids with sourceServicesData
+const sourceSlugs = new Set(sourceServicesData.map(s => s.slug || s.id));
+const nonDuplicateOtherServices = [
+  ...educationServices,
+  ...jobServices,
+  ...printingServices,
+  ...computerCourses,
+  ...utilityServices
+].filter(s => !sourceSlugs.has(s.slug) && !sourceSlugs.has(s.id));
+
+// Combined services with sourceServicesData prioritised
+export const servicesData = [
+  ...sourceServicesData,
+  ...nonDuplicateOtherServices
+];
 
 export const serviceCategories = [
   {
@@ -20,7 +36,7 @@ export const serviceCategories = [
     },
     icon: 'Monitor',
     catImage: '/images/categories/online_services.jpg',
-    count: onlineServices.length,
+    count: servicesData.filter(s => s.categoryId === 'online-services').length,
     isActive: true
   },
   {
@@ -32,7 +48,7 @@ export const serviceCategories = [
     },
     icon: 'GraduationCap',
     catImage: '/images/categories/education.jpg',
-    count: educationServices.length,
+    count: servicesData.filter(s => s.categoryId === 'education-services').length,
     isActive: true
   },
   {
@@ -44,7 +60,7 @@ export const serviceCategories = [
     },
     icon: 'Briefcase',
     catImage: '/images/categories/jobs.jpg',
-    count: jobServices.length,
+    count: servicesData.filter(s => s.categoryId === 'job-services').length,
     isActive: true
   },
   {
@@ -56,7 +72,7 @@ export const serviceCategories = [
     },
     icon: 'Printer',
     catImage: '/images/categories/printing.jpg',
-    count: printingServices.length,
+    count: servicesData.filter(s => s.categoryId === 'printing-services').length,
     isActive: true
   },
   {
@@ -68,7 +84,7 @@ export const serviceCategories = [
     },
     icon: 'Laptop',
     catImage: '/images/categories/courses.jpg',
-    count: computerCourses.length,
+    count: servicesData.filter(s => s.categoryId === 'computer-courses').length,
     isActive: true
   },
   {
@@ -80,19 +96,9 @@ export const serviceCategories = [
     },
     icon: 'Globe',
     catImage: '/images/categories/other.jpg',
-    count: utilityServices.length,
+    count: servicesData.filter(s => s.categoryId === 'other-services').length,
     isActive: true
   }
-];
-
-// All 60 standardized services combined
-export const servicesData = [
-  ...onlineServices,
-  ...educationServices,
-  ...jobServices,
-  ...printingServices,
-  ...computerCourses,
-  ...utilityServices
 ];
 
 export const getServiceBySlug = (slug) => {

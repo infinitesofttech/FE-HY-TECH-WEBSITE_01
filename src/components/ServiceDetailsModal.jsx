@@ -9,6 +9,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
 import { Link } from 'react-router-dom';
 
+import ServiceOperations from './services/ServiceOperations';
+
 export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('all');
@@ -266,134 +268,141 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
               </section>
             )}
 
-            {/* 2. NEW APPLICATION SECTION */}
-            {(activeTab === 'all' || activeTab === 'new-app') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <Sparkles size={20} className="text-[#F96400]" />
-                  {language === 'en' ? '2. New Application' : '૨. નવી અરજી'}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                  {language === 'en' ? 'Requirements and documentation checklist for fresh applications:' : 'નવી અરજી માટે જરૂરી બાબતો અને દસ્તાવેજો:'}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {newAppList.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                      <div className="w-5 h-5 rounded-full bg-orange-100 text-[#F96400] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle2 size={13} />
-                      </div>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
+            {/* Dynamic Operations Tabs & Checklists */}
+            {service.operations ? (
+              <ServiceOperations service={service} />
+            ) : (
+              <>
+                {/* 2. NEW APPLICATION SECTION */}
+                {(activeTab === 'all' || activeTab === 'new-app') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <Sparkles size={20} className="text-[#F96400]" />
+                      {language === 'en' ? '2. New Application' : '૨. નવી અરજી'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                      {language === 'en' ? 'Requirements and documentation checklist for fresh applications:' : 'નવી અરજી માટે જરૂરી બાબતો અને દસ્તાવેજો:'}
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {newAppList.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                          <div className="w-5 h-5 rounded-full bg-orange-100 text-[#F96400] flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <CheckCircle2 size={13} />
+                          </div>
+                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </section>
+                )}
 
-            {/* 3. CORRECTION / UPDATE SECTION */}
-            {(activeTab === 'all' || activeTab === 'correction') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <Edit3 size={20} className="text-[#F96400]" />
-                  {language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ'}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                  {language === 'en' ? 'Documents and procedures for correction, update, renewal or re-issue:' : 'નામ, સરનામું, સુધારો કે રિન્યુઅલ માટેની પ્રક્રિયા:'}
-                </p>
-                <div className="space-y-2.5">
-                  {correctionList.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                      <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Edit3 size={13} />
-                      </div>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
+                {/* 3. CORRECTION / UPDATE SECTION */}
+                {(activeTab === 'all' || activeTab === 'correction') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <Edit3 size={20} className="text-[#F96400]" />
+                      {language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                      {language === 'en' ? 'Documents and procedures for correction, update, renewal or re-issue:' : 'નામ, સરનામું, સુધારો કે રિન્યુઅલ માટેની પ્રક્રિયા:'}
+                    </p>
+                    <div className="space-y-2.5">
+                      {correctionList.map((item, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                          <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Edit3 size={13} />
+                          </div>
+                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </section>
+                )}
 
-            {/* 4. REQUIRED DOCUMENTS SECTION */}
-            {(activeTab === 'all' || activeTab === 'documents') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <FileText size={20} className="text-[#F96400]" />
-                  {language === 'en' ? '4. Required Documents' : '૪. જરૂરી દસ્તાવેજો'}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                  {language === 'en' ? 'Clear checklist of papers to bring along:' : 'સાથે લાવવાના જરૂરી મૂળ અને નકલ પુરાવાઓ:'}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {docsList.map((doc, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-[#F96400] transition-colors">
-                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <CheckCircle2 size={14} />
-                      </div>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(doc)}</span>
+                {/* 4. REQUIRED DOCUMENTS SECTION */}
+                {(activeTab === 'all' || activeTab === 'documents') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <FileText size={20} className="text-[#F96400]" />
+                      {language === 'en' ? '4. Required Documents' : '૪. જરૂરી દસ્તાવેજો'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                      {language === 'en' ? 'Clear checklist of papers to bring along:' : 'સાથે લાવવાના જરૂરી મૂળ અને નકલ પુરાવાઓ:'}
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {docsList.map((doc, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-[#F96400] transition-colors">
+                          <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <CheckCircle2 size={14} />
+                          </div>
+                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(doc)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </section>
+                )}
 
-            {/* 5. ELIGIBILITY SECTION */}
-            {(activeTab === 'all' || activeTab === 'eligibility') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <ShieldCheck size={20} className="text-[#F96400]" />
-                  {language === 'en' ? '5. Eligibility' : '૫. પાત્રતા'}
-                </h3>
-                <div className="space-y-2.5">
-                  {eligibilityList.map((crit, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                      <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <ShieldCheck size={13} />
-                      </div>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(crit)}</span>
+                {/* 5. ELIGIBILITY SECTION */}
+                {(activeTab === 'all' || activeTab === 'eligibility') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <ShieldCheck size={20} className="text-[#F96400]" />
+                      {language === 'en' ? '5. Eligibility' : '૫. પાત્રતા'}
+                    </h3>
+                    <div className="space-y-2.5">
+                      {eligibilityList.map((crit, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                          <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <ShieldCheck size={13} />
+                          </div>
+                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(crit)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </section>
+                )}
 
-            {/* 6. PROCESS SECTION */}
-            {(activeTab === 'all' || activeTab === 'process') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <Clock size={20} className="text-[#F96400]" />
-                  {language === 'en' ? '6. Process' : '૬. પ્રક્રિયા'}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                  {language === 'en' ? 'Step-by-step facilitation workflow:' : 'પગલાંવાર ઓનલાઈન અને ઓફલાઈન પ્રક્રિયા:'}
-                </p>
-                <div className="space-y-2.5">
-                  {processList.map((step, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                      <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
-                        {idx + 1}
-                      </span>
-                      <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(step)}</span>
+                {/* 6. PROCESS SECTION */}
+                {(activeTab === 'all' || activeTab === 'process') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <Clock size={20} className="text-[#F96400]" />
+                      {language === 'en' ? '6. Process' : '૬. પ્રક્રિયા'}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">
+                      {language === 'en' ? 'Step-by-step facilitation workflow:' : 'પગલાંવાર ઓનલાઈન અને ઓફલાઈન પ્રક્રિયા:'}
+                    </p>
+                    <div className="space-y-2.5">
+                      {processList.map((step, idx) => (
+                        <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                          <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                            {idx + 1}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(step)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
-            )}
+                  </section>
+                )}
 
-            {/* 7. IMPORTANT NOTES SECTION */}
-            {(activeTab === 'all' || activeTab === 'notes') && (
-              <section className="space-y-3 pt-2">
-                <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
-                  <AlertCircle size={20} className="text-amber-600" />
-                  {language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ'}
-                </h3>
-                <div className="space-y-2.5">
-                  {notesList.map((note, idx) => (
-                    <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 leading-relaxed text-xs sm:text-sm font-medium">
-                      <AlertCircle size={17} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                      <span>{t(note)}</span>
+                {/* 7. IMPORTANT NOTES SECTION */}
+                {(activeTab === 'all' || activeTab === 'notes') && (
+                  <section className="space-y-3 pt-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                      <AlertCircle size={20} className="text-amber-600" />
+                      {language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ'}
+                    </h3>
+                    <div className="space-y-2.5">
+                      {notesList.map((note, idx) => (
+                        <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 leading-relaxed text-xs sm:text-sm font-medium">
+                          <AlertCircle size={17} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                          <span>{t(note)}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </section>
+                  </section>
+                )}
+              </>
             )}
 
           </div>
