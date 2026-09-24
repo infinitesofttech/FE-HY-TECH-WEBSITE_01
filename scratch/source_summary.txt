@@ -1,0 +1,487 @@
+
+=========================================
+SOURCE #1: election-card | EN: Election Card (Voter ID) | GU: ચુંટણી કાર્ડ (મતદાર ઓળખપત્ર)
+Category: Government Services (online-services)
+Desc EN: New voter registration, birth date correction, address change, and name update.
+Desc GU: નવું ચુંટણી કાર્ડ, જન્મ તારીખ સુધારો, સરનામું ફેરફાર અને પતિના નામે કાર્ડ.
+Operations:
+  - [new] EN: New Election Card | GU: નવું ચુંટણી કાર્ડ
+      doc: Aadhaar Card
+      doc: Passport Size Photograph
+      doc: Family Member Election Card (Voter Reference)
+      doc: Mobile Number
+  - [correction] EN: Birth Date Correction | GU: જન્મ તારીખ સુધારો
+      doc: Birth Certificate / School Leaving Certificate
+      doc: Aadhaar Card
+      doc: Current Election Card
+  - [update] EN: Address Correction | GU: સરનામું સુધારો
+      doc: Light Bill / Ration Card
+      doc: Aadhaar Card
+      doc: Current Election Card
+  - [spouseNameUpdate] EN: Election Card in Husband's Name | GU: પતિના નામે ચુંટણી કાર્ડ
+      doc: Husband-Wife Election Card
+      doc: Aadhaar Card
+      doc: Marriage Certificate / Kankotri
+      doc: PAN Card
+
+=========================================
+SOURCE #2: aadhaar-card | EN: Aadhaar Card | GU: આધાર કાર્ડ
+Category: Identity Documents (online-services)
+Desc EN: New Aadhaar enrolment, biometric update, address change, and mobile linking.
+Desc GU: નવું આધાર કાર્ડ, બાયોમેટ્રિક અપડેટ, સરનામું સુધારો અને મોબાઈલ લિંકિંગ.
+Operations:
+  - [new] EN: New Aadhaar Enrolment | GU: નવું આધાર કાર્ડ
+      doc: Birth Certificate / School Leaving Certificate
+      doc: Parent's Aadhaar Card (for minor enrolment)
+      doc: Address Proof (Ration Card / Light Bill)
+  - [update] EN: Address / Mobile Update | GU: સરનામું અને મોબાઈલ અપડેટ
+      doc: Existing Aadhaar Card
+      doc: Light Bill / Bank Passbook / Rent Agreement
+      doc: Active Mobile Number for OTP
+  - [correction] EN: Name & Date of Birth Correction | GU: નામ અને જન્મ તારીખ સુધારો
+      doc: Birth Certificate / PAN Card / School LC
+      doc: Gazette notification (if formal name change)
+      doc: Existing Aadhaar Card
+
+=========================================
+SOURCE #3: pan-card | EN: PAN Card | GU: પાન કાર્ડ
+Category: Government Services (online-services)
+Desc EN: New PAN, PAN correction, and Date of Birth correction services.
+Desc GU: નવું પાન કાર્ડ, પાન કાર્ડ સુધારો અને જન્મ તારીખ સુધારો સેવાઓ.
+Operations:
+  - [new] EN: New PAN Card | GU: નવું પાન કાર્ડ
+      doc: Aadhaar Card
+      doc: Mobile Number
+      doc: E-mail ID
+      doc: Election Card / Birth Certificate / ABHA Card / Driving Licence for birth proof
+  - [correction] EN: PAN Card Correction | GU: પાન કાર્ડ સુધારો
+      doc: PAN Card
+      doc: Aadhaar Card
+      doc: Mobile Number
+      doc: Election Card / Birth Certificate / ABHA Card / Driving Licence
+      doc: E-mail ID
+  - [dobCorrection] EN: PAN DOB Correction | GU: પાન કાર્ડ જન્મ તારીખ સુધારો
+      doc: PAN Card
+      doc: Aadhaar Card
+      doc: Mobile Number
+      doc: Election Card / Birth Certificate / ABHA Card / Driving Licence
+      doc: E-mail ID
+
+=========================================
+SOURCE #4: abha-card | EN: ABHA Card (Health Account) | GU: આભા કાર્ડ (ડિજિટલ હેલ્થ એકાઉન્ટ)
+Category: Identity Documents (online-services)
+Desc EN: Ayushman Bharat Health Account 14-digit digital health ID card.
+Desc GU: આયુષ્માન ભારત ૧૪-અંકનું ડિજિટલ હેલ્થ ઓળખપત્ર.
+Operations:
+  - [new] EN: New ABHA Card Registration | GU: નવું આભા કાર્ડ રજીસ્ટ્રેશન
+      doc: Aadhaar Card
+      doc: Mobile Number linked with Aadhaar
+      doc: Self Declaration / Basic Profile Details
+  - [update] EN: ABHA Profile Update | GU: આભા પ્રોફાઇલ અપડેટ
+      doc: Existing 14-digit ABHA Number
+      doc: Aadhaar Card
+      doc: OTP on linked mobile
+
+=========================================
+SOURCE #5: ayushman-card | EN: Ayushman Card (PM-JAY MA) | GU: આયુષ્માન ભારત કાર્ડ (પ્રધાનમંત્રી જન આરોગ્ય યોજના)
+Category: Government Services (online-services)
+Desc EN: ₹5 to ₹10 Lakh cashless hospital treatment card for eligible families.
+Desc GU: પાત્ર પરિવારો માટે વાર્ષિક ₹૫ થી ₹૧૦ લાખ સુધીની કેશલેસ હોસ્પિટલ સારવાર.
+Operations:
+  - [new] EN: New Ayushman Card | GU: નવું આયુષ્માન કાર્ડ
+      doc: Ration Card (NFSA / Antyodaya / Priority Household)
+      doc: Aadhaar Card of all family members
+      doc: Active Mobile Number
+      doc: Income Certificate (if PM-JAY MA Card)
+  - [update] EN: Ayushman e-KYC Update | GU: આયુષ્માન e-KYC અપડેટ
+      doc: Aadhaar Card
+      doc: Ration Card
+      doc: Live Biometric Scan or Aadhaar OTP
+
+=========================================
+SOURCE #6: ration-card-kyc | EN: Ration Card KYC & Services | GU: રેશન કાર્ડ e-KYC અને સેવાઓ
+Category: Government Services (online-services)
+Desc EN: Mandatory Aadhaar e-KYC seeding, member addition, and name deletion.
+Desc GU: રેશનકાર્ડ આધાર e-KYC લિંકિંગ, નવા સભ્યનું નામ ઉમેરવું અથવા કમી કરવું.
+Operations:
+  - [update] EN: Ration Card Aadhaar e-KYC | GU: રેશન કાર્ડ આધાર e-KYC
+      doc: Original Barcoded Ration Card
+      doc: Aadhaar Card of all family members
+      doc: Active Mobile Number linked with Aadhaar
+      doc: Biometric verification at center
+  - [newMember] EN: Add Family Member | GU: નવા સભ્યનું નામ ઉમેરવું
+      doc: Original Ration Card
+      doc: Child Birth Certificate / Marriage Certificate (for wife)
+      doc: Aadhaar Card of new member
+      doc: Name Deletion Certificate from previous ration card (if married)
+  - [split] EN: Separate / Split Ration Card | GU: નવું અલગ રેશન કાર્ડ
+      doc: Existing Family Ration Card
+      doc: Electricity Bill of new residence
+      doc: Aadhaar Card and PAN Card
+      doc: Marriage Certificate
+
+=========================================
+SOURCE #7: awas-yojana | EN: Pradhan Mantri Awas Yojana (PMAY) | GU: પ્રધાનમંત્રી આવાસ યોજના (PMAY ગ્રામીણ / શહેરી)
+Category: Government Services (online-services)
+Desc EN: Housing subsidy assistance for pucca house construction.
+Desc GU: પાકા મકાન બાંધકામ સહાય અને આવાસ સબસિડી માટે ઓનલાઈન અરજી.
+Operations:
+  - [new] EN: New Awas Yojana Application | GU: નવું આવાસ યોજના ફોર્મ
+      doc: Aadhaar Card of Head and Family Members
+      doc: Ration Card
+      doc: Bank Account Passbook (Aadhaar Seeded)
+      doc: Income Certificate / BPL Certificate
+      doc: Land Ownership Documents (7/12, 8-A or Gram Panchayat Certificate)
+      doc: Passport Size Photos and Photograph of Existing Kucha House
+
+=========================================
+SOURCE #8: udyam-registration | EN: Udyog Aadhaar / Udyam Registration | GU: ઉદ્યોગ આધાર / ઉદ્યમ રજીસ્ટ્રેશન (MSME)
+Category: Business (online-services)
+Desc EN: Official government MSME registration certificate for small businesses and shops.
+Desc GU: વેપારીઓ, દુકાનદારો અને લઘુ ઉદ્યોગો માટે સરકારી MSME પ્રમાણપત્ર.
+Operations:
+  - [new] EN: New Udyam Registration | GU: નવું ઉદ્યમ રજીસ્ટ્રેશન
+      doc: Aadhaar Card of Business Owner
+      doc: PAN Card (Proprietor / Firm)
+      doc: Bank Account Details (Account Number & IFSC)
+      doc: Business Name, Address, and Date of Commencement
+      doc: Mobile Number linked with Aadhaar
+  - [update] EN: Udyam Certificate Update | GU: ઉદ્યમ વિગતો સુધારો
+      doc: Existing Udyam Registration Number (URN)
+      doc: Aadhaar OTP
+      doc: Updated Business Details / Bank Passbook
+
+=========================================
+SOURCE #9: citizen-new-registration | EN: New Portal Citizen Registration | GU: વિવિધ સરકારી પોર્ટલ નવું રજીસ્ટ્રેશન
+Category: Government Services (online-services)
+Desc EN: Digital Gujarat, e-Nagar, and Government service portal registration.
+Desc GU: ડિજિટલ ગુજરાત, ઇ-નગર અને વિવિધ સરકારી સેવા પોર્ટલ એકાઉન્ટ રજીસ્ટ્રેશન.
+Operations:
+  - [new] EN: Portal Profile Creation | GU: નવું પ્રોફાઇલ રજીસ્ટ્રેશન
+      doc: Aadhaar Card
+      doc: Active Mobile Number (for OTP verification)
+      doc: Valid E-mail ID
+      doc: Passport Size Photograph
+
+=========================================
+SOURCE #10: pm-kisan | EN: PM Kisan Samman Nidhi Yojana | GU: પીએમ કિસાન સન્માન નિધિ યોજના
+Category: Government Services (online-services)
+Desc EN: ₹6,000 annual farmer income support, e-KYC update, and land record linking.
+Desc GU: ખેડૂતોને વાર્ષિક ₹૬,૦૦૦ સહાય, બાયોમેટ્રિક e-KYC અને જમીન સીડિંગ.
+Operations:
+  - [new] EN: New Farmer Registration | GU: નવું ખેડૂત રજીસ્ટ્રેશન
+      doc: Aadhaar Card
+      doc: Agricultural Land Record (7/12 & 8-A Nakal)
+      doc: Bank Passbook (Aadhaar NPCI linked)
+      doc: Mobile Number linked with Aadhaar
+  - [update] EN: PM Kisan e-KYC | GU: પીએમ કિસાન e-KYC
+      doc: Aadhaar Card
+      doc: Biometric Fingerprint or Aadhaar OTP on linked mobile
+  - [landSeeding] EN: Land Seeding & Bank Link | GU: જમીન વિગત અને બેંક સીડિંગ
+      doc: Farmer Registration ID
+      doc: 7/12 & 8-A Land Documents
+      doc: Bank Passbook with NPCI Aadhaar Seeding proof
+
+=========================================
+SOURCE #11: navodaya-yojana | EN: Jawahar Navodaya Vidyalaya Admission | GU: જવાહર નવોદય વિદ્યાલય પ્રવેશ ફોર્મ (JNVST)
+Category: Education (education-services)
+Desc EN: Class 6 & 9 Navodaya Vidyalaya free residential school entrance form.
+Desc GU: નવોદય વિદ્યાલય મફત નિવાસી શાળા પ્રવેશ પરીક્ષા ફોર્મ.
+Operations:
+  - [new] EN: Class 6 / 9 Admission Form | GU: નવોદય પ્રવેશ ફોર્મ
+      doc: Certificate verified and signed by primary school Headmaster
+      doc: Student Passport Size Photograph
+      doc: Student and Parent Signatures
+      doc: Aadhaar Card or Residential Certificate
+      doc: Caste / Category Certificate (SC/ST/OBC/Divyang)
+
+=========================================
+SOURCE #12: vanraj-college-admission | EN: Vanraj Arts & Commerce College Admission | GU: વનરાજ આર્ટસ એન્ડ કોમર્સ કોલેજ, ધરમપુર પ્રવેશ ફોર્મ
+Category: Education (education-services)
+Desc EN: GCAS university portal registration and Vanraj College FYBA/FYBCom admission.
+Desc GU: GCAS પોર્ટલ રજીસ્ટ્રેશન અને વનરાજ કોલેજ પ્રથમ વર્ષ BA / B.Com એડમિશન.
+Operations:
+  - [new] EN: FYBA / FYBCom Admission | GU: કોલેજ એડમિશન ફોર્મ
+      doc: Standard 10th & 12th Marksheets
+      doc: School Leaving Certificate (LC)
+      doc: Aadhaar Card
+      doc: Caste Certificate & Non-Creamy Layer (NCL)
+      doc: ABC ID (Academic Bank of Credits)
+      doc: Student Passport Size Photograph & Signature
+      doc: Active Mobile Number and Email ID
+  - [update] EN: Exam & Renewal Form | GU: પરીક્ષા અને રીન્યુઅલ ફોર્મ
+      doc: College Enrollment Number / Roll Number
+      doc: Previous Semester Marksheet
+      doc: College ID Card
+
+=========================================
+SOURCE #13: scholarship-form | EN: Digital Gujarat Post-Matric Scholarship | GU: ડિજિટલ ગુજરાત શિષ્યવૃત્તિ ફોર્મ (SC/ST/OBC/EWS)
+Category: Scholarship (education-services)
+Desc EN: Tuition fee reimbursement and scholarship for college and diploma students.
+Desc GU: કોલેજ અને ડિપ્લોમા વિદ્યાર્થીઓ માટે શિષ્યવૃત્તિ અને ફી સહાય ફોર્મ.
+Operations:
+  - [new] EN: New Scholarship Application | GU: નવું શિષ્યવૃત્તિ ફોર્મ
+      doc: Caste Certificate
+      doc: Competent Authority Income Certificate
+      doc: Previous Year Marksheets
+      doc: Current Year College Fee Receipt
+      doc: School / College Bonafide Certificate
+      doc: Student Bank Account Passbook (Aadhaar Linked)
+      doc: Hostel Certificate (if applicable)
+      doc: Aadhaar Card
+  - [renewal] EN: Scholarship Renewal | GU: શિષ્યવૃત્તિ રિન્યુઅલ
+      doc: Previous Year Scholarship Application Number
+      doc: Current Year Marksheet (Passed)
+      doc: Current Year College Fee Receipt
+      doc: Valid Income Certificate
+
+=========================================
+SOURCE #14: education-forms | EN: I.C. & Education Exam Services | GU: શૈક્ષણિક પ્રમાણપત્રો અને પરીક્ષા ફોર્મ
+Category: Education (education-services)
+Desc EN: University exam form, enrollment verification, and duplicate marksheet requests.
+Desc GU: યુનિવર્સિટી પરીક્ષા ફોર્મ, એનરોલમેન્ટ અને માર્કશીટ ચકાસણી.
+Operations:
+  - [new] EN: Exam & Certificate Form | GU: પરીક્ષા ફોર્મ
+      doc: Student College ID Card / Roll Number
+      doc: Previous Semester Marksheet
+      doc: Aadhaar Card
+      doc: Fee Payment Receipt
+
+=========================================
+SOURCE #15: bus-pass-form | EN: GSRTC Student Bus Pass | GU: એસ.ટી. બસ કન્સેશન પાસ ફોર્મ
+Category: Transport (other-services)
+Desc EN: Discounted Gujarat State Road Transport (ST) bus pass for daily commuting students.
+Desc GU: રોજિંદી મુસાફરી કરતા વિદ્યાર્થીઓ માટે એસ.ટી. બસ કન્સેશન પાસ.
+Operations:
+  - [new] EN: New Student Bus Pass | GU: નવો વિદ્યાર્થી બસ પાસ
+      doc: Bus Pass Application Form stamped by School/College Principal
+      doc: Current Academic Year Fee Receipt
+      doc: Residential Address Proof (Ration Card / Aadhaar)
+      doc: Passport Size Photographs
+      doc: Aadhaar Card
+  - [renewal] EN: Bus Pass Renewal | GU: બસ પાસ રિન્યુઅલ
+      doc: Existing Bus Pass Card
+      doc: College ID Card
+      doc: Fee receipt of current term
+
+=========================================
+SOURCE #16: pf-kyc | EN: EPFO PF KYC Seeding | GU: પીએફ બેંક, પાન અને આધાર KYC સીડિંગ
+Category: PF / Employment (job-services)
+Desc EN: Aadhaar, PAN, and Bank Account KYC linking to UAN portal.
+Desc GU: પીએફ ખાતામાં આધાર, પાન અને બેંક એકાઉન્ટ લિંક કરવું.
+Operations:
+  - [update] EN: PF KYC Seeding | GU: પીએફ KYC લિંકિંગ
+      doc: 12-digit Universal Account Number (UAN) and Password
+      doc: Aadhaar Card
+      doc: PAN Card
+      doc: Bank Passbook or Cancelled Cheque with printed name
+      doc: Mobile Number linked with Aadhaar
+
+=========================================
+SOURCE #17: pf-transfer | EN: PF Online Transfer (One Member One EPF) | GU: પીએફ ટ્રાન્સફર (જૂની કંપનીમાંથી નવી કંપનીમાં)
+Category: PF / Employment (job-services)
+Desc EN: Transfer provident fund balance from previous company to current company.
+Desc GU: અગાઉની નોકરીના પીએફ બેલેન્સને ચાલુ નોકરીના પીએફ ખાતામાં ટ્રાન્સફર કરવું.
+Operations:
+  - [new] EN: Online Transfer Claim (Form 13) | GU: ઓનલાઈન પીએફ ટ્રાન્સફર
+      doc: Active UAN and Password
+      doc: Previous Member ID / Company PF Account Number
+      doc: Current Member ID
+      doc: Aadhaar linked Mobile Number for OTP
+      doc: Approved Bank KYC in current EPF account
+
+=========================================
+SOURCE #18: pf-withdrawal | EN: PF Full & Final Withdrawal | GU: પીએફ ફુલ એન્ડ ફાઇનલ ઉપાડ (Form 19 & 10C)
+Category: PF / Employment (job-services)
+Desc EN: Full PF balance and EPS pension withdrawal after leaving employment.
+Desc GU: નોકરી છોડ્યા પછી પીએફ ફંડ અને પેન્શન રકમ સંપૂર્ણ ઉપાડ.
+Operations:
+  - [new] EN: Full Settlement (Form 19 & 10C) | GU: પીએફ સંપૂર્ણ ઉપાડ
+      doc: UAN and Password
+      doc: Date of Exit (DOE) marked in EPF service history
+      doc: Aadhaar Card and PAN Card
+      doc: Bank Passbook / Cancelled Cheque showing applicant's name & IFSC
+      doc: Form 15G (if total service is under 5 years to save TDS)
+      doc: Aadhaar linked Mobile for OTP
+
+=========================================
+SOURCE #19: pf-advance | EN: PF Advance Withdrawal (Form 31) | GU: પીએફ એડવાન્સ ઉપાડ (બીમારી, લગ્ન, મકાન બાંધકામ)
+Category: PF / Employment (job-services)
+Desc EN: Non-refundable emergency advance from PF account while in service.
+Desc GU: ચાલુ નોકરી દરમિયાન ઈમરજન્સી ખર્ચ માટે પીએફમાંથી એડવાન્સ ઉપાડ.
+Operations:
+  - [new] EN: Advance Claim (Form 31) | GU: પીએફ એડવાન્સ ફોર્મ
+      doc: Active UAN & Password
+      doc: Bank Passbook or Cancelled Cheque copy
+      doc: Aadhaar Card
+      doc: Active Mobile Number for OTP
+
+=========================================
+SOURCE #20: pension-claim | EN: EPS Pension Claim (Form 10D) | GU: પીએફ માસિક પેન્શન ક્લેમ (Form 10D)
+Category: PF / Employment (job-services)
+Desc EN: Monthly pension claim under Employee Pension Scheme upon reaching 58 years.
+Desc GU: ૫૮ વર્ષની ઉંમરે અથવા નિવૃત્તિ પર માસિક સરકારી પેન્શન મેળવવાની અરજી.
+Operations:
+  - [new] EN: Monthly Pension Application (Form 10D) | GU: માસિક પેન્શન ફોર્મ
+      doc: UAN and Pension Scheme Certificate (if applicable)
+      doc: Bank Account Passbook (Joint account with spouse or single pension account)
+      doc: Passport Size Photos of Member and Spouse
+      doc: Birth Certificates of Minor Children
+      doc: Aadhaar Card and PAN Card
+
+=========================================
+SOURCE #21: pf-status | EN: PF Claim Status Check | GU: પીએફ ક્લેમ સ્ટેટસ તપાસ
+Category: PF / Employment (job-services)
+Desc EN: Live status verification for submitted PF withdrawal, transfer, or advance claims.
+Desc GU: સબમિટ કરેલા પીએફ ઉપાડ, ટ્રાન્સફર કે એડવાન્સ ક્લેમનું લાઈવ સ્ટેટસ જાણો.
+Operations:
+  - [update] EN: Track Claim Status | GU: ક્લેમ ટ્રેકિંગ
+      doc: 12-digit UAN Number
+      doc: Claim Tracking ID or Mobile Number
+
+=========================================
+SOURCE #22: pf-name-correction | EN: PF Name Correction (Joint Declaration) | GU: પીએફ ખાતામાં નામ સુધારો (જોઇન્ટ ડિક્લેરેશન)
+Category: PF / Employment (job-services)
+Desc EN: Correct spelling mistakes in employee or father name in EPFO database.
+Desc GU: પીએફ ખાતામાં કર્મચારી કે પિતાના નામની જોડણીમાં સુધારો કરવાની ઓનલાઈન સુવિધા.
+Operations:
+  - [correction] EN: Name Correction (Joint Declaration) | GU: નામ સુધારો જોઇન્ટ ડિક્લેરેશન
+      doc: Online Joint Declaration signed by Employee and Employer
+      doc: Aadhaar Card
+      doc: PAN Card
+      doc: Passport / School Leaving Certificate
+      doc: Old PF service record / appointment letter
+
+=========================================
+SOURCE #23: pf-dob-correction | EN: PF Date of Birth Correction | GU: પીએફ જન્મ તારીખ સુધારો
+Category: PF / Employment (job-services)
+Desc EN: Update incorrect date of birth on UAN portal with Aadhaar or birth certificate.
+Desc GU: પીએફ પોર્ટલ પર જન્મ તારીખ સુધારણા માટે માન્ય પુરાવા સાથે ઓનલાઈન સુધારો.
+Operations:
+  - [correction] EN: Date of Birth Correction | GU: જન્મ તારીખ સુધારો
+      doc: Aadhaar Card (valid if difference is less than 3 years)
+      doc: Birth Certificate / School Leaving Certificate / Passport (if difference > 3 years)
+      doc: Joint Declaration attested by employer
+
+=========================================
+SOURCE #24: pf-profile-update | EN: PF Profile & Basic Details Update | GU: પીએફ પ્રોફાઇલ અને બેઝિક ડિટેઇલ્સ અપડેટ
+Category: PF / Employment (job-services)
+Desc EN: Update marital status, email ID, address, and mobile number on UAN portal.
+Desc GU: પીએફ પોર્ટલમાં વૈવાહિક સ્થિતિ, સરનામું અને ઈમેઈલ અપડેટ કરવાની સુવિધા.
+Operations:
+  - [update] EN: Profile Update | GU: પ્રોફાઇલ વિગતો સુધારો
+      doc: Active UAN and Password
+      doc: Aadhaar Card
+      doc: Active Mobile Number for OTP
+      doc: Marriage Certificate (if updating marital status)
+
+=========================================
+SOURCE #25: pf-e-nomination | EN: PF E-Nomination (Digital Nominee) | GU: પીએફ ઇ-નોમિનેશન (વારસદારનું નામ ઉમેરવું)
+Category: PF / Employment (job-services)
+Desc EN: Mandatory digital nomination of family members for insurance (EDLI) and pension.
+Desc GU: પીએફ અને ₹૭ લાખ સુધીના વીમા માટે પરિવારના સભ્યોનું નામ વારસદાર તરીકે જોડવું.
+Operations:
+  - [new] EN: Add Digital Nominee | GU: વારસદાર નોંધણી
+      doc: UAN and Password
+      doc: Aadhaar Card of Nominee(s) (Spouse/Children/Parents)
+      doc: Passport Size Photo of Nominee
+      doc: Bank Account Details of Nominee (Passbook/Cheque)
+      doc: Member's Aadhaar linked Mobile for e-Sign OTP
+
+=========================================
+SOURCE #26: passport-new | EN: New Passport Application | GU: નવો પાસપોર્ટ અરજી (સામાન્ય / તત્કાલ)
+Category: Passport (online-services)
+Desc EN: Fresh 36/60 page ordinary passport application with PSK/POPSK appointment.
+Desc GU: નવા પાસપોર્ટ માટે ઓનલાઇન અરજી, ફી પેમેન્ટ અને પાસપોર્ટ કેન્દ્ર એપોઇન્ટમેન્ટ.
+Operations:
+  - [new] EN: New Passport | GU: નવો પાસપોર્ટ
+      doc: Proof of Date of Birth (Birth Certificate / School LC)
+      doc: Proof of Identity (Aadhaar Card / Voter ID / PAN Card)
+      doc: Proof of Address (Electricity bill / Bank passbook / Aadhaar)
+      doc: Standard 10th Passing Certificate (mandatory for Non-ECR status)
+
+=========================================
+SOURCE #27: passport-renewal | EN: Passport Renewal / Re-issue | GU: પાસપોર્ટ રિન્યુઅલ / રી-ઇશ્યુ
+Category: Passport (online-services)
+Desc EN: Renewal for expired or expiring passport, address change, and page exhaustion.
+Desc GU: મુદત પૂરી થયેલ પાસપોર્ટ રીન્યુઅલ અને સરનામું સુધારવા માટેની સેવા.
+Operations:
+  - [renewal] EN: Passport Re-issue / Renewal | GU: પાસપોર્ટ રિન્યુઅલ
+      doc: Old Passport (Original and self-attested copies of first and last two pages)
+      doc: Aadhaar Card
+      doc: Address Proof (if residential address has changed)
+
+=========================================
+SOURCE #28: kunvarbai-mameru | EN: Kunvarbai Nu Mameru Yojana | GU: કુંવરબાઈનું મામેરું યોજના (દીકરીના લગ્ન સહાય)
+Category: Government Services (online-services)
+Desc EN: Financial marriage assistance of ₹12,000 for daughters from eligible families.
+Desc GU: દીકરીના લગ્ન પ્રસંગે સરકાર દ્વારા ₹૧૨,૦૦૦ ની સીધી આર્થિક સહાય.
+Operations:
+  - [new] EN: Mameru Financial Assistance | GU: મામેરું યોજના ફોર્મ
+      doc: Bride's Aadhaar Card
+      doc: Groom's Aadhaar Card
+      doc: Marriage Certificate / Kankotri (Wedding Invitation Card)
+      doc: Bride's Caste Certificate
+      doc: Father/Guardian Annual Income Certificate
+      doc: Bride's Bank Passbook (Aadhaar Seeded)
+      doc: School Leaving Certificate of Bride and Groom
+
+=========================================
+SOURCE #29: driving-licence | EN: Driving Licence (Learning & Permanent) | GU: ડ્રાઇવિંગ લાયસન્સ (લર્નિંગ અને પાકું લાયસન્સ)
+Category: Transport (online-services)
+Desc EN: Two-wheeler, four-wheeler learning licence, computer test slot, and permanent licence.
+Desc GU: ટુ-વ્હીલર અને ફોર-વ્હીલર લર્નિંગ લાયસન્સ, ઓનલાઇન ટેસ્ટ સ્લોટ અને પાકું લાયસન્સ.
+Operations:
+  - [new] EN: Learning Licence (LL) | GU: લર્નિંગ લાયસન્સ
+      doc: Age Proof (Birth Certificate / School LC / 10th Marksheet / PAN Card)
+      doc: Address Proof (Aadhaar Card / Light Bill / Voter ID)
+      doc: Passport Size Photos and Signature
+      doc: Medical Certificate Form 1-A (for applicants above 40 or transport vehicles)
+  - [permanent] EN: Permanent Driving Licence (DL) | GU: પાકું ડ્રાઇવિંગ લાયસન્સ
+      doc: Valid Learning Licence Number
+      doc: Driving School Training Certificate (Form 5 for transport)
+      doc: Registered vehicle details for driving skill test
+
+=========================================
+SOURCE #30: driving-licence-renewal | EN: Driving Licence Renewal | GU: ડ્રાઇવિંગ લાયસન્સ રિન્યુઅલ
+Category: Transport (online-services)
+Desc EN: Renewal of expired driving licence, address update, and duplicate smart card.
+Desc GU: મુદત પૂરી થયેલ ડ્રાઇવિંગ લાયસન્સ રિન્યુઅલ અને સરનામું સુધારો.
+Operations:
+  - [renewal] EN: DL Renewal Application | GU: લાયસન્સ રિન્યુઅલ ફોર્મ
+      doc: Original Expired Driving Licence Card
+      doc: Form 9 Application
+      doc: Medical Certificate Form 1-A (if applicant age is above 40 years)
+      doc: Address Proof (Aadhaar Card)
+      doc: Passport Size Photographs
+
+=========================================
+SOURCE #31: sbi-scholarship | EN: SBI Asha Scholarship Program | GU: એસબીઆઈ આશા સ્કોલરશીપ પ્રોગ્રામ (SBI Foundation)
+Category: Scholarship (education-services)
+Desc EN: Merit-cum-means scholarship up to ₹7.5 Lakhs by SBI Foundation for top institutes.
+Desc GU: તેજસ્વી વિદ્યાર્થીઓ માટે એસબીઆઈ ફાઉન્ડેશન દ્વારા ઉચ્ચ શિક્ષણ શિષ્યવૃત્તિ.
+Operations:
+  - [new] EN: SBI Asha Scholarship Application | GU: એસબીઆઈ સ્કોલરશીપ ફોર્મ
+      doc: Previous Academic Year Marksheet (Minimum 75% marks)
+      doc: Identity Proof (Aadhaar Card / Pan Card)
+      doc: Current Year Admission Proof (Fee Receipt / Admission Letter / College ID)
+      doc: Family Income Certificate (Annual income less than ₹3 to ₹6 Lakhs)
+      doc: Bank Account Passbook / Cancelled Cheque of the Applicant
+
+=========================================
+SOURCE #32: food-license | EN: Food Licence (FSSAI Registration) | GU: ફૂડ લાયસન્સ (FSSAI રજીસ્ટ્રેશન / લાયસન્સ)
+Category: Business (online-services)
+Desc EN: FSSAI food safety registration for hotels, restaurants, grocery shops, and food stalls.
+Desc GU: હોટલ, કરિયાણા દુકાન, ડેરી અને ખાણીપીણીના વેપારીઓ માટે FSSAI ફૂડ લાયસન્સ.
+Operations:
+  - [new] EN: New FSSAI Registration / Licence | GU: નવું ફૂડ લાયસન્સ
+      doc: Aadhaar Card / PAN Card of Proprietor / Partner
+      doc: Passport Size Photograph
+      doc: Business Address Proof (Shop Gumastadhara / Rent Agreement)
+      doc: Electricity Bill of Business Premises
+      doc: Business Name and Food Business Category Information
+      doc: Bank-related Details (Cancelled Cheque / Bank Passbook)
+  - [renewal] EN: FSSAI Licence Renewal | GU: ફૂડ લાયસન્સ રિન્યુઅલ
+      doc: Existing 14-digit FSSAI Registration Certificate
+      doc: Aadhaar Card of Business Owner
+      doc: Latest Electricity Bill

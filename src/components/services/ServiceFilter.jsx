@@ -31,7 +31,8 @@ export default function ServiceFilter({ categories, activeCategory, onSelectCate
         }`}
       >
         <LayoutGrid size={15} />
-        <span>{language === 'gu' ? 'બધી સેવાઓ' : 'All Services'}</span>
+        <span>All Services</span>
+        <span className="text-[11px] opacity-75 font-normal">(બધી સેવાઓ)</span>
         {totalAllCount !== undefined && (
           <span
             className={`text-[11px] px-1.5 py-0.2 rounded-md font-bold ${
@@ -49,21 +50,23 @@ export default function ServiceFilter({ categories, activeCategory, onSelectCate
       {categories.map((cat) => {
         const IconComponent = ICON_MAP[cat.icon] || Globe;
         const isActive = activeCategory === cat.slug || activeCategory === cat.id;
-        const titleText = cat.title?.[language] || cat.title?.en || cat.name || cat.id;
+        const titleEn = cat.title?.en || cat.name || cat.id;
+        const titleGu = cat.title?.gu || '';
 
         return (
           <button
             key={cat.id || cat.slug}
             type="button"
             onClick={() => onSelectCategory(cat.slug || cat.id)}
-            className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
+            className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 border ${
               isActive
                 ? 'bg-[#F96400] text-white border-[#F96400] shadow-md shadow-[#F96400]/20'
                 : 'bg-white dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600'
             }`}
           >
             <IconComponent size={15} />
-            <span>{titleText}</span>
+            <span>{titleEn}</span>
+            {titleGu && <span className="text-[11px] opacity-75 font-normal font-gujarati">({titleGu})</span>}
             {cat.count !== undefined && (
               <span
                 className={`text-[11px] px-1.5 py-0.2 rounded-md font-bold ${

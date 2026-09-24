@@ -202,8 +202,8 @@ export default function AuthLayout({
                 <ShieldCheck size={20} />
               </div>
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">Smart Family ID</span>
-                <span className="text-xs sm:text-sm font-black text-[#171717] block">#HYT-FAM-8821</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 block">Smart Member ID</span>
+                <span className="text-xs sm:text-sm font-black text-[#171717] block">#HYT-MEM-8821</span>
               </div>
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping ml-1"></span>
             </motion.div>

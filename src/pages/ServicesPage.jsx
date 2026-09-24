@@ -180,30 +180,34 @@ export default function ServicesPage() {
               whileTap={{ scale: 0.94, y: 1 }}
               whileHover={{ scale: 1.04, y: -2 }}
               onClick={() => handleCategoryChange('all')}
-              className={`flex-shrink-0 px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all border ${
+              className={`flex-shrink-0 px-5 py-2.5 text-xs sm:text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-1.5 ${
                 activeCategory === 'all'
                   ? 'btn-3d-circle-active border-[#171717]'
                   : 'btn-3d-circle bg-white text-gray-700 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
               }`}
             >
-              {language === 'en' ? 'All Services' : 'બધી સેવાઓ'}
+              <span>All Services</span>
+              <span className="text-[11px] opacity-75 font-normal">(બધી સેવાઓ)</span>
             </motion.button>
             {categories.map((cat) => {
               const catKey = cat.slug || cat.id;
               const isActive = activeCategory === cat.slug || activeCategory === cat.id;
+              const titleEn = cat.title?.en || cat.name || cat.id;
+              const titleGu = cat.title?.gu || '';
               return (
                 <motion.button
                   key={catKey}
                   whileTap={{ scale: 0.94, y: 1 }}
                   whileHover={{ scale: 1.04, y: -2 }}
                   onClick={() => handleCategoryChange(catKey)}
-                  className={`flex-shrink-0 px-6 py-2.5 text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-2 ${
+                  className={`flex-shrink-0 px-5 py-2.5 text-xs sm:text-sm font-bold whitespace-nowrap transition-all border flex items-center gap-1.5 ${
                     isActive
                       ? 'btn-3d-circle-active'
                       : 'btn-3d-circle bg-white text-gray-700 border-gray-200 hover:border-[#F96400] hover:text-[#F96400]'
                   }`}
                 >
-                  {t(cat.title)}
+                  <span>{titleEn}</span>
+                  {titleGu && <span className="text-[11px] opacity-75 font-normal">({titleGu})</span>}
                 </motion.button>
               );
             })}
@@ -239,10 +243,17 @@ export default function ServicesPage() {
             {filteredCategories.map((cat) => (
               <div key={cat.slug} className="w-full">
 
-                {/* Category Header */}
+                {/* Category Header (Bilingual) */}
                 {activeCategory === 'all' && !searchQuery && (
                   <div className="flex items-center gap-3 mb-8">
-                    <h2 className="text-3xl font-black text-[#171717]">{t(cat.title)}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-black text-[#171717] flex flex-wrap items-baseline gap-2">
+                      <span>{cat.title?.en || cat.name || cat.id}</span>
+                      {cat.title?.gu && (
+                        <span className="text-xl sm:text-2xl font-bold text-[#F96400] font-gujarati">
+                          / {cat.title.gu}
+                        </span>
+                      )}
+                    </h2>
                     <div className="h-px bg-gray-200 flex-1 ml-4 hidden md:block"></div>
                   </div>
                 )}
@@ -293,9 +304,10 @@ export default function ServicesPage() {
                             {/* Gradient Vignette for Depth */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/15 pointer-events-none" />
 
-                            {/* Category Badge overlay */}
+                            {/* Category Badge overlay (Bilingual) */}
                             <div className="absolute top-3 left-3 px-3 py-1 bg-white/95 backdrop-blur-md border border-white/80 rounded-full text-[10px] font-black text-gray-800 tracking-wider uppercase shadow-md z-10">
-                              {t(svc.category || cat.title)}
+                              {cat.title?.en || cat.title || 'Service'}
+                              {cat.title?.gu && ` • ${cat.title.gu}`}
                             </div>
                           </div>
 
@@ -306,35 +318,42 @@ export default function ServicesPage() {
                               <h3 className="text-xl font-black text-[#171717] mb-0.5 group-hover:text-[#F96400] transition-colors leading-tight">
                                 {svc.title?.en || svc.rawTitle || svc.title}
                               </h3>
-                              <h4 className="text-sm font-bold text-gray-500 mb-2">
+                              <h4 className="text-sm font-bold text-[#F96400] mb-2 font-gujarati">
                                 {svc.title?.gu || svc.titleGujarati}
                               </h4>
 
-                              {/* Service Status / Feature Pills (e.g. New • Correction • Update) */}
+                              {/* Service Status / Feature Pills (Bilingual) */}
                               <div className="flex flex-wrap items-center gap-1.5 mb-3 text-[11px] font-bold text-gray-400">
                                 <span className="text-[#F96400] bg-orange-50 px-2 py-0.5 rounded-md">
-                                  {language === 'en' ? 'New' : 'નવું'}
+                                  New • નવું
                                 </span>
                                 <span>•</span>
                                 <span className="text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md">
-                                  {language === 'en' ? 'Correction' : 'સુધારો'}
+                                  Correction • સુધારો
                                 </span>
                                 <span>•</span>
                                 <span className="text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">
-                                  {language === 'en' ? 'Update' : 'અપડેટ'}
+                                  Update • અપડેટ
                                 </span>
                               </div>
 
-                              {/* Short Description */}
-                              <p className="text-sm text-gray-500 leading-relaxed line-clamp-2 mb-4">
-                                {t(svc.shortDescription)}
-                              </p>
+                              {/* Short Description (Bilingual: English + Gujarati) */}
+                              <div className="space-y-1 mb-4">
+                                <p className="text-xs sm:text-sm text-gray-600 leading-snug line-clamp-2">
+                                  {svc.shortDescription?.en || svc.rawShortDescription || (typeof svc.overview === 'string' ? svc.overview : '')}
+                                </p>
+                                {svc.shortDescription?.gu && (
+                                  <p className="text-xs text-gray-500 font-medium leading-snug line-clamp-2 font-gujarati">
+                                    {svc.shortDescription.gu}
+                                  </p>
+                                )}
+                              </div>
                             </div>
 
-                            {/* Footer / Button */}
+                            {/* Footer / Button (Bilingual) */}
                             <div className="mt-auto pt-3 border-t border-gray-100 flex items-center justify-between">
                               <span className="text-[#F96400] font-black text-sm flex items-center gap-1 group-hover:gap-2 transition-all">
-                                {language === 'en' ? 'View Details' : 'વિગતો જુઓ'} <ChevronRight size={16} />
+                                View Details / વિગતો જુઓ <ChevronRight size={16} />
                               </span>
                               <span className="text-[10px] text-gray-400 font-bold bg-gray-50 px-2 py-0.5 rounded-full">
                                 Digital India

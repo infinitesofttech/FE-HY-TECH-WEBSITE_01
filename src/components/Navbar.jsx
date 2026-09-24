@@ -154,16 +154,16 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {/* HY-Tech Smart Family Page */}
+              {/* HY-Tech Smart Member Page */}
               <NavLink 
-                to="/smart-family" 
+                to="/smart-member" 
                 className={({ isActive }) => 
                   `flex items-center gap-1.5 py-2 text-sm font-semibold transition-colors ${
                     isActive ? 'text-[#F96400]' : 'text-[#171717] hover:text-[#F96400]'
                   }`
                 }
               >
-                <span>Smart Family</span>
+                <span>Smart Member</span>
                 <span className="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-[#FFF5EE] text-[#F96400] border border-[#F96400]/20 animate-pulse">
                   NEW
                 </span>
@@ -245,9 +245,9 @@ export default function Navbar() {
             </form>
 
             <NavLink to="/" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>Home</NavLink>
-            <NavLink to="/smart-family" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>
+            <NavLink to="/smart-member" onClick={() => setIsOpen(false)} className={mobileNavLinkClass}>
               <div className="flex items-center justify-between">
-                <span>HY-Tech Smart Family</span>
+                <span>HY-Tech Smart Member</span>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#F96400] text-white">NEW</span>
               </div>
             </NavLink>

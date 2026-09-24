@@ -89,9 +89,9 @@ export default function SmartFamilySection() {
       number: '01',
       stepEn: 'Step 1',
       stepGu: 'પગલું ૧',
-      titleEn: 'Registration & Family ID Generation',
-      titleGu: 'નોંધણી અને ફેમિલી ID જનરેશન',
-      descEn: 'Register with the family head’s mobile number. A unique 10-digit Smart Family ID (#HYT-FAM-XXXX) is generated instantly.',
+      titleEn: 'Registration & Smart Member ID Generation',
+      titleGu: 'નોંધણી અને સ્માર્ટ મેમ્બર ID જનરેશન',
+      descEn: 'Register with your mobile number. A unique 10-digit Smart Member ID (#HYT-MEM-XXXX) is generated instantly.',
       descGu: 'પરિવારના મોભીના મોબાઇલ નંબર સાથે ફ્રી રજીસ્ટ્રેશન કરો. તરત જ યુનિક ૧૦-અંકનું ફેમિલી આઈડી પ્રાપ્ત થશે.',
       icon: Smartphone,
       detailBadgeEn: 'Takes 60 seconds',
@@ -171,7 +171,7 @@ export default function SmartFamilySection() {
               
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-[#F96400] border border-white/15 backdrop-blur-md">
                 <Sparkles size={14} className="animate-pulse" />
-                <span>HY-Tech Smart Family Ecosystem</span>
+                <span>HY-Tech Smart Member Ecosystem</span>
               </div>
 
               <motion.div
@@ -269,7 +269,7 @@ export default function SmartFamilySection() {
                         HY
                       </div>
                       <div>
-                        <p className="text-[11px] font-black tracking-widest text-[#F96400] uppercase">HY-TECH SMART FAMILY</p>
+                        <p className="text-[11px] font-black tracking-widest text-[#F96400] uppercase">HY-TECH SMART MEMBER</p>
                         <p className="text-[9px] text-gray-400">Digital Citizen Pass</p>
                       </div>
                     </div>
@@ -281,8 +281,8 @@ export default function SmartFamilySection() {
                   {/* Family ID & Details */}
                   <div className="space-y-4">
                     <div>
-                      <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Family ID Number</p>
-                      <p className="text-xl sm:text-2xl font-black text-white tracking-widest font-mono">HYT-FAM-8821</p>
+                      <p className="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Member ID Number</p>
+                      <p className="text-xl sm:text-2xl font-black text-white tracking-widest font-mono">HYT-MEM-8821</p>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 bg-white/5 p-3.5 rounded-2xl border border-white/5">
@@ -333,7 +333,7 @@ export default function SmartFamilySection() {
               <Award size={13} /> Exclusive Household Advantages
             </span>
             <h3 className="text-3xl md:text-4xl font-black text-[#111111] tracking-tight mb-3">
-              Why 10,000+ Families Choose HY-Tech Smart Family
+              Why Citizens Choose HY-Tech Smart Member
             </h3>
             <p className="text-sm md:text-base text-gray-600 leading-relaxed">
               Designed specifically for families in Dharampur to make administrative, educational, and government tasks 100% stress-free.

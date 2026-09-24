@@ -15,7 +15,7 @@ const serviceLinks = [
 
 const quickLinks = [
   { name: 'Home', path: '/' },
-  { name: 'HY-Tech Smart Family (New)', path: '/smart-family' },
+  { name: 'HY-Tech Smart Member (New)', path: '/smart-member' },
   { name: 'All Services (30+)', path: '/services' },
   { name: 'About HY-Tech Hub', path: '/about' },
   { name: 'Contact & Location', path: '/contact' },

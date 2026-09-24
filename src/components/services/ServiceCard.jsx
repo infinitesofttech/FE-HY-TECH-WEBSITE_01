@@ -97,28 +97,38 @@ export default function ServiceCard({ service, onSelect, index }) {
       <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
         <div>
           {/* Main Title */}
+          {/* Main Title (English) */}
           <h3 className="font-bold text-base sm:text-lg text-neutral-900 dark:text-neutral-100 group-hover:text-[#F96400] dark:group-hover:text-[#F96400] transition-colors leading-snug line-clamp-1">
-            {displayTitle}
+            {titleEn}
           </h3>
 
-          {/* Secondary Title (Bilingual Translation) */}
-          {secondaryTitle && (
-            <p className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mt-0.5 line-clamp-1 font-gujarati">
-              {secondaryTitle}
+          {/* Secondary Title (Gujarati Translation) */}
+          {titleGu && titleGu !== titleEn && (
+            <p className="text-xs font-bold text-[#F96400] mt-0.5 line-clamp-1 font-gujarati">
+              {titleGu}
             </p>
           )}
 
-          {/* Short Description */}
-          <p className="text-xs text-neutral-600 dark:text-neutral-300 mt-2.5 line-clamp-2 leading-relaxed">
-            {displayDesc}
-          </p>
+          {/* Short Description (Bilingual: English + Gujarati) */}
+          <div className="mt-2.5 space-y-1">
+            {descEn && (
+              <p className="text-xs text-neutral-600 dark:text-neutral-300 line-clamp-2 leading-relaxed">
+                {descEn}
+              </p>
+            )}
+            {descGu && descGu !== descEn && (
+              <p className="text-[11px] text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed font-gujarati">
+                {descGu}
+              </p>
+            )}
+          </div>
 
-          {/* Quick Checklist Teaser */}
+          {/* Quick Checklist Teaser (Bilingual) */}
           {Array.isArray(service.requiredDocuments) && service.requiredDocuments.length > 0 && (
             <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800">
               <p className="text-[11px] font-semibold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-1.5 flex items-center gap-1">
                 <CheckCircle2 size={12} className="text-emerald-500" />
-                {language === 'gu' ? 'જરૂરી પુરાવા:' : 'Key Documents:'}
+                Key Documents / જરૂરી પુરાવા:
               </p>
               <div className="flex flex-wrap gap-1">
                 {service.requiredDocuments.slice(0, 3).map((doc, i) => (
@@ -145,7 +155,7 @@ export default function ServiceCard({ service, onSelect, index }) {
             type="button"
             className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 text-xs font-semibold text-[#F96400] bg-[#F96400]/10 hover:bg-[#F96400] hover:text-white rounded-xl transition-all duration-200"
           >
-            <span>{language === 'gu' ? 'વિગત જુઓ' : 'View Details'}</span>
+            <span>View Details / વિગત જુઓ</span>
             <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
 

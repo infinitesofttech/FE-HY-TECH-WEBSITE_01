@@ -26,8 +26,11 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/smart-family" element={<SmartFamilyPage />} />
-          <Route path="/smartfamily" element={<Navigate to="/smart-family" replace />} />
-          <Route path="/family-id" element={<Navigate to="/smart-family" replace />} />
+          <Route path="/smart-member" element={<SmartFamilyPage />} />
+          <Route path="/smartfamily" element={<Navigate to="/smart-member" replace />} />
+          <Route path="/smartmember" element={<Navigate to="/smart-member" replace />} />
+          <Route path="/family-id" element={<Navigate to="/smart-member" replace />} />
+          <Route path="/member-id" element={<Navigate to="/smart-member" replace />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:slug" element={<ServiceDetails />} />
           

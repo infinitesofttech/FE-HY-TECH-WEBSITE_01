@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
+import { getBilingualText } from '../data/translationsDictionary';
 import { Link } from 'react-router-dom';
 
 import ServiceOperations from './services/ServiceOperations';
@@ -46,14 +47,14 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   if (!isOpen || !service) return null;
 
   const tabs = [
-    { id: 'all', label: language === 'en' ? 'All Sections' : 'બધા વિભાગો', icon: Layers },
-    { id: 'overview', label: language === 'en' ? '1. Overview' : '૧. વિહંગાવલોકન', icon: Info },
-    { id: 'new-app', label: language === 'en' ? '2. New Application' : '૨. નવી અરજી', icon: Sparkles },
-    { id: 'correction', label: language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ', icon: Edit3 },
-    { id: 'documents', label: language === 'en' ? '4. Required Documents' : '૪. જરૂરી પુરાવા', icon: FileText },
-    { id: 'eligibility', label: language === 'en' ? '5. Eligibility' : '૫. પાત્રતા', icon: ShieldCheck },
-    { id: 'process', label: language === 'en' ? '6. Process' : '૬. પ્રક્રિયા', icon: Clock },
-    { id: 'notes', label: language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ', icon: AlertCircle },
+    { id: 'all', labelEn: 'All Sections', labelGu: 'બધા વિભાગો', icon: Layers },
+    { id: 'overview', labelEn: '1. Overview', labelGu: '૧. વિહંગાવલોકન', icon: Info },
+    { id: 'new-app', labelEn: '2. New Application', labelGu: '૨. નવી અરજી', icon: Sparkles },
+    { id: 'correction', labelEn: '3. Correction & Update', labelGu: '૩. સુધારો / અપડેટ', icon: Edit3 },
+    { id: 'documents', labelEn: '4. Required Documents', labelGu: '૪. જરૂરી પુરાવા', icon: FileText },
+    { id: 'eligibility', labelEn: '5. Eligibility', labelGu: '૫. પાત્રતા', icon: ShieldCheck },
+    { id: 'process', labelEn: '6. Process', labelGu: '૬. પ્રક્રિયા', icon: Clock },
+    { id: 'notes', labelEn: '7. Important Notes', labelGu: '૭. મહત્વપૂર્ણ નોંધ', icon: AlertCircle },
   ];
 
   const visualUrl = service.image || getServiceVisual(service.slug, service.categoryId);
@@ -89,6 +90,12 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
 
   const titleText = service.title?.en || service.rawTitle || service.title;
   const titleGuText = service.title?.gu || service.titleGujarati;
+
+  const categoryEn = typeof service.category === 'string' ? service.category : (service.category?.en || service.rawCategory || 'Service');
+  const categoryGu = typeof service.category === 'object' ? service.category?.gu : '';
+
+  const shortDescEn = service.shortDescription?.en || service.rawShortDescription || (typeof service.overview === 'string' ? service.overview : service.overview?.en) || '';
+  const shortDescGu = service.shortDescription?.gu || service.overview?.gu || '';
 
   return (
     <AnimatePresence>
@@ -166,15 +173,15 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                 </div>
               </div>
 
-              {/* Title & Info */}
+              {/* Title & Info (Bilingual Topic & Content) */}
               <div className="flex-1 text-center sm:text-left">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 mb-2.5">
                   <span className="px-2.5 py-0.5 rounded-full bg-[#F96400]/20 border border-[#F96400]/40 text-[#F96400] text-xs font-black uppercase tracking-wider">
-                    {t(service.category) || service.rawCategory || 'Service'}
+                    {categoryEn} {categoryGu && `• ${categoryGu}`}
                   </span>
                   <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-xs font-bold flex items-center gap-1">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                    {language === 'en' ? 'Active Service' : 'સક્રિય સેવા'}
+                    Active Service • સક્રિય સેવા
                   </span>
                 </div>
 
@@ -182,20 +189,29 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                   {titleText}
                 </h2>
                 {titleGuText && (
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-400 mt-0.5 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-orange-400 mt-0.5 mb-3 font-gujarati">
                     {titleGuText}
                   </h3>
                 )}
 
-                <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 max-w-xl font-medium leading-relaxed">
-                  {t(service.shortDescription) || service.overview}
-                </p>
+                <div className="space-y-1 max-w-xl">
+                  {shortDescEn && (
+                    <p className="text-xs sm:text-sm text-gray-200 line-clamp-2 font-medium leading-relaxed">
+                      {shortDescEn}
+                    </p>
+                  )}
+                  {shortDescGu && (
+                    <p className="text-xs sm:text-sm text-gray-300 line-clamp-2 font-medium leading-relaxed font-gujarati">
+                      {shortDescGu}
+                    </p>
+                  )}
+                </div>
               </div>
 
             </div>
           </div>
 
-          {/* Navigation Tabs Bar */}
+          {/* Navigation Tabs Bar (Bilingual) */}
           <div className="bg-gray-50 border-b border-gray-200 px-4 sm:px-8 py-2.5 flex items-center gap-1.5 overflow-x-auto hide-scrollbar flex-shrink-0">
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -211,7 +227,10 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                   }`}
                 >
                   <Icon size={14} className={isActive ? 'text-[#F96400]' : 'text-gray-400'} />
-                  <span>{tab.label}</span>
+                  <div className="flex flex-col text-left">
+                    <span className="leading-tight">{tab.labelEn}</span>
+                    <span className="text-[10px] opacity-75 font-semibold leading-tight">{tab.labelGu}</span>
+                  </div>
                 </button>
               );
             })}
@@ -220,13 +239,15 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
           {/* Tab Content Area */}
           <div className="p-6 sm:p-8 overflow-y-auto flex-1 text-gray-800 space-y-8">
             
-            {/* 1. OVERVIEW SECTION */}
+            {/* 1. OVERVIEW SECTION (Bilingual Topic & Content) */}
             {(activeTab === 'all' || activeTab === 'overview') && (
               <section className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                     <Info size={20} className="text-[#F96400]" />
-                    {language === 'en' ? '1. Overview' : '૧. વિહંગાવલોકન'}
+                    <span>1. Overview</span>
+                    <span className="text-gray-400 font-normal">/</span>
+                    <span className="text-[#F96400]">૧. વિહંગાવલોકન</span>
                   </h3>
                   {service.officialWebsite && (
                     <a
@@ -236,32 +257,45 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-[#F96400] bg-orange-50 hover:bg-orange-100 transition-colors border border-orange-200"
                     >
                       <Globe size={13} />
-                      <span>{language === 'en' ? 'Official Portal' : 'સત્તાવાર પોર્ટલ'}</span>
+                      <span>Official Portal / પોર્ટલ</span>
                       <ExternalLink size={12} />
                     </a>
                   )}
                 </div>
 
-                <div className="bg-gray-50 p-5 rounded-2xl border border-gray-200/80 leading-relaxed text-sm sm:text-base text-gray-700">
-                  {t(service.overview) || t(service.shortDescription)}
+                <div className="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-200/80 leading-relaxed text-sm sm:text-base space-y-3">
+                  <p className="text-gray-800 font-medium">
+                    {service.overview?.en || service.shortDescription?.en || service.rawShortDescription || (typeof service.overview === 'string' ? service.overview : '')}
+                  </p>
+                  {(service.overview?.gu || service.shortDescription?.gu) && (
+                    <p className="text-gray-600 font-medium text-sm pt-2 border-t border-gray-200/70 font-gujarati">
+                      {service.overview?.gu || service.shortDescription?.gu}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div className="p-4 rounded-2xl bg-orange-50/70 border border-orange-100">
                     <p className="text-xs font-bold text-[#F96400] uppercase tracking-wider mb-1">
-                      {language === 'en' ? 'Facility Available' : 'ઉપલબ્ધ સુવિધા'}
+                      Facility Available / ઉપલબ્ધ સુવિધા
                     </p>
                     <p className="text-sm font-extrabold text-[#171717]">
-                      {language === 'en' ? 'Direct Counter Assistance & Online Filing' : 'કાઉન્ટર સહાય અને ઓનલાઈન ફાઈલિંગ'}
+                      Direct Counter Assistance & Online Filing
+                    </p>
+                    <p className="text-xs text-gray-500 font-medium mt-0.5 font-gujarati">
+                      કાઉન્ટર સહાય અને ઓનલાઈન ફાઈલિંગ સુવિધા
                     </p>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-100">
                     <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">
-                      {language === 'en' ? 'Center Location' : 'સેન્ટર સ્થળ'}
+                      Center Location / સેન્ટર સ્થળ
                     </p>
                     <p className="text-sm font-extrabold text-[#171717]">
                       College Road, Dharampur - 396050
+                    </p>
+                    <p className="text-xs text-gray-500 font-medium mt-0.5 font-gujarati">
+                      કોલેજ રોડ, ધરમપુર - ૩૯૬૦૫૦
                     </p>
                   </div>
                 </div>
@@ -273,132 +307,196 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
               <ServiceOperations service={service} />
             ) : (
               <>
-                {/* 2. NEW APPLICATION SECTION */}
+                {/* 2. NEW APPLICATION SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'new-app') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <Sparkles size={20} className="text-[#F96400]" />
-                      {language === 'en' ? '2. New Application' : '૨. નવી અરજી'}
+                      <span>2. New Application</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-[#F96400]">૨. નવી અરજી</span>
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                      {language === 'en' ? 'Requirements and documentation checklist for fresh applications:' : 'નવી અરજી માટે જરૂરી બાબતો અને દસ્તાવેજો:'}
+                      Checklist for fresh application submission
+                      <span className="block text-gray-400 font-gujarati">નવી અરજી માટે જરૂરી બાબતો અને દસ્તાવેજો:</span>
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {newAppList.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                          <div className="w-5 h-5 rounded-full bg-orange-100 text-[#F96400] flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <CheckCircle2 size={13} />
+                      {newAppList.map((item, idx) => {
+                        const { en, gu } = getBilingualText(item);
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                            <div className="w-5 h-5 rounded-full bg-orange-100 text-[#F96400] flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <CheckCircle2 size={13} />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm font-bold text-gray-800 leading-snug">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-[#F96400] font-semibold mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
                           </div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </section>
                 )}
 
-                {/* 3. CORRECTION / UPDATE SECTION */}
+                {/* 3. CORRECTION / UPDATE SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'correction') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <Edit3 size={20} className="text-[#F96400]" />
-                      {language === 'en' ? '3. Correction / Update' : '૩. સુધારો / અપડેટ'}
+                      <span>3. Correction & Update</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-[#F96400]">૩. સુધારો / અપડેટ</span>
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                      {language === 'en' ? 'Documents and procedures for correction, update, renewal or re-issue:' : 'નામ, સરનામું, સુધારો કે રિન્યુઅલ માટેની પ્રક્રિયા:'}
+                      Procedures and requirements for correction or renewal
+                      <span className="block text-gray-400 font-gujarati">નામ, સરનામું, સુધારો કે રિન્યુઅલ માટેની પ્રક્રિયા:</span>
                     </p>
                     <div className="space-y-2.5">
-                      {correctionList.map((item, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                          <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Edit3 size={13} />
+                      {correctionList.map((item, idx) => {
+                        const { en, gu } = getBilingualText(item);
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                            <div className="w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <Edit3 size={13} />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm font-bold text-gray-800 leading-snug">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-blue-600 font-semibold mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
                           </div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(item)}</span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </section>
                 )}
 
-                {/* 4. REQUIRED DOCUMENTS SECTION */}
+                {/* 4. REQUIRED DOCUMENTS SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'documents') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <FileText size={20} className="text-[#F96400]" />
-                      {language === 'en' ? '4. Required Documents' : '૪. જરૂરી દસ્તાવેજો'}
+                      <span>4. Required Documents Checklist</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-[#F96400]">૪. જરૂરી દસ્તાવેજોની યાદી</span>
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                      {language === 'en' ? 'Clear checklist of papers to bring along:' : 'સાથે લાવવાના જરૂરી મૂળ અને નકલ પુરાવાઓ:'}
+                      Clear checklist of papers to bring along
+                      <span className="block text-gray-400 font-gujarati">સાથે લાવવાના જરૂરી મૂળ અને નકલ પુરાવાઓ:</span>
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {docsList.map((doc, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-[#F96400] transition-colors">
-                          <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <CheckCircle2 size={14} />
+                      {docsList.map((doc, idx) => {
+                        const { en, gu } = getBilingualText(doc);
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-[#F96400] transition-colors">
+                            <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <CheckCircle2 size={14} />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm font-bold text-gray-800 leading-snug">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-emerald-700 font-semibold mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
                           </div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(doc)}</span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </section>
                 )}
 
-                {/* 5. ELIGIBILITY SECTION */}
+                {/* 5. ELIGIBILITY SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'eligibility') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <ShieldCheck size={20} className="text-[#F96400]" />
-                      {language === 'en' ? '5. Eligibility' : '૫. પાત્રતા'}
+                      <span>5. Eligibility Criteria</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-blue-600">૫. પાત્રતા અને શરતો</span>
                     </h3>
                     <div className="space-y-2.5">
-                      {eligibilityList.map((crit, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                          <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <ShieldCheck size={13} />
+                      {eligibilityList.map((crit, idx) => {
+                        const { en, gu } = getBilingualText(crit);
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                            <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <ShieldCheck size={13} />
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm font-bold text-gray-800 leading-snug">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-emerald-700 font-semibold mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
                           </div>
-                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(crit)}</span>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </section>
                 )}
 
-                {/* 6. PROCESS SECTION */}
+                {/* 6. PROCESS SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'process') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <Clock size={20} className="text-[#F96400]" />
-                      {language === 'en' ? '6. Process' : '૬. પ્રક્રિયા'}
+                      <span>6. Step-by-Step Process</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-purple-600">૬. અરજી પ્રક્રિયા (પગલાંવાર)</span>
                     </h3>
                     <p className="text-xs sm:text-sm text-gray-500 font-medium">
-                      {language === 'en' ? 'Step-by-step facilitation workflow:' : 'પગલાંવાર ઓનલાઈન અને ઓફલાઈન પ્રક્રિયા:'}
+                      Step-by-step facilitation workflow
+                      <span className="block text-gray-400 font-gujarati">પગલાંવાર ઓનલાઈન અને ઓફલાઈન પ્રક્રિયા:</span>
                     </p>
                     <div className="space-y-2.5">
-                      {processList.map((step, idx) => (
-                        <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
-                          <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
-                            {idx + 1}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-gray-800 leading-relaxed">{t(step)}</span>
-                        </div>
-                      ))}
+                      {processList.map((step, idx) => {
+                        const { en, gu } = getBilingualText(step);
+                        return (
+                          <div key={idx} className="flex items-start gap-3.5 p-3.5 rounded-xl bg-gray-50 border border-gray-200/80">
+                            <span className="w-6 h-6 rounded-full bg-[#171717] text-white text-xs font-black flex items-center justify-center flex-shrink-0 mt-0.5">
+                              {idx + 1}
+                            </span>
+                            <div className="flex flex-col">
+                              <span className="text-xs sm:text-sm font-bold text-gray-800 leading-snug">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-gray-600 font-medium mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </section>
                 )}
 
-                {/* 7. IMPORTANT NOTES SECTION */}
+                {/* 7. IMPORTANT NOTES SECTION (Bilingual) */}
                 {(activeTab === 'all' || activeTab === 'notes') && (
                   <section className="space-y-3 pt-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex items-center gap-2">
+                    <h3 className="text-lg sm:text-xl font-black text-[#171717] flex flex-wrap items-center gap-2">
                       <AlertCircle size={20} className="text-amber-600" />
-                      {language === 'en' ? '7. Important Notes' : '૭. મહત્વપૂર્ણ નોંધ'}
+                      <span>7. Important Notes & Advisory</span>
+                      <span className="text-gray-400 font-normal">/</span>
+                      <span className="text-amber-700">૭. મહત્વપૂર્ણ નોંધ અને સૂચનાઓ</span>
                     </h3>
                     <div className="space-y-2.5">
-                      {notesList.map((note, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 leading-relaxed text-xs sm:text-sm font-medium">
-                          <AlertCircle size={17} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                          <span>{t(note)}</span>
-                        </div>
-                      ))}
+                      {notesList.map((note, idx) => {
+                        const { en, gu } = getBilingualText(note);
+                        return (
+                          <div key={idx} className="flex items-start gap-3 p-4 rounded-xl bg-amber-50/80 border border-amber-200 text-amber-950 leading-relaxed text-xs sm:text-sm font-medium">
+                            <AlertCircle size={17} className="text-amber-600 flex-shrink-0 mt-0.5" />
+                            <div className="flex flex-col">
+                              <span className="font-semibold">{en}</span>
+                              {gu && gu !== en && (
+                                <span className="text-xs text-amber-800 font-medium mt-0.5 font-gujarati">{gu}</span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
                     </div>
                   </section>
                 )}
@@ -415,7 +513,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
               className="text-xs sm:text-sm font-bold text-gray-600 hover:text-[#171717] flex items-center gap-1.5 transition-colors"
             >
               <ExternalLink size={15} />
-              {language === 'en' ? 'Open Full Dedicated Page' : 'સંપૂર્ણ પેજ જુઓ'}
+              Open Dedicated Page / સંપૂર્ણ પેજ જુઓ
             </Link>
 
             <div className="flex items-center gap-2.5 w-full sm:w-auto">
@@ -427,7 +525,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                   className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all flex items-center gap-1.5"
                 >
                   <Globe size={14} />
-                  <span>{language === 'en' ? 'Portal' : 'પોર્ટલ'}</span>
+                  <span>Portal / પોર્ટલ</span>
                 </a>
               )}
 
@@ -435,7 +533,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                 onClick={onClose}
                 className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all cursor-pointer"
               >
-                {language === 'en' ? 'Close' : 'બંધ કરો'}
+                Close / બંધ કરો
               </button>
 
               <a
@@ -445,7 +543,7 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                 className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white text-xs sm:text-sm font-black flex items-center justify-center gap-2 shadow-sm transition-all"
               >
                 <MessageCircle size={16} />
-                <span>{language === 'en' ? 'WhatsApp Desk' : 'વોટ્સએપ સહાય'}</span>
+                <span>WhatsApp Desk / વોટ્સએપ સહાય</span>
               </a>
             </div>
           </div>
