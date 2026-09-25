@@ -58,7 +58,7 @@ export const utilityServices = [
     title: 'Electricity Bill Payment',
     titleGujarati: 'લાઇટ બિલ (DGVCL / Torrent)',
     icon: 'Zap',
-    image: '/images/services/bill-payment.webp',
+    image: '/images/services/electricity-bill-payment.webp',
     shortDescription: 'Instant payment with digital receipt for DGVCL and state discoms.',
     overview: UTILITY_OVERVIEW,
     newApplication: [
@@ -225,7 +225,7 @@ export const utilityServices = [
     title: 'Online Form Assistance',
     titleGujarati: 'કોઈપણ ઓનલાઈન ફોર્મ સહાય',
     icon: 'FileSpreadsheet',
-    image: '/images/services/money-transfer.webp',
+    image: '/images/services/online-form-assistance.webp',
     shortDescription: 'Expert assistance for any central, state, or private online portal.',
     overview: 'General computer desk support for filing complex forms, correcting portal errors, and PDF document formatting.',
     newApplication: [

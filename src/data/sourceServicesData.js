@@ -20,7 +20,7 @@ export const sourceServicesData = [
     },
     title: "Election Card",
     titleGujarati: "ચુંટણી કાર્ડ",
-    image: "/images/services/voter-id.webp",
+    image: "/images/services/election-card.webp",
     shortDescription: {
       en: "New voter registration, birth date correction, address change, and name update.",
       gu: "નવું ચુંટણી કાર્ડ, જન્મ તારીખ સુધારો, સરનામું ફેરફાર અને પતિના નામે કાર્ડ."
@@ -95,7 +95,7 @@ export const sourceServicesData = [
     },
     title: "Aadhaar Card",
     titleGujarati: "આધાર કાર્ડ",
-    image: "/images/services/aadhaar.webp",
+    image: "/images/services/aadhaar-card.webp",
     shortDescription: {
       en: "New Aadhaar enrolment, biometric update, address change, and mobile linking.",
       gu: "નવું આધાર કાર્ડ, બાયોમેટ્રિક અપડેટ, સરનામું સુધારો અને મોબાઈલ લિંકિંગ."
@@ -226,7 +226,7 @@ export const sourceServicesData = [
     },
     title: "ABHA Card",
     titleGujarati: "આભા કાર્ડ",
-    image: "/images/services/ayushman-card.webp",
+    image: "/images/services/abha-card.webp",
     shortDescription: {
       en: "Ayushman Bharat Health Account 14-digit digital health ID card.",
       gu: "આયુષ્માન ભારત ૧૪-અંકનું ડિજિટલ હેલ્થ ઓળખપત્ર."
@@ -336,7 +336,7 @@ export const sourceServicesData = [
     },
     title: "Ration Card KYC",
     titleGujarati: "રેશન કાર્ડ KYC",
-    image: "/images/services/income-certificate.webp",
+    image: "/images/services/ration-card.webp",
     shortDescription: {
       en: "Mandatory Aadhaar e-KYC seeding, member addition, and name deletion.",
       gu: "રેશનકાર્ડ આધાર e-KYC લિંકિંગ, નવા સભ્યનું નામ ઉમેરવું અથવા કમી કરવું."
@@ -401,7 +401,7 @@ export const sourceServicesData = [
     },
     title: "Awas Yojana",
     titleGujarati: "આવાસ યોજના",
-    image: "/images/services/government-job.webp",
+    image: "/images/services/awas-yojana.webp",
     shortDescription: {
       en: "Housing subsidy assistance for pucca house construction.",
       gu: "પાકા મકાન બાંધકામ સહાય અને આવાસ સબસિડી માટે ઓનલાઈન અરજી."
@@ -451,7 +451,7 @@ export const sourceServicesData = [
     },
     title: "Udyam Registration",
     titleGujarati: "ઉદ્યમ રજીસ્ટ્રેશન",
-    image: "/images/services/basic-computer.webp",
+    image: "/images/services/udyam-registration.webp",
     shortDescription: {
       en: "Official government MSME registration certificate for small businesses and shops.",
       gu: "વેપારીઓ, દુકાનદારો અને લઘુ ઉદ્યોગો માટે સરકારી MSME પ્રમાણપત્ર."
@@ -507,7 +507,7 @@ export const sourceServicesData = [
     },
     title: "New Registration",
     titleGujarati: "નવું રજીસ્ટ્રેશન",
-    image: "/images/services/document-printing.webp",
+    image: "/images/services/citizen-portal-registration.webp",
     shortDescription: {
       en: "Digital Gujarat, e-Nagar, and Government service portal registration.",
       gu: "ડિજિટલ ગુજરાત, ઇ-નગર અને વિવિધ સરકારી સેવા પોર્ટલ એકાઉન્ટ રજીસ્ટ્રેશન."
@@ -612,7 +612,7 @@ export const sourceServicesData = [
     },
     title: "Jawahar Navodaya Yojana",
     titleGujarati: "જવાહર નવોદય યોજના",
-    image: "/images/services/hostel-admission.webp",
+    image: "/images/services/navodaya-admission.webp",
     shortDescription: {
       en: "Class 6 & 9 Navodaya Vidyalaya free residential school entrance form.",
       gu: "નવોદય વિદ્યાલય મફત નિવાસી શાળા પ્રવેશ પરીક્ષા ફોર્મ."
@@ -778,7 +778,7 @@ export const sourceServicesData = [
     },
     title: "I.C. / Education Form",
     titleGujarati: "શૈક્ષણિક ફોર્મ",
-    image: "/images/services/college-exam-renewal.webp",
+    image: "/images/services/education-exam-services.webp",
     shortDescription: {
       en: "University exam form, enrollment verification, and duplicate marksheet requests.",
       gu: "યુનિવર્સિટી પરીક્ષા ફોર્મ, એનરોલમેન્ટ અને માર્કશીટ ચકાસણી."
@@ -823,7 +823,7 @@ export const sourceServicesData = [
     },
     title: "Bus Pass Form",
     titleGujarati: "બસ પાસ ફોર્મ",
-    image: "/images/services/bus-ticket.webp",
+    image: "/images/services/bus-pass-new.webp",
     shortDescription: {
       en: "Discounted Gujarat State Road Transport (ST) bus pass for daily commuting students.",
       gu: "રોજિંદી મુસાફરી કરતા વિદ્યાર્થીઓ માટે એસ.ટી. બસ કન્સેશન પાસ."
@@ -878,7 +878,7 @@ export const sourceServicesData = [
     },
     title: "PF KYC",
     titleGujarati: "પીએફ KYC",
-    image: "/images/services/bank-recruitment.webp",
+    image: "/images/services/pf-kyc.webp",
     shortDescription: {
       en: "Aadhaar, PAN, and Bank Account KYC linking to UAN portal.",
       gu: "પીએફ ખાતામાં આધાર, પાન અને બેંક એકાઉન્ટ લિંક કરવું."
@@ -925,7 +925,7 @@ export const sourceServicesData = [
     },
     title: "PF Transfer",
     titleGujarati: "પીએફ ટ્રાન્સફર",
-    image: "/images/services/apprentice-recruitment.webp",
+    image: "/images/services/pf-transfer.webp",
     shortDescription: {
       en: "Transfer provident fund balance from previous company to current company.",
       gu: "અગાઉની નોકરીના પીએફ બેલેન્સને ચાલુ નોકરીના પીએફ ખાતામાં ટ્રાન્સફર કરવું."
@@ -972,7 +972,7 @@ export const sourceServicesData = [
     },
     title: "PF Withdrawal",
     titleGujarati: "પીએફ ઉપાડ",
-    image: "/images/services/money-transfer.webp",
+    image: "/images/services/pf-withdrawal.webp",
     shortDescription: {
       en: "Full PF balance and EPS pension withdrawal after leaving employment.",
       gu: "નોકરી છોડ્યા પછી પીએફ ફંડ અને પેન્શન રકમ સંપૂર્ણ ઉપાડ."
@@ -1020,7 +1020,7 @@ export const sourceServicesData = [
     },
     title: "PF Advance",
     titleGujarati: "પીએફ એડવાન્સ",
-    image: "/images/services/bank-recruitment.webp",
+    image: "/images/services/pf-advance.webp",
     shortDescription: {
       en: "Non-refundable emergency advance from PF account while in service.",
       gu: "ચાલુ નોકરી દરમિયાન ઈમરજન્સી ખર્ચ માટે પીએફમાંથી એડવાન્સ ઉપાડ."
@@ -1065,7 +1065,7 @@ export const sourceServicesData = [
     },
     title: "Pension Claim",
     titleGujarati: "પેન્શન ક્લેમ",
-    image: "/images/services/government-job.webp",
+    image: "/images/services/pf-pension-claim.webp",
     shortDescription: {
       en: "Monthly pension claim under Employee Pension Scheme upon reaching 58 years.",
       gu: "૫૮ વર્ષની ઉંમરે અથવા નિવૃત્તિ પર માસિક સરકારી પેન્શન મેળવવાની અરજી."
@@ -1112,7 +1112,7 @@ export const sourceServicesData = [
     },
     title: "PF Claim Status Check",
     titleGujarati: "પીએફ સ્ટેટસ તપાસ",
-    image: "/images/services/document-printing.webp",
+    image: "/images/services/pf-claim-status.webp",
     shortDescription: {
       en: "Live status verification for submitted PF withdrawal, transfer, or advance claims.",
       gu: "સબમિટ કરેલા પીએફ ઉપાડ, ટ્રાન્સફર કે એડવાન્સ ક્લેમનું લાઈવ સ્ટેટસ જાણો."
@@ -1154,7 +1154,7 @@ export const sourceServicesData = [
     },
     title: "PF Name Correction",
     titleGujarati: "પીએફ નામ સુધારો",
-    image: "/images/services/clerk-recruitment.webp",
+    image: "/images/services/pf-name-correction.webp",
     shortDescription: {
       en: "Correct spelling mistakes in employee or father name in EPFO database.",
       gu: "પીએફ ખાતામાં કર્મચારી કે પિતાના નામની જોડણીમાં સુધારો કરવાની ઓનલાઈન સુવિધા."
@@ -1200,7 +1200,7 @@ export const sourceServicesData = [
     },
     title: "PF Date of Birth Correction",
     titleGujarati: "પીએફ જન્મ તારીખ સુધારો",
-    image: "/images/services/birth-certificate.webp",
+    image: "/images/services/pf-dob-correction.webp",
     shortDescription: {
       en: "Update incorrect date of birth on UAN portal with Aadhaar or birth certificate.",
       gu: "પીએફ પોર્ટલ પર જન્મ તારીખ સુધારણા માટે માન્ય પુરાવા સાથે ઓનલાઈન સુધારો."
@@ -1245,7 +1245,7 @@ export const sourceServicesData = [
     },
     title: "PF Profile Update",
     titleGujarati: "પીએફ પ્રોફાઇલ અપડેટ",
-    image: "/images/services/resume-cv.webp",
+    image: "/images/services/pf-profile-update.webp",
     shortDescription: {
       en: "Update marital status, email ID, address, and mobile number on UAN portal.",
       gu: "પીએફ પોર્ટલમાં વૈવાહિક સ્થિતિ, સરનામું અને ઈમેઈલ અપડેટ કરવાની સુવિધા."
@@ -1290,7 +1290,7 @@ export const sourceServicesData = [
     },
     title: "PF E-Nomination",
     titleGujarati: "પીએફ ઇ-નોમિનેશન",
-    image: "/images/services/police-recruitment.webp",
+    image: "/images/services/pf-e-nomination.webp",
     shortDescription: {
       en: "Mandatory digital nomination of family members for insurance (EDLI) and pension.",
       gu: "પીએફ અને ₹૭ લાખ સુધીના વીમા માટે પરિવારના સભ્યોનું નામ વારસદાર તરીકે જોડવું."
@@ -1385,7 +1385,7 @@ export const sourceServicesData = [
     },
     title: "Passport Renewal",
     titleGujarati: "પાસપોર્ટ રિન્યુઅલ",
-    image: "/images/services/passport.webp",
+    image: "/images/services/passport-renewal.webp",
     shortDescription: {
       en: "Renewal for expired or expiring passport, address change, and page exhaustion.",
       gu: "મુદત પૂરી થયેલ પાસપોર્ટ રીન્યુઅલ અને સરનામું સુધારવા માટેની સેવા."
@@ -1431,7 +1431,7 @@ export const sourceServicesData = [
     },
     title: "Kunvarbai Nu Mameru Yojana",
     titleGujarati: "કુંવરબાઈનું મામેરું યોજના",
-    image: "/images/services/birth-certificate.webp",
+    image: "/images/services/kunvarbai-mameru.webp",
     shortDescription: {
       en: "Financial marriage assistance of ₹12,000 for daughters from eligible families.",
       gu: "દીકરીના લગ્ન પ્રસંગે સરકાર દ્વારા ₹૧૨,૦૦૦ ની સીધી આર્થિક સહાય."
@@ -1538,7 +1538,7 @@ export const sourceServicesData = [
     },
     title: "Driving Licence Renewal",
     titleGujarati: "ડ્રાઇવિંગ લાયસન્સ રિન્યુઅલ",
-    image: "/images/services/driving-licence.webp",
+    image: "/images/services/driving-license-renewal.webp",
     shortDescription: {
       en: "Renewal of expired driving licence, address update, and duplicate smart card.",
       gu: "મુદત પૂરી થયેલ ડ્રાઇવિંગ લાયસન્સ રિન્યુઅલ અને સરનામું સુધારો."
@@ -1585,7 +1585,7 @@ export const sourceServicesData = [
     },
     title: "SBI Scholarship",
     titleGujarati: "એસબીઆઈ સ્કોલરશીપ",
-    image: "/images/services/scholarship.webp",
+    image: "/images/services/sbi-scholarship.webp",
     shortDescription: {
       en: "Merit-cum-means scholarship up to ₹7.5 Lakhs by SBI Foundation for top institutes.",
       gu: "તેજસ્વી વિદ્યાર્થીઓ માટે એસબીઆઈ ફાઉન્ડેશન દ્વારા ઉચ્ચ શિક્ષણ શિષ્યવૃત્તિ."
@@ -1634,7 +1634,7 @@ export const sourceServicesData = [
     },
     title: "Food Licence",
     titleGujarati: "ફૂડ લાયસન્સ",
-    image: "/images/services/bill-payment.webp",
+    image: "/images/services/food-license-new.webp",
     shortDescription: {
       en: "FSSAI food safety registration for hotels, restaurants, grocery shops, and food stalls.",
       gu: "હોટલ, કરિયાણા દુકાન, ડેરી અને ખાણીપીણીના વેપારીઓ માટે FSSAI ફૂડ લાયસન્સ."

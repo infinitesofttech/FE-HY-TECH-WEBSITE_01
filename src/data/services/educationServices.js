@@ -108,7 +108,7 @@ export const educationServices = [
     title: 'CGAS Registration',
     titleGujarati: 'CGAS રજીસ્ટ્રેશન',
     icon: 'FileCheck',
-    image: '/images/services/college-exam-renewal.webp',
+    image: '/images/services/cgas-registration.webp',
     shortDescription: 'Student registration & academic data portal enrollment.',
     overview: 'Student registration/academic data service as applicable to the concerned institution or university system.',
     newApplication: [
