@@ -13,7 +13,7 @@ const IconMap = {
   Globe,
 };
 
-// Exact color atmospheres matching the user's 3D reference image & HY-TECH brand harmony
+// Exact color atmospheres matching the 3D visual models & HY-TECH brand harmony
 const categoryAtmospheres = {
   'online-services': {
     primaryColor: '#0084FF',
@@ -21,8 +21,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(0, 132, 255, 0.5)',
     platformGlow: '0 0 40px rgba(0, 132, 255, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(0, 132, 255, 0.22), transparent 70%)',
-    pillBorder: 'border-[#0084FF]/60',
     btnBg: 'linear-gradient(135deg, #0070F3 0%, #00C6FF 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'Government Schemes & IDs', gu: 'સરકારી યોજનાઓ અને કાર્ડ' },
     floatDuration: 6.0,
     floatDelay: 0.1,
   },
@@ -32,8 +33,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(0, 229, 163, 0.5)',
     platformGlow: '0 0 40px rgba(0, 229, 163, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(0, 229, 163, 0.22), transparent 70%)',
-    pillBorder: 'border-[#00E5A3]/60',
-    btnBg: 'linear-gradient(135deg, #059669 0%, #00E5A3 100%)',
+    btnBg: 'linear-gradient(135deg, #059669 0%, #10B981 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'Scholarships & Admissions', gu: 'શિષ્યવૃત્તિ અને એડમિશન' },
     floatDuration: 6.8,
     floatDelay: 0.4,
   },
@@ -43,8 +45,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(249, 100, 0, 0.55)',
     platformGlow: '0 0 40px rgba(249, 100, 0, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(249, 100, 0, 0.24), transparent 70%)',
-    pillBorder: 'border-[#F96400]/60',
     btnBg: 'linear-gradient(135deg, #F96400 0%, #FF9900 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'OJAS & Competitive Exams', gu: 'OJAS અને સરકારી ભરતી' },
     floatDuration: 5.6,
     floatDelay: 0.7,
   },
@@ -54,8 +57,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(168, 85, 247, 0.55)',
     platformGlow: '0 0 40px rgba(168, 85, 247, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(168, 85, 247, 0.22), transparent 70%)',
-    pillBorder: 'border-[#A855F7]/60',
     btnBg: 'linear-gradient(135deg, #9333EA 0%, #C084FC 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'Color Print & Lamination', gu: 'કલર પ્રિન્ટ અને લેમિનેશન' },
     floatDuration: 6.5,
     floatDelay: 0.2,
   },
@@ -65,8 +69,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(0, 210, 255, 0.55)',
     platformGlow: '0 0 40px rgba(0, 210, 255, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(0, 210, 255, 0.22), transparent 70%)',
-    pillBorder: 'border-[#00D2FF]/60',
     btnBg: 'linear-gradient(135deg, #0284C7 0%, #38BDF8 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'Tally GST, CCC & Typing', gu: 'ટેલી GST, CCC અને ટાઈપિંગ' },
     floatDuration: 7.2,
     floatDelay: 0.5,
   },
@@ -76,8 +81,9 @@ const categoryAtmospheres = {
     glowColor: 'rgba(255, 42, 133, 0.55)',
     platformGlow: '0 0 40px rgba(255, 42, 133, 0.45)',
     ambientGradient: 'radial-gradient(circle at 50% 40%, rgba(255, 42, 133, 0.22), transparent 70%)',
-    pillBorder: 'border-[#FF2A85]/60',
     btnBg: 'linear-gradient(135deg, #E11D48 0%, #FB7185 100%)',
+    btnTextColor: '#FFFFFF',
+    tagText: { en: 'Passport, FASTag & Utility', gu: 'પાસપોર્ટ, ફાસ્ટેગ અને બિલ' },
     floatDuration: 5.9,
     floatDelay: 0.9,
   },
@@ -129,193 +135,127 @@ export default function CategoryAntiGravityCard({ category, index }) {
     setMousePos({ x: 0, y: 0 });
   };
 
-  const tiltX = isHovered ? -mousePos.y * 8 : 0;
-  const tiltY = isHovered ? mousePos.x * 8 : 0;
-
   return (
     <motion.div
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 35 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="relative h-full perspective-1000 group select-none flex flex-col justify-end"
+      transition={{ duration: 0.55, delay: (index % 6) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full flex justify-center"
     >
       <Link
         to={categoryUrl}
         aria-label={`${displayTitle} - ${countLabel}`}
-        className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-4 focus-visible:ring-offset-[#070B14] rounded-[28px]"
+        className="w-full max-w-[420px] block group outline-none select-none"
       >
-        {/* Anti-Gravity Floating Stage Container */}
-        <motion.div
-          animate={
-            prefersReducedMotion
-              ? {}
-              : isHovered
-              ? {
-                  y: -12,
-                  rotateX: tiltX,
-                  rotateY: tiltY,
-                  scale: 1.02,
-                  transition: { type: 'spring', stiffness: 280, damping: 20 },
-                }
-              : {
-                  y: [0, -9, 0, 9, 0],
-                  rotateZ: [-0.5, 0.5, -0.5],
-                  transition: {
-                    y: {
-                      duration: atmosphere.floatDuration,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: atmosphere.floatDelay,
-                    },
-                    rotateZ: {
-                      duration: atmosphere.floatDuration * 1.3,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                      delay: atmosphere.floatDelay,
-                    },
-                  },
-                }
-          }
-          className="relative flex flex-col justify-between items-center rounded-[28px] overflow-visible preserve-3d"
+        {/* ─── OPTION C: ALL-WHITE BOX CARD CONTAINER ─── */}
+        <div
+          className="bg-white rounded-3xl p-5 sm:p-6 flex flex-col justify-between gap-5 shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/80 relative z-20 group-hover:-translate-y-2 h-full"
+          style={{
+            boxShadow: isHovered
+              ? `0 24px 48px -12px rgba(0, 0, 0, 0.25), 0 0 0 2px ${atmosphere.primaryColor}`
+              : '0 16px 36px -10px rgba(0, 0, 0, 0.14)',
+          }}
         >
-          {/* Ambient Glow Aura */}
-          <div
-            className="absolute top-10 w-[300px] h-[300px] rounded-full pointer-events-none transition-opacity duration-500 blur-[80px]"
-            style={{
-              background: atmosphere.ambientGradient,
-              opacity: isHovered ? 0.95 : 0.5,
-            }}
-          />
-
-          {/* ════════════ 1. CIRCULAR 3D PLATFORM & FLOATING OBJECTS ════════════ */}
-          <div className="relative w-full h-[270px] sm:h-[290px] flex items-center justify-center overflow-visible preserve-3d">
-            {/* Luminous Neon Orbital Ring */}
-            <motion.div
-              animate={
-                prefersReducedMotion
-                  ? {}
-                  : {
-                      rotate: 360,
-                      scale: isHovered ? 1.06 : 1,
-                    }
-              }
-              transition={{
-                rotate: { duration: 26, repeat: Infinity, ease: 'linear' },
-                scale: { duration: 0.3 },
-              }}
-              className="absolute w-[240px] h-[240px] rounded-full border border-dashed pointer-events-none opacity-30"
-              style={{
-                borderColor: atmosphere.primaryColor,
-                transform: 'rotateX(70deg)',
-              }}
-            />
-
-            {/* Core 3D Master Render of Circular Anti-Gravity Platform */}
+          {/* ════════════ 1. TOP 3D MASTER IMAGE (FULL SIZE) ════════════ */}
+          <div className="relative w-full h-[270px] sm:h-[290px] rounded-2xl overflow-hidden shrink-0 bg-gray-950 border border-gray-100/20 shadow-md group/img">
+            {/* Full-Size 3D Master Render with Smooth Parallax Zoom */}
             <motion.div
               animate={{
-                x: isHovered ? mousePos.x * 16 : 0,
-                y: isHovered ? mousePos.y * 16 : 0,
+                x: isHovered ? mousePos.x * 10 : 0,
+                y: isHovered ? mousePos.y * 10 : 0,
                 scale: isHovered ? 1.05 : 1,
               }}
-              transition={{ type: 'spring', stiffness: 240, damping: 18 }}
-              className="relative z-10 w-[260px] h-[260px] sm:w-[280px] sm:h-[280px] flex items-center justify-center rounded-full overflow-hidden"
-              style={{
-                maskImage: 'radial-gradient(circle at center, black 68%, rgba(0,0,0,0.6) 84%, transparent 100%)',
-                WebkitMaskImage: 'radial-gradient(circle at center, black 68%, rgba(0,0,0,0.6) 84%, transparent 100%)',
-              }}
+              transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+              className="w-full h-full"
             >
               <img
                 src={imageSource}
                 alt={`${displayTitle} 3D Platform`}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] transition-all duration-500"
+                className="w-full h-full object-cover object-center transition-transform duration-700 ease-out"
               />
             </motion.div>
 
-            {/* Soft Contact Shadow Below Platform */}
-            <motion.div
-              animate={{
-                scale: isHovered ? 1.15 : [0.92, 1.06, 0.92],
-                opacity: isHovered ? 0.75 : [0.4, 0.6, 0.4],
-              }}
-              transition={
-                isHovered
-                  ? { duration: 0.3 }
-                  : { duration: atmosphere.floatDuration, repeat: Infinity, ease: 'easeInOut' }
-              }
-              className="absolute bottom-2 w-[220px] h-[36px] rounded-[50%] blur-[12px] pointer-events-none"
-              style={{
-                background: `radial-gradient(ellipse at center, ${atmosphere.primaryColor} 0%, rgba(0,0,0,0.9) 65%, transparent 100%)`,
-              }}
-            />
-          </div>
+            {/* Subtle Vignette Gradient for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 pointer-events-none" />
 
-          {/* ════════════ 2. FRONT MOUNTED GLOWING CONSOLE PILL ════════════ */}
-          <div
-            className="relative z-20 w-full max-w-[340px] -mt-6 sm:-mt-8 rounded-[24px] p-4 sm:p-5 flex flex-col items-center text-center border backdrop-blur-xl transition-all duration-400"
-            style={{
-              background: 'linear-gradient(180deg, rgba(13, 20, 36, 0.85) 0%, rgba(6, 10, 20, 0.96) 100%)',
-              borderColor: isHovered ? atmosphere.primaryColor : 'rgba(255, 255, 255, 0.14)',
-              boxShadow: isHovered
-                ? `0 16px 40px -10px ${atmosphere.glowColor}, 0 0 20px ${atmosphere.glowColor}, inset 0 1px 0 rgba(255, 255, 255, 0.25)`
-                : '0 12px 30px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-            }}
-          >
-            {/* Category Icon + Title + Count */}
-            <div className="flex items-center gap-3.5 w-full justify-center">
-              {/* Glowing Icon Square */}
-              <div
-                className="w-11 h-11 rounded-2xl flex items-center justify-center border shadow-lg flex-shrink-0 transition-transform duration-300"
+            {/* Category Tag on top-left */}
+            <div className="absolute top-3 left-3 z-20">
+              <span
+                className="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider text-white border shadow-md backdrop-blur-md"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
+                  backgroundColor: 'rgba(0, 0, 0, 0.65)',
                   borderColor: atmosphere.primaryColor,
-                  boxShadow: `0 0 14px ${atmosphere.glowColor}`,
-                  transform: isHovered ? 'scale(1.08)' : 'scale(1)',
                 }}
               >
-                <Icon size={22} style={{ color: atmosphere.primaryColor }} />
+                {catId.replace('-', ' ').toUpperCase()}
+              </span>
+            </div>
+
+            {/* Indicator on bottom-left */}
+            <div className="absolute bottom-2.5 left-3 z-20 flex items-center gap-1.5 text-white text-[11px] font-bold drop-shadow px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
+              <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: atmosphere.primaryColor }} />
+              <span>{language === 'gu' ? 'હાઇ-ટેક સેવા' : 'HY-TECH HUB'}</span>
+            </div>
+          </div>
+
+          {/* ════════════ 2. BOTTOM CARD CONTENT ON CRISP WHITE BACKGROUND ════════════ */}
+          <div className="flex flex-col gap-3.5">
+            {/* Category Icon + Title + Count */}
+            <div className="flex items-start gap-3.5">
+              {/* Category Icon Box */}
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center border shadow-xs flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
+                style={{
+                  background: 'rgba(249, 100, 0, 0.06)',
+                  borderColor: atmosphere.primaryColor,
+                }}
+              >
+                <Icon size={24} style={{ color: atmosphere.primaryColor }} />
               </div>
 
-              {/* Title & Count */}
-              <div className="text-left flex-1 min-w-0">
-                <h3 className="font-extrabold text-white text-lg sm:text-xl tracking-tight leading-snug truncate group-hover:text-cyan-200 transition-colors">
+              {/* Title, Subtitle & Count */}
+              <div className="flex-1 min-w-0">
+                <h3 className="font-black text-gray-900 text-lg sm:text-xl tracking-tight leading-snug truncate group-hover:text-[#F96400] transition-colors">
                   {displayTitle}
                 </h3>
                 {secondaryTitle && (
-                  <p className="text-[11px] text-gray-400 font-medium font-gujarati -mt-0.5 truncate">
+                  <p className="text-xs text-gray-500 font-semibold font-gujarati mt-0.5 truncate">
                     {secondaryTitle}
                   </p>
                 )}
-                <p className="text-xs font-semibold text-gray-300 mt-0.5">
-                  ({countLabel})
-                </p>
+                <div className="mt-1.5 flex items-center gap-2">
+                  <span className="inline-flex items-center text-[11px] font-bold text-gray-700 bg-gray-100 px-2.5 py-0.5 rounded-full">
+                    {countLabel}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Glowing Pill Explore Button */}
-            <div className="mt-3.5 w-full flex justify-center">
+            {/* Action Explore Button */}
+            <div className="pt-2 border-t border-gray-100 flex items-center justify-between">
+              <span className="text-xs font-bold text-gray-400 group-hover:text-gray-600 transition-colors">
+                {language === 'gu' ? 'સેવાઓ જુઓ' : 'Available Services'}
+              </span>
               <div
-                className="w-full max-w-[170px] py-2 px-4 rounded-full font-bold text-xs sm:text-sm text-white flex items-center justify-center gap-1.5 transition-all duration-300 border shadow-lg"
+                className="py-2 px-5 rounded-full font-black text-xs sm:text-sm text-white flex items-center justify-center gap-1.5 transition-all duration-300 shadow-md group-hover:shadow-lg"
                 style={{
                   background: atmosphere.btnBg,
-                  borderColor: 'rgba(255, 255, 255, 0.35)',
-                  boxShadow: isHovered
-                    ? `0 0 22px ${atmosphere.primaryColor}, inset 0 1px 1px rgba(255, 255, 255, 0.5)`
-                    : `0 4px 14px ${atmosphere.glowColor}`,
-                  transform: isHovered ? 'scale(1.04) translateY(-1px)' : 'scale(1)',
+                  color: atmosphere.btnTextColor || '#FFFFFF',
+                  transform: isHovered ? 'scale(1.05)' : 'scale(1)',
                 }}
               >
                 <span>{exploreLabel}</span>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </Link>
     </motion.div>
   );

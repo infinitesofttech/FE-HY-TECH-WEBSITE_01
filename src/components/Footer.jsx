@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Clock, MessageCircle, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SITE_CONFIG } from '../config/siteConfig';
 
 const serviceLinks = [
   { name: 'PAN Card New & Correction', path: '/services?category=online-services' },
@@ -42,7 +43,7 @@ export default function Footer() {
             </p>
             <div className="pt-2">
               <a
-                href="https://wa.me/917226030701?text=Hello%20HY-Tech,%20I%20have%20an%20inquiry."
+                href={SITE_CONFIG.getWhatsAppUrl('Hello HY-Tech, I have an inquiry.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-3d-circle inline-flex items-center gap-2 bg-[#F96400] hover:bg-[#E05A00] text-white text-xs font-bold px-5 py-2.5 rounded-full transition-all shadow-md shadow-orange-500/20"
@@ -108,25 +109,25 @@ export default function Footer() {
               <li className="flex items-start gap-2.5 text-gray-600">
                 <MapPin size={16} className="text-[#F96400] flex-shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  College Road,Kanurbarda,Old Jakatnaka, Dharampur -396050
+                  {SITE_CONFIG.fullAddress}
                 </span>
               </li>
               <li className="flex items-center gap-2.5 text-gray-600">
                 <Phone size={15} className="text-[#F96400] flex-shrink-0" />
-                <a href="tel:+917226030701" className="hover:text-[#F96400] transition-colors">
-                  +91 72260 30701
+                <a href={`tel:${SITE_CONFIG.primaryPhone.replace(/\s+/g, '')}`} className="hover:text-[#F96400] transition-colors">
+                  {SITE_CONFIG.primaryPhone}
                 </a>
               </li>
               <li className="flex items-center gap-2.5 text-gray-600">
                 <Mail size={15} className="text-[#F96400] flex-shrink-0" />
-                <a href="mailto:info@hytechonlinehub.in" className="hover:text-[#F96400] transition-colors">
-                  info@hytechonlinehub.in
+                <a href={`mailto:${SITE_CONFIG.email}`} className="hover:text-[#F96400] transition-colors">
+                  {SITE_CONFIG.email}
                 </a>
               </li>
             </ul>
 
             <a
-              href="https://maps.google.com/?q=College+Road,Kanurbarda,Old+Jakatnaka,Dharampur"
+              href={SITE_CONFIG.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs text-[#F96400] hover:text-[#E05A00] font-bold transition-colors"

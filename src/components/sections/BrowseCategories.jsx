@@ -58,82 +58,56 @@ export default function BrowseCategories() {
   return (
     <section
       id="services-section"
-      className="relative w-full py-20 sm:py-28 bg-[#060913] text-white overflow-hidden border-t border-b border-white/5 select-none"
+      className="bg-gradient-to-b from-[#F96400] to-[#E55700] py-20 sm:py-28 relative overflow-hidden select-none"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
-      {/* ════════════ COSMIC ANTI-GRAVITY BACKGROUND ════════════ */}
-      {/* Ambient Radial Lights */}
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] bg-gradient-to-b from-cyan-500/15 via-blue-600/8 to-transparent rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute top-1/3 -left-40 w-[550px] h-[550px] bg-blue-600/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute top-1/2 -right-40 w-[550px] h-[550px] bg-purple-600/10 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute -bottom-40 left-1/3 w-[600px] h-[400px] bg-pink-600/8 rounded-full blur-[170px] pointer-events-none" />
-
-      {/* Floating Canvas Particles */}
-      <AntiGravityParticles className="opacity-80" />
-
-      {/* Subtle Starfield & Circuit Pattern */}
+      {/* ── Background Noise & Lighting Spheres (Matching UpcomingEvents format) ── */}
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 1px 1px, #38BDF8 1px, transparent 0)',
-          backgroundSize: '36px 36px',
+            'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")',
         }}
       />
+      <div className="absolute top-10 left-1/4 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-black/15 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Floating Canvas Particles */}
+      <AntiGravityParticles className="opacity-40" />
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
-        {/* ════════════ CENTERED HERO HEADER MATCHING REFERENCE IMAGE ════════════ */}
-        <div className="flex flex-col items-center justify-center text-center mb-16 sm:mb-20">
-          {/* Header Strip with Glowing Center Pill and Flanking Lines with Dots */}
-          <motion.div
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -20, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center w-full max-w-xl mx-auto gap-3 sm:gap-4 mb-3"
-          >
-            {/* Left Line with Dot */}
-            <div className="flex-1 flex items-center justify-end">
-              <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-cyan-500/60 to-cyan-400" />
-              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00E5FF] -mr-1" />
-            </div>
+        {/* ════════════ HEADER SECTION (Matching UpcomingEvents format) ════════════ */}
+        <div className="flex flex-col items-center justify-center text-center mb-14 sm:mb-18">
+          {/* Top White Pill Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-[#F96400] font-black text-xs sm:text-sm mb-4 shadow-md uppercase tracking-wider">
+            <span className="w-2 h-2 rounded-full bg-[#F96400] animate-pulse" />
+            <span>{language === 'gu' ? 'અમારી સેવાઓ' : 'OUR SPECIALIZED SERVICES'}</span>
+          </div>
 
-            {/* Glowing Pill: "Our Services" */}
-            <div className="relative px-7 sm:px-9 py-2 sm:py-2.5 rounded-full bg-[#0A1325]/90 border border-cyan-400/80 shadow-[0_0_24px_rgba(0,229,255,0.45),inset_0_1px_1px_rgba(255,255,255,0.4)] backdrop-blur-xl">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-wide">
-                {headingText}
-              </h2>
-            </div>
-
-            {/* Right Line with Dot */}
-            <div className="flex-1 flex items-center justify-start">
-              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00E5FF] -ml-1" />
-              <div className="h-[1.5px] w-full bg-gradient-to-l from-transparent via-cyan-500/60 to-cyan-400" />
-            </div>
-          </motion.div>
+          {/* Main Heading */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight tracking-tight max-w-3xl mb-3 drop-shadow-sm">
+            {headingText}
+          </h2>
 
           {/* Subtitle */}
-          <motion.p
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm sm:text-base font-medium text-gray-300 tracking-wide"
-          >
+          <p className="text-white/95 text-sm sm:text-base max-w-2xl font-medium leading-relaxed drop-shadow-xs">
             {subtitleText}
-          </motion.p>
+          </p>
         </div>
 
-        {/* ════════════ 3D ANTI-GRAVITY CATEGORY GRID (3x2 Desktop, 2x3 Tablet, 1x6 Mobile) ════════════ */}
+        {/* ════════════ 3D ANTI-GRAVITY CATEGORY GRID (Option C: 3-Column White Box Cards) ════════════ */}
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[380px] rounded-[28px] bg-white/[0.03] border border-white/10 animate-pulse p-6 flex flex-col justify-end"
+                className="h-[430px] rounded-3xl bg-white/[0.12] border border-white/20 animate-pulse p-6 flex flex-col justify-between"
               >
-                <div className="w-full h-[220px] rounded-full bg-white/[0.05] mx-auto mb-4" />
-                <div className="w-3/4 h-14 bg-white/[0.08] rounded-2xl mx-auto" />
+                <div className="w-full h-[220px] rounded-2xl bg-white/[0.15] mb-4" />
+                <div className="space-y-3">
+                  <div className="w-3/4 h-6 bg-white/[0.15] rounded-lg" />
+                  <div className="w-1/2 h-4 bg-white/[0.1] rounded-lg" />
+                </div>
               </div>
             ))}
           </div>

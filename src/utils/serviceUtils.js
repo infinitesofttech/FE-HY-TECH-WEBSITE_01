@@ -315,3 +315,47 @@ export const resetServicesToDefault = () => {
     localStorage.removeItem(CUSTOM_SERVICES_KEY);
   }
 };
+
+/**
+ * Export all custom services and overrides as a portable JSON backup file
+ */
+export const exportServicesBackup = () => {
+  const overrides = getServiceOverrides();
+  const custom = getCustomServices();
+
+  const backupData = {
+    version: '1.0',
+    exportedAt: new Date().toISOString(),
+    serviceOverrides: overrides,
+    customServices: custom,
+  };
+
+  const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(backupData, null, 2))}`;
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute('href', jsonString);
+  downloadAnchor.setAttribute('download', `hytech_services_backup_${new Date().toISOString().slice(0, 10)}.json`);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+
+  return true;
+};
+
+/**
+ * Import custom services and overrides from a backup JSON object
+ */
+export const importServicesBackup = (backupData) => {
+  if (!backupData || typeof backupData !== 'object') {
+    throw new Error('Invalid backup file format');
+  }
+
+  if (backupData.serviceOverrides) {
+    localStorage.setItem(SERVICE_OVERRIDES_KEY, JSON.stringify(backupData.serviceOverrides));
+  }
+  if (backupData.customServices && Array.isArray(backupData.customServices)) {
+    localStorage.setItem(CUSTOM_SERVICES_KEY, JSON.stringify(backupData.customServices));
+  }
+
+  return true;
+};
+

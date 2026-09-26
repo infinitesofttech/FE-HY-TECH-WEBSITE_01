@@ -17,11 +17,9 @@ export default function AntiGravityParticles({ className = '' }) {
     // Check reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     if (mediaQuery.matches) {
-      // Draw static subtle starry field once
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-      ctx.fillStyle = '#070B14';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       return;
     }
 
@@ -36,7 +34,7 @@ export default function AntiGravityParticles({ className = '' }) {
     };
     window.addEventListener('resize', handleResize);
 
-    // Particle pool - lightweight 45 particles
+    // Particle pool - lightweight 45 particles radiating in warm white & amber
     const particleCount = Math.min(45, Math.floor((width * height) / 35000));
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
@@ -46,7 +44,7 @@ export default function AntiGravityParticles({ className = '' }) {
       speedX: (Math.random() - 0.5) * 0.2,
       opacity: Math.random() * 0.5 + 0.2,
       pulseSpeed: Math.random() * 0.02 + 0.005,
-      hue: Math.random() > 0.6 ? 195 : Math.random() > 0.3 ? 260 : 35 // cyan, violet, or gold
+      hue: Math.random() > 0.5 ? 45 : 30 // golden amber or warm light
     }));
 
     let frame = 0;

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, ArrowRight, CheckCircle2, Sparkles, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { getServiceVisual, handleImageFallback } from '../../utils/serviceVisuals';
+import { SITE_CONFIG } from '../../config/siteConfig';
 
 export default function ServiceCard({ service, onSelect, index }) {
   const { language } = useLanguage();
@@ -32,8 +33,8 @@ export default function ServiceCard({ service, onSelect, index }) {
   const handleApplyWhatsApp = (e) => {
     e.stopPropagation();
     const serviceName = titleEn;
-    const msg = encodeURIComponent(`Hello HY-TECH Hub Dharampur, I want to apply for "${serviceName}". Please share details.`);
-    window.open(`https://wa.me/917600444321?text=${msg}`, '_blank');
+    const msg = `Hello HY-TECH Hub Dharampur, I want to apply for "${serviceName}". Please share details.`;
+    window.open(SITE_CONFIG.getWhatsAppUrl(msg), '_blank');
   };
 
   return (

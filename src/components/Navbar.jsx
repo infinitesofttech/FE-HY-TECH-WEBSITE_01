@@ -4,8 +4,10 @@ import { Menu, X, Search, ChevronDown, User, MessageCircle, Phone } from 'lucide
 import { useAuth } from '../context/AuthContext';
 import PromoBar from './PromoBar';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeSwitcher from './ThemeSwitcher';
 import { fetchCategories } from '../api/servicesApi';
 import { useLanguage } from '../context/LanguageContext';
+import { SITE_CONFIG } from '../config/siteConfig';
 
 function ProfileMenu({ isLoggedIn, user, logout }) {
   const [open, setOpen] = useState(false);
@@ -190,9 +192,12 @@ export default function Navbar() {
               {/* Language Switcher */}
               <LanguageSwitcher />
 
+              {/* Theme & Appearance Switcher */}
+              <ThemeSwitcher />
+
               {/* Primary Call / WhatsApp Action Button */}
               <a
-                href="https://wa.me/917226030701?text=Hello%20HY-Tech,%20I%20need%20assistance%20with%20online%20services."
+                href={SITE_CONFIG.getWhatsAppUrl('Hello HY-Tech, I need assistance with online services.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-[#F96400] hover:bg-[#E05A00] text-white text-xs font-bold px-4 py-2.5 rounded-full transition-all shadow-sm hover:shadow"
@@ -208,8 +213,9 @@ export default function Navbar() {
             {/* Mobile Actions & Hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <LanguageSwitcher />
+              <ThemeSwitcher />
               <a
-                href="https://wa.me/917226030701"
+                href={SITE_CONFIG.getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-[#FFF5EE] text-[#F96400] flex items-center justify-center border border-[#F96400]/20"
@@ -269,7 +275,7 @@ export default function Navbar() {
 
             <div className="pt-2 border-t border-gray-100 flex flex-col gap-2">
               <a
-                href="https://wa.me/917226030701?text=Hello%20HY-Tech,%20I%20have%20an%20inquiry."
+                href={SITE_CONFIG.getWhatsAppUrl('Hello HY-Tech, I have an inquiry.')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3 bg-[#F96400] text-white rounded-xl text-center font-bold text-sm flex items-center justify-center gap-2"
@@ -277,10 +283,10 @@ export default function Navbar() {
                 <MessageCircle size={16} /> WhatsApp Inquiry
               </a>
               <a
-                href="tel:+917226030701"
+                href={`tel:${SITE_CONFIG.primaryPhone.replace(/\s+/g, '')}`}
                 className="w-full py-2.5 bg-gray-100 text-[#171717] rounded-xl text-center font-medium text-sm flex items-center justify-center gap-2"
               >
-                <Phone size={15} /> Call: +91 72260 30701
+                <Phone size={15} /> Call: {SITE_CONFIG.primaryPhone}
               </a>
             </div>
           </div>

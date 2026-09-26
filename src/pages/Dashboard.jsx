@@ -4,7 +4,8 @@ import {
   Shield, Plus, Search, Edit2, Trash2, CheckCircle2,
   XCircle, ExternalLink, RefreshCw, LayoutGrid, Eye,
   SlidersHorizontal, Check, AlertTriangle, Layers,
-  User, Award, FileText, ArrowRight, Sparkles, Filter
+  User, Award, FileText, ArrowRight, Sparkles, Filter,
+  Download, Upload
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
@@ -12,7 +13,9 @@ import {
   getAllServicesForAdmin, 
   toggleServiceStatus, 
   deleteService, 
-  resetServicesToDefault 
+  resetServicesToDefault,
+  exportServicesBackup,
+  importServicesBackup
 } from '../utils/serviceUtils';
 import { serviceCategories } from '../data/servicesData';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
@@ -90,6 +93,33 @@ export default function Dashboard() {
       loadServices();
       showToast('All services reset to codebase defaults.');
     }
+  };
+
+  const handleExport = () => {
+    try {
+      exportServicesBackup();
+      showToast('Catalog backup JSON downloaded successfully.');
+    } catch (e) {
+      showToast('Failed to export backup.', 'warning');
+    }
+  };
+
+  const handleImportFile = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const parsed = JSON.parse(event.target.result);
+        importServicesBackup(parsed);
+        loadServices();
+        showToast('Services backup imported successfully!');
+      } catch (err) {
+        showToast('Invalid backup file. Please provide a valid JSON file.', 'warning');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
   };
 
   const handleOpenAdd = () => {
@@ -242,6 +272,32 @@ export default function Dashboard() {
                 <Plus size={16} />
                 <span>Add New Service</span>
               </button>
+
+              {/* Export Backup JSON */}
+              <button
+                type="button"
+                onClick={handleExport}
+                title="Download JSON Catalog Backup"
+                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-semibold rounded-xl border border-white/10 transition-colors"
+              >
+                <Download size={14} />
+                <span className="hidden sm:inline">Export Backup</span>
+              </button>
+
+              {/* Import Backup JSON */}
+              <label
+                title="Import & Restore Catalog from JSON Backup"
+                className="inline-flex items-center gap-1.5 px-3 py-2 bg-white/10 hover:bg-white/20 text-neutral-200 text-xs font-semibold rounded-xl border border-white/10 transition-colors cursor-pointer"
+              >
+                <Upload size={14} />
+                <span className="hidden sm:inline">Restore</span>
+                <input
+                  type="file"
+                  accept=".json,application/json"
+                  onChange={handleImportFile}
+                  className="hidden"
+                />
+              </label>
 
               <button
                 type="button"

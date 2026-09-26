@@ -44,7 +44,17 @@ export function ThemeProvider({ children }) {
   const toggleMode = () => setMode(m => m === 'light' ? 'dark' : 'light');
 
   return (
-    <ThemeContext.Provider value={{ mode, setMode, toggleMode, customThemeColor, setCustomThemeColor }}>
+    <ThemeContext.Provider
+      value={{
+        mode,
+        setMode,
+        toggleMode,
+        customThemeColor,
+        setCustomThemeColor,
+        themeColor: customThemeColor,
+        setThemeColor: setCustomThemeColor,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
