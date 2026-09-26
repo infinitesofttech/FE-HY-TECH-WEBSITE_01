@@ -118,9 +118,24 @@ export default function ServicesPage() {
 
         <div className="max-w-[1200px] mx-auto px-4 md:px-8 text-center relative z-10 flex flex-col items-center">
 
-          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold bg-white/10 text-white border border-white/10 backdrop-blur-md mb-8 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#F96400] animate-pulse"></span>
-            {language === 'en' ? 'HY-TECH DIGITAL DESK' : 'હાઇ-ટેક ડિજિટલ ડેસ્ક'}
+          {/* Glowing Center Pill with Flanking Lines */}
+          <div className="flex items-center justify-center w-full max-w-md mx-auto gap-3 sm:gap-4 mb-6">
+            <div className="flex-1 flex items-center justify-end">
+              <div className="h-[1.5px] w-full bg-gradient-to-r from-transparent via-cyan-500/60 to-cyan-400" />
+              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00E5FF] -mr-1" />
+            </div>
+
+            <div className="px-6 py-2 rounded-full bg-[#0A1325]/90 border border-cyan-400/80 shadow-[0_0_20px_rgba(0,229,255,0.4)] backdrop-blur-xl flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#F96400] shadow-[0_0_8px_#F96400] animate-pulse"></span>
+              <span className="text-xs sm:text-sm font-black text-white tracking-wider uppercase">
+                {language === 'en' ? 'Our Services' : 'અમારી સેવાઓ'}
+              </span>
+            </div>
+
+            <div className="flex-1 flex items-center justify-start">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#00E5FF] -ml-1" />
+              <div className="h-[1.5px] w-full bg-gradient-to-l from-transparent via-cyan-500/60 to-cyan-400" />
+            </div>
           </div>
 
           {/* 3D Modern Interactive Heading */}
@@ -263,10 +278,10 @@ export default function ServicesPage() {
                   {cat.services.map((svc, i) => (
                     <motion.div
                       key={svc.slug}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.5, delay: i * 0.05 }}
+                      initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+                      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ duration: 0.5, delay: (i % 8) * 0.1, ease: [0.16, 1, 0.3, 1] }}
                       className="h-full flex flex-col"
                     >
                       <div

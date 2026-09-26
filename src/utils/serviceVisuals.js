@@ -4,13 +4,13 @@
  */
 
 export const categoryVisuals = {
-  'online-services': '/images/3d_icons/online-services.jpg',
-  'education-services': '/images/3d_icons/education-services.jpg',
-  'job-services': '/images/3d_icons/job-services.jpg',
-  'printing-services': '/images/3d_icons/printing-services.jpg',
-  'computer-courses': '/images/3d_icons/computer-courses.jpg',
-  'other-services': '/images/3d_icons/other-services.jpg',
-  default: '/images/3d_icons/online-services.jpg',
+  'online-services': '/images/categories/online_services_antigravity.jpg',
+  'education-services': '/images/categories/education_services_antigravity.jpg',
+  'job-services': '/images/categories/job_services_antigravity.jpg',
+  'printing-services': '/images/categories/printing_services_antigravity.jpg',
+  'computer-courses': '/images/categories/computer_courses_antigravity.jpg',
+  'other-services': '/images/categories/other_services_antigravity.jpg',
+  default: '/images/categories/online_services_antigravity.jpg',
   'election-card': '/images/services/election-card.webp',
   'abha-card': '/images/services/abha-card.webp',
   'ration-card': '/images/services/ration-card.webp',

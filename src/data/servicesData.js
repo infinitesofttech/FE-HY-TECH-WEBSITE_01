@@ -35,7 +35,7 @@ export const serviceCategories = [
       gu: 'ઓનલાઈન સેવાઓ'
     },
     icon: 'Monitor',
-    catImage: '/images/categories/online_services.jpg',
+    catImage: '/images/categories/online_services_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'online-services').length,
     isActive: true
   },
@@ -47,7 +47,7 @@ export const serviceCategories = [
       gu: 'શિક્ષણ સેવાઓ'
     },
     icon: 'GraduationCap',
-    catImage: '/images/categories/education.jpg',
+    catImage: '/images/categories/education_services_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'education-services').length,
     isActive: true
   },
@@ -59,7 +59,7 @@ export const serviceCategories = [
       gu: 'નોકરી સેવાઓ'
     },
     icon: 'Briefcase',
-    catImage: '/images/categories/jobs.jpg',
+    catImage: '/images/categories/job_services_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'job-services').length,
     isActive: true
   },
@@ -71,7 +71,7 @@ export const serviceCategories = [
       gu: 'પ્રિન્ટિંગ સેવાઓ'
     },
     icon: 'Printer',
-    catImage: '/images/categories/printing.jpg',
+    catImage: '/images/categories/printing_services_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'printing-services').length,
     isActive: true
   },
@@ -83,7 +83,7 @@ export const serviceCategories = [
       gu: 'કમ્પ્યુટર કોર્સ'
     },
     icon: 'Laptop',
-    catImage: '/images/categories/courses.jpg',
+    catImage: '/images/categories/computer_courses_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'computer-courses').length,
     isActive: true
   },
@@ -95,7 +95,7 @@ export const serviceCategories = [
       gu: 'અન્ય સેવાઓ'
     },
     icon: 'Globe',
-    catImage: '/images/categories/other.jpg',
+    catImage: '/images/categories/other_services_antigravity.jpg',
     count: servicesData.filter(s => s.categoryId === 'other-services').length,
     isActive: true
   }

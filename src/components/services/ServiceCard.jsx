@@ -38,9 +38,10 @@ export default function ServiceCard({ service, onSelect, index }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: (index % 12) * 0.04 }}
+      initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: ((index || 0) % 8) * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onClick={() => onSelect && onSelect(service)}
       className="group relative bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-200/80 dark:border-neutral-800 shadow-sm hover:shadow-xl hover:border-[#F96400]/40 dark:hover:border-[#F96400]/40 transition-all duration-300 flex flex-col cursor-pointer"
     >
