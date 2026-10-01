@@ -4,13 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, CheckCircle2, FileText, Info,
   ExternalLink, MessageCircle, Clock, ShieldCheck,
-  Edit3, Loader2, Sparkles, Globe, AlertCircle, Layers, MapPin, Phone
+  Edit3, Loader2, Sparkles, Globe, AlertCircle, Layers, MapPin, Phone, Send
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { fetchServiceBySlug } from '../api/servicesApi';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
 import { getBilingualText } from '../data/translationsDictionary';
 import ServiceOperations from '../components/services/ServiceOperations';
+import ApplyServiceModal from '../components/ApplyServiceModal';
 
 const ServiceDetails = () => {
   const { slug } = useParams();
@@ -20,6 +21,7 @@ const ServiceDetails = () => {
   const [service, setService] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all');
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   useEffect(() => {
     // If slug is a category identifier, seamlessly route to /services?category=...
@@ -255,18 +257,17 @@ const ServiceDetails = () => {
                       <span className="text-gray-400 font-normal">/</span>
                       <span className="text-[#F96400]">૧. વિહંગાવલોકન</span>
                     </h2>
-                    {service.officialWebsite && (
-                      <a
-                        href={service.officialWebsite}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-[#F96400] bg-orange-50 hover:bg-orange-100 transition-colors border border-orange-200"
-                      >
-                        <Globe size={14} />
-                        <span>Official Portal / સત્તાવાર પોર્ટલ</span>
-                        <ExternalLink size={12} />
-                      </a>
-                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsApplyModalOpen(true);
+                      }}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#F96400] hover:bg-[#E05A00] transition-all shadow-sm hover:shadow cursor-pointer active:scale-95"
+                    >
+                      <Send size={13} />
+                      <span>Apply / Contact Us (અરજી / સંપર્ક કરો)</span>
+                    </button>
                   </div>
                   <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 text-gray-700 leading-relaxed text-[15px] space-y-3">
                     <p className="text-gray-800 font-medium">
@@ -541,6 +542,13 @@ const ServiceDetails = () => {
 
         </div>
       </div>
+
+      {/* Apply Service Modal */}
+      <ApplyServiceModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        service={service}
+      />
     </div>
   );
 };

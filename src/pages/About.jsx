@@ -65,8 +65,56 @@ export default function About() {
         </div>
       </section>
 
+      {/* ── Real Center Office Showcase ────────────── */}
+      <section className="max-w-[1200px] mx-auto px-4 md:px-8 -mt-8 mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200/90 bg-white group"
+        >
+          <div className="relative aspect-[16/10] md:aspect-[21/10] w-full overflow-hidden bg-gray-100">
+            <img
+              src="/images/hytech-office.jpg"
+              alt="HY-Tech Computer Education & Online Hub Dharampur Office"
+              className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-700 ease-out"
+              loading="eager"
+            />
+            {/* Gradient Overlay for Legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 sm:p-8 md:p-10 text-white">
+              <div className="flex flex-wrap items-center gap-2 mb-2.5">
+                <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#F96400] text-white shadow-sm">
+                  Our Dharampur Center / અમારું કેન્દ્ર
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1.5">
+                  <MapPin size={12} /> College Road, Dharampur
+                </span>
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-black/40 backdrop-blur-md text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+                  <CheckCircle2 size={12} /> Live Walk-in Assistance Counter
+                </span>
+              </div>
+
+              <h2 
+                className="text-xl sm:text-2xl md:text-3xl font-black tracking-tight leading-tight !text-white text-white drop-shadow-md"
+                style={{ color: '#ffffff' }}
+              >
+                HY-Tech Computer Education & Online Hub
+              </h2>
+
+              <p 
+                className="text-xs sm:text-sm !text-white text-white/95 mt-1.5 max-w-2xl font-gujarati leading-relaxed drop-shadow-sm"
+                style={{ color: '#ffffff' }}
+              >
+                આપનો વિશ્વાસ, અમારી જવાબદારી • Modern digital facilitation desk with dedicated computer counters, certified guidance for government portals, and student computer training lab.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* ── Center Story & Mission ─────────────────── */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <div className="max-w-[1200px] mx-auto px-4 md:px-8">
           <div className="bg-white rounded-3xl p-8 md:p-12 border border-gray-200 shadow-sm">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">

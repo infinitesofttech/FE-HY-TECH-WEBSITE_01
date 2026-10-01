@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { LanguageProvider } from './context/LanguageContext';
@@ -36,10 +36,15 @@ function RouteLoadingFallback() {
 }
 
 function AppContent() {
+  const location = useLocation();
+  const authRoutes = ['/login', '/signup', '/forgot-password', '/forgotpassword', '/signin'];
+  const currentPath = location.pathname.toLowerCase().replace(/\/+$/, '') || '/';
+  const isAuthPage = authRoutes.includes(currentPath);
+
   return (
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden bg-[var(--bg-base)] text-[var(--text-main)] transition-colors duration-300">
       <Preloader />
-      <Navbar />
+      {!isAuthPage && <Navbar />}
       <main className="flex-grow w-full overflow-x-hidden">
         <Suspense fallback={<RouteLoadingFallback />}>
           <Routes>
@@ -66,11 +71,13 @@ function AppContent() {
             {/* Protected Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/family" element={<ProtectedRoute><FamilyPage /></ProtectedRoute>} />
+            <Route path="/documents" element={<ProtectedRoute><FamilyPage /></ProtectedRoute>} />
+            <Route path="/my-documents" element={<ProtectedRoute><FamilyPage /></ProtectedRoute>} />
             <Route path="/rewards" element={<ProtectedRoute><RewardsPage /></ProtectedRoute>} />
           </Routes>
         </Suspense>
       </main>
-      <Footer />
+      {!isAuthPage && <Footer />}
     </div>
   );
 }

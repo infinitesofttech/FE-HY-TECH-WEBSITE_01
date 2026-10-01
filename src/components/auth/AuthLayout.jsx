@@ -8,6 +8,7 @@ import {
   Wallet,
   CheckCircle2,
   ArrowRight,
+  ArrowLeft,
   Lock,
   Smartphone,
   Award
@@ -62,6 +63,17 @@ export default function AuthLayout({
       {/* Background Ambient Glows */}
       <div className="absolute top-0 right-10 w-96 h-96 bg-blue-200/40 rounded-full blur-[140px] pointer-events-none"></div>
       <div className="absolute bottom-10 left-10 w-96 h-96 bg-orange-200/40 rounded-full blur-[140px] pointer-events-none"></div>
+
+      {/* Top Left Return to Home */}
+      <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-30">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-gray-700 hover:text-[#F96400] bg-white/90 hover:bg-white border border-gray-200 shadow-xs backdrop-blur-md transition-all group"
+        >
+          <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform text-gray-500 group-hover:text-[#F96400]" />
+          <span>Back to Home</span>
+        </Link>
+      </div>
 
       {/* Main Container Card */}
       <div className="w-full max-w-5xl bg-white rounded-[32px] sm:rounded-[40px] shadow-2xl shadow-blue-900/5 border border-gray-100 overflow-hidden relative z-10 grid grid-cols-1 lg:grid-cols-12">

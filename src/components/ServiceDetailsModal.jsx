@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, ExternalLink, MessageCircle, FileText, CheckCircle2, 
   AlertCircle, Clock, ShieldCheck,
-  Info, Edit3, Sparkles, Layers, Globe
+  Info, Edit3, Sparkles, Layers, Globe, Send
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { getServiceVisual, handleImageFallback } from '../utils/serviceVisuals';
@@ -11,10 +11,12 @@ import { getBilingualText } from '../data/translationsDictionary';
 import { Link } from 'react-router-dom';
 
 import ServiceOperations from './services/ServiceOperations';
+import ApplyServiceModal from './ApplyServiceModal';
 
 export default function ServiceDetailsModal({ isOpen, onClose, service }) {
   const { language } = useLanguage();
   const [activeTab, setActiveTab] = useState('all');
+  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
 
   const t = (obj) => {
     if (!obj) return '';
@@ -249,18 +251,17 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
                     <span className="text-gray-400 font-normal">/</span>
                     <span className="text-[#F96400]">૧. વિહંગાવલોકન</span>
                   </h3>
-                  {service.officialWebsite && (
-                    <a
-                      href={service.officialWebsite}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-[#F96400] bg-orange-50 hover:bg-orange-100 transition-colors border border-orange-200"
-                    >
-                      <Globe size={13} />
-                      <span>Official Portal / પોર્ટલ</span>
-                      <ExternalLink size={12} />
-                    </a>
-                  )}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setIsApplyModalOpen(true);
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-[#F96400] hover:bg-[#E05A00] transition-colors shadow-xs cursor-pointer active:scale-95"
+                  >
+                    <Send size={13} />
+                    <span>Apply / Contact Us (અરજી કરો)</span>
+                  </button>
                 </div>
 
                 <div className="bg-gray-50 p-5 sm:p-6 rounded-2xl border border-gray-200/80 leading-relaxed text-sm sm:text-base space-y-3">
@@ -517,18 +518,6 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
             </Link>
 
             <div className="flex items-center gap-2.5 w-full sm:w-auto">
-              {service.officialWebsite && (
-                <a
-                  href={service.officialWebsite}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all flex items-center gap-1.5"
-                >
-                  <Globe size={14} />
-                  <span>Portal / પોર્ટલ</span>
-                </a>
-              )}
-
               <button
                 onClick={onClose}
                 className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl border border-gray-300 text-xs sm:text-sm font-bold text-gray-700 hover:bg-gray-100 transition-all cursor-pointer"
@@ -550,6 +539,13 @@ export default function ServiceDetailsModal({ isOpen, onClose, service }) {
 
         </motion.div>
       </div>
+
+      {/* Apply Service Modal */}
+      <ApplyServiceModal
+        isOpen={isApplyModalOpen}
+        onClose={() => setIsApplyModalOpen(false)}
+        service={service}
+      />
     </AnimatePresence>
   );
 }

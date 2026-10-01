@@ -4,7 +4,6 @@ import { Menu, X, Search, ChevronDown, User, MessageCircle, Phone } from 'lucide
 import { useAuth } from '../context/AuthContext';
 import PromoBar from './PromoBar';
 import LanguageSwitcher from './LanguageSwitcher';
-import ThemeSwitcher from './ThemeSwitcher';
 import { fetchCategories } from '../api/servicesApi';
 import { useLanguage } from '../context/LanguageContext';
 import { SITE_CONFIG } from '../config/siteConfig';
@@ -49,7 +48,7 @@ function ProfileMenu({ isLoggedIn, user, logout }) {
                 <p className="text-sm font-bold text-[#171717] truncate">{user?.name || user?.id}</p>
               </div>
               <Link to="/dashboard" onClick={() => setOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#F96400]">My Dashboard</Link>
-              <Link to="/family" onClick={() => setOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#F96400]">My Family Documents</Link>
+              <Link to="/family" onClick={() => setOpen(false)} className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-[#F96400]">My Documents</Link>
               <div className="border-t border-gray-100 my-1"></div>
               <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-red-600 text-sm font-medium hover:bg-red-50">Log Out</button>
             </>
@@ -192,9 +191,6 @@ export default function Navbar() {
               {/* Language Switcher */}
               <LanguageSwitcher />
 
-              {/* Theme & Appearance Switcher */}
-              <ThemeSwitcher />
-
               {/* Primary Call / WhatsApp Action Button */}
               <a
                 href={SITE_CONFIG.getWhatsAppUrl('Hello HY-Tech, I need assistance with online services.')}
@@ -213,7 +209,6 @@ export default function Navbar() {
             {/* Mobile Actions & Hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <LanguageSwitcher />
-              <ThemeSwitcher />
               <a
                 href={SITE_CONFIG.getWhatsAppUrl()}
                 target="_blank"
